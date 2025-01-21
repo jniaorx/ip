@@ -32,6 +32,17 @@ public class TaskManager {
                 System.out.println("    OK, I've marked is task as not done yet:");
                 System.out.println("    " + currTask.toString());
                 System.out.println("    __________________");
+            } else if (userInput.startsWith("todo")) {
+                String description = userInput.substring((5));
+                ToDo todoTask = new ToDo(description);
+                addTask(todoTask.toString());
+                int numOfTask = tasksList.size();
+
+                System.out.println("    __________________");
+                System.out.println("    Got it. I've added this task:");
+                System.out.println("        " + todoTask.toString());
+                System.out.println("    Now you have " + numOfTask + " tasks in the list." );
+                System.out.println("    __________________");
             // add task with deadline to task list
             } else if (userInput.startsWith("deadline")) {
                 String description = userInput.substring(9, userInput.indexOf("/"));

@@ -9,5 +9,13 @@ public class IntroBlaise {
                         "                \\/                          \\/          \\/        \\/     \\/\n";
 
         System.out.println("Hello from\n" + logo);
+
+        // init chatbot components
+        ChatAction greetings = new Greetings();
+        ChatAction echo = new Echo();
+        Commands commands = new Commands(greetings, echo);
+
+        // start chatbot
+        commands.startChat();
     }
 }

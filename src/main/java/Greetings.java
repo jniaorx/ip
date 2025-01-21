@@ -5,8 +5,10 @@ public class Greetings implements ChatAction {
     public void execute(Scanner scanner) {
         // greet user
         System.out.println("    __________________");
-        System.out.println("    Sup! I am IntroBlaise.");
-        System.out.println("    What can I do for you?");
+        System.out.println("    Sup! I am IntroBlaise. What's your name?");
+        String name = scanner.nextLine();
+        System.out.println("    __________________");
+        System.out.println("    Hi " + name + "! What can I do for you?");
         System.out.println("    __________________");
     }
 

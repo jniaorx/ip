@@ -2,12 +2,12 @@ import java.util.Scanner;
 // different commands of chatbot
 public class Commands {
     private final ChatAction greetings;
-    private final ChatAction echo;
+    private final TaskManager taskManager;
 
     // constructor
-    public Commands(ChatAction greetings, ChatAction echo) {
+    public Commands(ChatAction greetings, TaskManager taskManager) {
         this.greetings = greetings;
-        this.echo = echo;
+        this.taskManager = taskManager;
     }
 
     // start chatting with user
@@ -15,8 +15,8 @@ public class Commands {
         Scanner scanner = new Scanner(System.in);
         // start by greeting user
         greetings.execute(scanner);
-        // echo user input
-        echo.execute(scanner);
+        // manage task list
+        taskManager.handleTasks();
         // say goodbye when user inputs "bye"
         ((Greetings) greetings).sayBye();
         // close scanner

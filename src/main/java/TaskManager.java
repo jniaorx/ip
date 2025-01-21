@@ -32,6 +32,7 @@ public class TaskManager {
                 System.out.println("    OK, I've marked is task as not done yet:");
                 System.out.println("    " + currTask.toString());
                 System.out.println("    __________________");
+            // add todo task into tasklist
             } else if (userInput.startsWith("todo")) {
                 String description = userInput.substring((5));
                 ToDo todoTask = new ToDo(description);
@@ -43,7 +44,7 @@ public class TaskManager {
                 System.out.println("        " + todoTask.toString());
                 System.out.println("    Now you have " + numOfTask + " tasks in the list." );
                 System.out.println("    __________________");
-            // add task with deadline to task list
+            // add deadline task to tasklist
             } else if (userInput.startsWith("deadline")) {
                 String description = userInput.substring(9, userInput.indexOf("/"));
                 int separator = userInput.indexOf("/") + 4;
@@ -56,7 +57,24 @@ public class TaskManager {
                 System.out.println("    __________________");
                 System.out.println("    Got it. I've added this task:");
                 System.out.println("        " + deadlineTask.toString());
-                System.out.println("    Now you have " + numOfTask + " tasks in the list." );
+                System.out.println("    Now you have " + numOfTask + " tasks in the list.");
+                System.out.println("    __________________");
+            // add event task into tasklist
+            } else if (userInput.startsWith("event")) {
+                String description = userInput.substring(6, userInput.indexOf("/"));
+                // split description into segments
+                String[] segments = userInput.substring(6).split("/");
+                String from = segments[1].substring(5);
+                String to = segments[2].substring(3);
+
+                Event eventTask = new Event(description, from, to);
+                addTask(eventTask.toString());
+                int numOfTask = tasksList.size(); // no of task in task list
+
+                System.out.println("    __________________");
+                System.out.println("    Got it. I've added this task:");
+                System.out.println("        " + eventTask.toString());
+                System.out.println("    Now you have " + numOfTask + " tasks in the list.");
                 System.out.println("    __________________");
             } else {
                 addTask(userInput);

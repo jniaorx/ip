@@ -12,7 +12,17 @@ public class Greetings {
         // wait for user input
         String userInput = scanner.nextLine();
 
-        // say bye to user
+        // while userInput is not "bye", repeat user input
+        while(!userInput.equals("bye")) {
+            // repeat user input
+            System.out.println(userInput);
+            System.out.println("__________________");
+
+            // wait for user input
+            userInput = scanner.nextLine();
+        }
+
+        // if user inpyt is "bye", say bye to user
         System.out.println("__________________");
         System.out.println("Bye! Hope to see you again soon!");
         System.out.println("__________________");

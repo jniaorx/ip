@@ -14,6 +14,7 @@ public class TaskManager {
             // print task list if user inputs list
             } else if (userInput.equalsIgnoreCase("List")) {
                 printTaskList();
+            // mark task that has been done
             } else if (userInput.startsWith("mark")) {
                 int taskNo = Integer.parseInt(userInput.substring(5)) - 1;
                 Task currTask = tasksList.get(taskNo);
@@ -22,6 +23,7 @@ public class TaskManager {
                 System.out.println("    Nice! I've marked this task as done:");
                 System.out.println("    [" + currTask.getStatusIcon() + "] " + currTask.description);
                 System.out.println("    __________________");
+            // unmark task that has not been done
             } else if (userInput.startsWith("unmark")) {
                 int taskNo = Integer.parseInt(userInput.substring(7)) - 1;
                 Task currTask = tasksList.get(taskNo);

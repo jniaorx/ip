@@ -11,10 +11,12 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    // mark task as done
     public void markAsDone() {
         this.isDone = true;
     }
 
+    // mark task as undone
     public void markAsUndone() {
         this.isDone = false;
     }

@@ -36,7 +36,7 @@ public class TaskManager {
     }
 
     // method to print taskslist
-    public void printTaskList(ArrayList<Task> tasksList) {
+    public void printTaskList() {
         if (tasksList.isEmpty()) {
             System.out.println("Your task list is empty now! Please add tasks!");
         } else {

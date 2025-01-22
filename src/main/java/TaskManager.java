@@ -4,9 +4,12 @@ import java.util.Scanner;
 public class TaskManager {
     private ArrayList<Task> tasksList = new ArrayList<>();
 
-    public void handleTasks() {
-        Scanner scanner = new Scanner(System.in);
+    public void handleTasks(Scanner scanner) {
         while (true) {
+            // check for available input
+            if (!scanner.hasNextLine()) {
+                break;
+            }
             String userInput = scanner.nextLine();
             // stop if user inputs bye
             if (userInput.equalsIgnoreCase("Bye")) {

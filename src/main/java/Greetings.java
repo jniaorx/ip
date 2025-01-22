@@ -1,15 +1,19 @@
 import java.util.Scanner;
-// to greet users
-public class Greetings implements ChatAction {
-    @Override
-    public void execute(Scanner scanner) {
+
+public class Greetings {
+    public Greetings() {
+    }
+
+    public void greet(Scanner scanner) {  // Pass scanner as parameter
         // greet user
         System.out.println("    __________________");
         System.out.println("    Sup! I am IntroBlaise. What's your name?");
-        String name = scanner.nextLine();
-        System.out.println("    __________________");
-        System.out.println("    Hi " + name + "! What can I do for you?");
-        System.out.println("    __________________");
+        if (scanner.hasNextLine()) {      // Add check for available input
+            String name = scanner.nextLine();
+            System.out.println("    __________________");
+            System.out.println("    Hi " + name + "! What can I do for you?");
+            System.out.println("    __________________");
+        }
     }
 
     public void sayBye() {

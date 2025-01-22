@@ -11,7 +11,7 @@ public class IntroBlaise {
         System.out.println("Hello from\n" + logo);
 
         // init chatbot components
-        ChatAction greetings = new Greetings();
+        Greetings greetings = new Greetings();
         // ChatAction echo = new Echo();
         TaskManager taskManager = new TaskManager();
         Commands commands = new Commands(greetings, taskManager);

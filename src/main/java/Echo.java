@@ -1,7 +1,10 @@
 import java.util.Scanner;
 // echos user input
-public class Echo implements ChatAction{
-    public void execute(Scanner scanner) {
+public class Echo {
+    public Echo() {
+
+    }
+    public void echo(Scanner scanner) {
         // wait for user input
         String userInput = scanner.nextLine();
         // while userInput is not "bye", repeat user input

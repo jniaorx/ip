@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class IntroBlaise {
     public static void main(String[] args) {
         String logo =
@@ -10,13 +12,20 @@ public class IntroBlaise {
 
         System.out.println("Hello from\n" + logo);
 
-        // init chatbot components
-        Greetings greetings = new Greetings();
-        // ChatAction echo = new Echo();
         TaskManager taskManager = new TaskManager();
-        Commands commands = new Commands(greetings, taskManager);
+        Commands commands = new Commands(taskManager);
+        Greetings greetings = new Greetings();
 
-        // start chatbot
-        commands.startChat();
+        Scanner scanner = new Scanner(System.in);
+        greetings.greet(scanner);
+        while(true) {
+            String userInput = scanner.nextLine();
+            if (userInput.equalsIgnoreCase("Bye")) {
+                greetings.sayBye();
+                break;
+            }
+            commands.executeCommand(userInput);
+        }
+        scanner.close();
     }
 }

@@ -12,9 +12,7 @@ public class Task {
     }
 
     // mark task as done
-    public void markAsDone() {
-        this.isDone = true;
-    }
+    public void markAsDone() { this.isDone = true; }
 
     // mark task as undone
     public void markAsUndone() {
@@ -25,5 +23,4 @@ public class Task {
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }
-
 }

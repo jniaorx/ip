@@ -5,7 +5,7 @@
 public class AlreadyUndoneException extends IntroBlaiseException{
     /**
      * Constructs a new {@code AlreadyUndoneException} with the specified detail message.
-     * @param exception The detail message that explains the reson for this exception.
+     * @param exception The detail message that explains the reason for this exception.
      */
     public AlreadyUndoneException(String exception) {
         super(exception);

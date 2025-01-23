@@ -1,7 +1,6 @@
 /**
  * Exception class representing an error condition where an attempt is made to delete a task from an
  * empty task list.
- *
  */
 public class DeleteEmptyTaskListException extends IntroBlaiseException {
     /**

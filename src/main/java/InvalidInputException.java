@@ -1,5 +1,13 @@
+/**
+ * Exception class representing an error condition where user inputs
+ * an invalid command.
+ */
 public class InvalidInputException extends IntroBlaiseException{
-    public InvalidInputException (String invalidInputException) {
-        super(invalidInputException);
+    /**
+     * Constructs a new {@code InvalidInputException} with the specified detail message.
+     * @param exception The detail message that explains the reason for this exception.
+     */
+    public InvalidInputException (String exception) {
+        super(exception);
     }
 }

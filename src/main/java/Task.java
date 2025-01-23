@@ -12,7 +12,7 @@ public class Task {
 
     /**
      * Constructs a new Task with the specified description.
-     * The tasl is initially marked as not done.
+     * The task is initially marked as not done.
      * @param description A string describing the task.
      */
     public Task(String description) {

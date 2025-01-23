@@ -250,7 +250,7 @@ public class Commands {
     public void deleteTask(String userInput) throws IndexOutOfBoundsException, NumberFormatException {
         try {
             if (taskManager.getTasksList().isEmpty()) {
-                throw new DeleteEmptyTaskListException("Your taskslist is empty. You can't delete anything. Please add tasks.");
+                throw new DeleteEmptyTaskListException("Your task list is empty. You can't delete anything. Please add tasks.");
             }
             // Extract description from user input.
             int taskNo = Integer.parseInt(userInput.substring(7)) - 1;

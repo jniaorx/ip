@@ -32,7 +32,7 @@ public class Echo {
             System.out.println("    " + userInput);
             System.out.println("    __________________");
 
-            // Wait for the next uder input
+            // Wait for the next user input
             userInput = scanner.nextLine();
         }
     }

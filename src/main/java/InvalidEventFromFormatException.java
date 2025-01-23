@@ -1,5 +1,5 @@
-public class InvalidEventFromFormat extends IntroBlaiseException{
-    public InvalidEventFromFormat(String exception) {
+public class InvalidEventFromFormatException extends IntroBlaiseException{
+    public InvalidEventFromFormatException(String exception) {
         super(exception);
     }
 }

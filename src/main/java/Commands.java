@@ -252,7 +252,7 @@ public class Commands {
             if (taskManager.getTasksList().isEmpty()) {
                 throw new DeleteEmptyTaskListException("Your task list is empty. You can't delete anything. Please add tasks.");
             }
-            // Extract description from user input.
+            // Extract task from user input.
             int taskNo = Integer.parseInt(userInput.substring(7)) - 1;
             Task currTask = taskManager.getTask(taskNo);
             taskManager.removeTask(currTask);

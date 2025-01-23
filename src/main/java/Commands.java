@@ -25,10 +25,10 @@ public class Commands {
             } else if (userInput.startsWith("delete")) {
                 deleteTask(userInput);
             } else {
-                throw new InvalidInputException("Please give a valid command.");
+                throw new InvalidInputException("Err...I don't understand this :(. Please give a valid command!");
             }
         } catch (InvalidInputException e) {
-            System.out.println("Error: " + e.getMessage());
+            System.out.println(e.getMessage());
         }
     }
 
@@ -45,9 +45,9 @@ public class Commands {
             System.out.println("        " + currTask);
             System.out.println("    _________________________________");
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Error: Invalid index. Please mark the correct task.");
+            System.out.println("Uh oh! Invalid index. Are you sure you are marking the correct task?");
         } catch (NumberFormatException e) {
-            System.out.println("Error: Invalid number. Please enter a number after 'unmark'.");
+            System.out.println("Uh oh! Invalid number. Please enter a number after 'unmark'.");
         }
     }
 
@@ -63,15 +63,15 @@ public class Commands {
             currTask.markAsUndone();
 
             System.out.println("    _________________________________");
-            System.out.println("    OK, I've marked is task as not done yet:");
+            System.out.println("    OK, I've marked this task as not done yet:");
             System.out.println("    " + currTask);
             System.out.println("    _________________________________");
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Error: Invalid index. Please unmark the correct task.");
+            System.out.println("Uh oh! Invalid index. Are you sure you are unmarking the correct task?");
         } catch (NumberFormatException e) {
-            System.out.println("Error: Invalid number. Please enter a number after 'unmark'.");
+            System.out.println("Uh oh! Invalid number. Please enter a number after 'unmark'.");
         } catch (AlreadyUndoneException e) {
-            System.out.println("Error: " + e.getMessage());
+            System.out.println(e.getMessage());
         }
     }
 
@@ -80,6 +80,9 @@ public class Commands {
         try {
             String description = userInput.substring((5));
 
+            if (description.isEmpty()) {
+                throw new EmptyDescriptionException("Please enter a description for your task!");
+            }
             ToDo todoTask = new ToDo(description);
             taskManager.addTask(todoTask);
             int numOfTask = taskManager.getTasksList().size();
@@ -90,9 +93,11 @@ public class Commands {
             System.out.println("    Now you have " + numOfTask + " tasks in the list.");
             System.out.println("    _________________________________");
         } catch (NumberFormatException e) {
-            System.out.println("Error: Invalid number. Please enter a number after 'unmark'.");
+            System.out.println("Uh oh! Invalid number. Please enter a number after 'unmark'.");
         } catch (StringIndexOutOfBoundsException e) {
-            System.out.println("Error: Please enter a description");
+            System.out.println("Errr...Please enter a description");
+        } catch (EmptyDescriptionException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -109,9 +114,9 @@ public class Commands {
             System.out.println("    Now you have " + numOfTask + " tasks in the list.");
             System.out.println("    _________________________________");
         } catch (StringIndexOutOfBoundsException e) {
-            System.out.println("Error: Please enter a description and a deadline.");
+            System.out.println("Please enter a description and a deadline for your task!");
         } catch (InvalidDeadlineFormatException e) {
-            System.out.println("Error: " + e.getMessage());
+            System.out.println(e.getMessage());
         }
     }
 
@@ -121,7 +126,7 @@ public class Commands {
         int separator = userInput.indexOf("/") + 4;
         String deadline = userInput.substring(separator);
         if (deadline.isEmpty()) {
-            throw new InvalidDeadlineFormatException("There seems to be no deadline entered...? Please enter a deadline!");
+            throw new InvalidDeadlineFormatException("There seems to be no deadline entered...? Please enter a deadline after the word /by.");
         }
 
         return new Deadline(description, deadline);
@@ -140,9 +145,9 @@ public class Commands {
             System.out.println("    Now you have " + numOfTask + " tasks in the list.");
             System.out.println("    _________________________________");
         } catch (StringIndexOutOfBoundsException e) {
-            System.out.println("Error: Please enter a description and a duration.");
+            System.out.println("Please enter a description and a duration for your task!");
         } catch (InvalidEventFromFormatException | InvalidEventToFormatException | EmptyDescriptionException e) {
-            System.out.println("Error " + e.getMessage());
+            System.out.println(e.getMessage());
         }
     }
 
@@ -150,22 +155,22 @@ public class Commands {
     private static Event getEvent(String userInput) throws EmptyDescriptionException, InvalidEventFromFormatException, InvalidEventToFormatException {
         String description = userInput.substring(5, userInput.indexOf("/")).trim();
         if (description.isEmpty()) {
-            throw new EmptyDescriptionException("Please enter a task description.");
+            throw new EmptyDescriptionException("Please enter a description for your task!");
         }
         if (!userInput.contains("/from")) {
-            throw new InvalidEventFromFormatException("Please include a 'From' date.");
+            throw new InvalidEventFromFormatException("Please include a 'From' date by using /from!");
         }
         if (!userInput.contains("/to")) {
-            throw new InvalidEventToFormatException("Please include a 'To' date.");
+            throw new InvalidEventToFormatException("Please include a 'To' date by using /to!");
         }
         String[] segments = userInput.substring(6).split("/"); // split description into segments
         String from = segments[1].substring(4).trim();
         if (from.isEmpty()) {
-            throw new InvalidEventFromFormatException("Please include a 'From' date.");
+            throw new InvalidEventFromFormatException("Please include a 'From' date after the word /from!");
         }
         String to = segments[2].substring(2).trim();
         if (to.isEmpty()) {
-            throw new InvalidEventToFormatException("Please include a 'To' date.");
+            throw new InvalidEventToFormatException("Please include a 'To' date after the word /to!");
         }
         return new Event(description, from, to);
     }
@@ -188,11 +193,11 @@ public class Commands {
             System.out.println("    Now you have " + numOfTask + " tasks in the list.");
             System.out.println("    _________________________________");
         } catch (DeleteEmptyTaskListException e) {
-            System.out.println("Error: " + e.getMessage());
+            System.out.println(e.getMessage());
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Error: Invalid index. Please delete the correct task.");
+            System.out.println("Uh oh! Invalid index. Are you sure you are deleting the correct task?");
         } catch (NumberFormatException e) {
-            System.out.println("Error: Invalid number. Please enter a number after 'delete'.");
+            System.out.println("Uh oh! Invalid number. Please enter a number after 'delete'.");
         }
     }
 }

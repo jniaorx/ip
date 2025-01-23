@@ -8,7 +8,7 @@ public class Commands {
     }
 
     // method to execute commands according to userInput
-    public void executeCommand(String userInput) throws IntroBlaiseException {
+    public void executeCommand(String userInput) {
         try {
             if (userInput.equalsIgnoreCase("List")) { // print taskslist if user inputs "list"
                 taskManager.printTaskList();
@@ -52,7 +52,7 @@ public class Commands {
     }
 
     // method to unmark task as undone if user inputs "unmark x"
-    public void unmarkTaskAsUndone(String userInput) throws IndexOutOfBoundsException, NumberFormatException, AlreadyUndoneException {
+    public void unmarkTaskAsUndone(String userInput) throws IndexOutOfBoundsException, NumberFormatException {
         try {
             int taskNo = Integer.parseInt(userInput.substring(7)) - 1;
             Task currTask = taskManager.getTask(taskNo);
@@ -124,8 +124,7 @@ public class Commands {
             throw new InvalidDeadlineFormatException("Deadline is empty. Please enter a deadline");
         }
 
-        Deadline deadlineTask = new Deadline(description, deadline);
-        return deadlineTask;
+        return new Deadline(description, deadline);
     }
 
     // method to add event task into taskslist if user inputs "event x"
@@ -168,21 +167,32 @@ public class Commands {
         if (to.isEmpty()) {
             throw new InvalidEventToFormatException("Please include a 'To' date.");
         }
-        Event eventTask = new Event(description, from, to);
-        return eventTask;
+        return new Event(description, from, to);
     }
 
-    public void deleteTask(String userInput) {
-        int taskNo = Integer.parseInt(userInput.substring(7)) - 1;
-        Task currTask = taskManager.getTask(taskNo);
-        taskManager.removeTask(currTask);
+    // method to delete task from taskslist
+    public void deleteTask(String userInput) throws IndexOutOfBoundsException, NumberFormatException {
+        try {
+            if (taskManager.getTasksList().isEmpty()) {
+                throw new DeleteEmptyTaskListException("Your taskslist is empty. You can't delete anything. Please add tasks.");
+            }
+            int taskNo = Integer.parseInt(userInput.substring(7)) - 1;
+            Task currTask = taskManager.getTask(taskNo);
+            taskManager.removeTask(currTask);
 
-        int numOfTask = taskManager.getTasksList().size();
+            int numOfTask = taskManager.getTasksList().size();
 
-        System.out.println("    __________________");
-        System.out.println("    Noted. I've removed this task:");
-        System.out.println("        " + currTask);
-        System.out.println("    Now you have " + numOfTask + " tasks in the list.");
-        System.out.println("    __________________");
+            System.out.println("    __________________");
+            System.out.println("    Noted. I've removed this task:");
+            System.out.println("        " + currTask);
+            System.out.println("    Now you have " + numOfTask + " tasks in the list.");
+            System.out.println("    __________________");
+        } catch (DeleteEmptyTaskListException e) {
+            System.out.println("Error: " + e.getMessage());
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Error: Invalid index. Please delete the correct task.");
+        } catch (NumberFormatException e) {
+            System.out.println("Error: Invalid number. Please enter a number after 'delete'.");
+        }
     }
 }

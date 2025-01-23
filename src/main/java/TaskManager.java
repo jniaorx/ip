@@ -12,6 +12,7 @@ public class TaskManager {
         // System.out.println("    __________________");
     }
 
+    // method to remove task from task list
     public void removeTask(Task task) {
         tasksList.remove(task);
     }

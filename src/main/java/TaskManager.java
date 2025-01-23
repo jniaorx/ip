@@ -19,15 +19,19 @@ public class TaskManager {
 
     // method to print taskslist
     public void printTaskList() {
-        if (tasksList.isEmpty()) {
-            System.out.println("Your task list is empty now! Please add tasks!");
-        } else {
-            System.out.println("    __________________");
-            System.out.println("    Here are the tasks in your list:");
-            for (int i = 0; i < tasksList.size(); i++) {
-                System.out.println("    " + (i + 1) + ". " + getTask(i));
+        try {
+            if (tasksList.isEmpty()) {
+                throw new EmptyTaskListException("Your task list is empty now! Please add tasks!");
+            } else {
+                System.out.println("    __________________");
+                System.out.println("    Here are the tasks in your list:");
+                for (int i = 0; i < tasksList.size(); i++) {
+                    System.out.println("    " + (i + 1) + ". " + getTask(i));
+                }
+                System.out.println("    __________________");
             }
-            System.out.println("    __________________");
+        } catch (EmptyTaskListException e) {
+            System.out.println(e.getMessage());
         }
     }
 

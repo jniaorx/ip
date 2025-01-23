@@ -1,2 +1,6 @@
-package PACKAGE_NAME;public class IntroBlaiseException {
+public class IntroBlaiseException extends Exception {
+    public IntroBlaiseException(String exception) {
+        super(exception);
+    }
 }
+

@@ -6,40 +6,45 @@ Hello from
 |___|___|  /__|  |__|   \____/|______  /____(____  /__/____  >\___  >
 
 
-    __________________
+    _________________________________
     Sup! I am IntroBlaise. What's your name?
-    __________________
-    Hi extro blaise! What can I do for you?
-    __________________
-    __________________
+    _________________________________
+    Hi extro blaise!(ʘ‿ʘ)╯ Nice to meet you! You can start adding tasks to your very own task list! :)
+    _________________________________
+    _________________________________
     Got it. I've added this task:
         [T][ ] borrow book
     Now you have 1 tasks in the list.
-    __________________
-    __________________
+    _________________________________
+    _________________________________
     Here are the tasks in your list:
     1. [T][ ] borrow book
-    __________________
-    __________________
+    _________________________________
+    _________________________________
     Got it. I've added this task:
         [D][ ] return book (by: Sunday)
     Now you have 2 tasks in the list.
-    __________________
-    __________________
+    _________________________________
+    _________________________________
     Got it. I've added this task:
-        [E][ ] project meeting  (from: Mon 2pm to: 4pm)
+        [E][ ] project meeting (from: Mon 2pm to: 4pm)
     Now you have 3 tasks in the list.
-    __________________
-    __________________
-    Nice! I've marked this task as done:
+    _________________________________
+    _________________________________
+    Well done! I've marked this task as done:
         [T][X] borrow book
-    __________________
-    __________________
+    _________________________________
+    _________________________________
     Here are the tasks in your list:
     1. [T][X] borrow book
     2. [D][ ] return book (by: Sunday)
-    3. [E][ ] project meeting  (from: Mon 2pm to: 4pm)
-    __________________
-    __________________
-    Bye! Hope to see you again soon!
-    __________________
+    3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+    _________________________________
+    _________________________________
+    Noted. I've removed this task:
+        [T][X] borrow book
+    Now you have 2 tasks in the list.
+    _________________________________
+    _________________________________
+    Bye! Hope to see you again soon! :(
+    _________________________________

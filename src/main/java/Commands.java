@@ -40,10 +40,10 @@ public class Commands {
             Task currTask = taskManager.getTask(taskNo);
             currTask.markAsDone();
 
-            System.out.println("    __________________");
-            System.out.println("    Nice! I've marked this task as done:");
+            System.out.println("    _________________________________");
+            System.out.println("    Well done! I've marked this task as done:");
             System.out.println("        " + currTask);
-            System.out.println("    __________________");
+            System.out.println("    _________________________________");
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Error: Invalid index. Please mark the correct task.");
         } catch (NumberFormatException e) {
@@ -62,10 +62,10 @@ public class Commands {
             }
             currTask.markAsUndone();
 
-            System.out.println("    __________________");
+            System.out.println("    _________________________________");
             System.out.println("    OK, I've marked is task as not done yet:");
             System.out.println("    " + currTask);
-            System.out.println("    __________________");
+            System.out.println("    _________________________________");
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Error: Invalid index. Please unmark the correct task.");
         } catch (NumberFormatException e) {
@@ -84,11 +84,11 @@ public class Commands {
             taskManager.addTask(todoTask);
             int numOfTask = taskManager.getTasksList().size();
 
-            System.out.println("    __________________");
+            System.out.println("    _________________________________");
             System.out.println("    Got it. I've added this task:");
             System.out.println("        " + todoTask);
             System.out.println("    Now you have " + numOfTask + " tasks in the list.");
-            System.out.println("    __________________");
+            System.out.println("    _________________________________");
         } catch (NumberFormatException e) {
             System.out.println("Error: Invalid number. Please enter a number after 'unmark'.");
         } catch (StringIndexOutOfBoundsException e) {
@@ -103,11 +103,11 @@ public class Commands {
             taskManager.addTask(deadlineTask);
             int numOfTask = taskManager.getTasksList().size(); // no of task in task list
 
-            System.out.println("    __________________");
+            System.out.println("    _________________________________");
             System.out.println("    Got it. I've added this task:");
             System.out.println("        " + deadlineTask);
             System.out.println("    Now you have " + numOfTask + " tasks in the list.");
-            System.out.println("    __________________");
+            System.out.println("    _________________________________");
         } catch (StringIndexOutOfBoundsException e) {
             System.out.println("Error: Please enter a description and a deadline.");
         } catch (InvalidDeadlineFormatException e) {
@@ -121,7 +121,7 @@ public class Commands {
         int separator = userInput.indexOf("/") + 4;
         String deadline = userInput.substring(separator);
         if (deadline.isEmpty()) {
-            throw new InvalidDeadlineFormatException("Deadline is empty. Please enter a deadline");
+            throw new InvalidDeadlineFormatException("There seems to be no deadline entered...? Please enter a deadline!");
         }
 
         return new Deadline(description, deadline);
@@ -134,11 +134,11 @@ public class Commands {
             taskManager.addTask(eventTask);
             int numOfTask = taskManager.getTasksList().size(); // no of task in task list
 
-            System.out.println("    __________________");
+            System.out.println("    _________________________________");
             System.out.println("    Got it. I've added this task:");
             System.out.println("        " + eventTask);
             System.out.println("    Now you have " + numOfTask + " tasks in the list.");
-            System.out.println("    __________________");
+            System.out.println("    _________________________________");
         } catch (StringIndexOutOfBoundsException e) {
             System.out.println("Error: Please enter a description and a duration.");
         } catch (InvalidEventFromFormatException | InvalidEventToFormatException | EmptyDescriptionException e) {
@@ -182,11 +182,11 @@ public class Commands {
 
             int numOfTask = taskManager.getTasksList().size();
 
-            System.out.println("    __________________");
+            System.out.println("    _________________________________");
             System.out.println("    Noted. I've removed this task:");
             System.out.println("        " + currTask);
             System.out.println("    Now you have " + numOfTask + " tasks in the list.");
-            System.out.println("    __________________");
+            System.out.println("    _________________________________");
         } catch (DeleteEmptyTaskListException e) {
             System.out.println("Error: " + e.getMessage());
         } catch (IndexOutOfBoundsException e) {

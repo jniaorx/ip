@@ -268,7 +268,7 @@ public class Commands {
         } catch (DeleteEmptyTaskListException e) {
             System.out.println(e.getMessage());
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Uh oh! Invalid index. Are you sure you are deleting the correct task?");
+            System.out.println("Uh oh! Invalid index. Have you entered the index? Are you sure you are deleting the correct task?");
         } catch (NumberFormatException e) {
             System.out.println("Uh oh! Invalid number. Please enter a number after 'delete'.");
         }

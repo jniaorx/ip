@@ -5,7 +5,7 @@
  */
 public class ToDo extends Task{
     /**
-     * Construcs a new {@code ToDo} task with the specified description.
+     * Constructs a new {@code ToDo} task with the specified description.
      * @param description The description of the task.
      */
     public ToDo(String description) {

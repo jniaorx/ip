@@ -1,30 +1,7 @@
 import java.util.ArrayList;
-import java.util.Scanner;
 // to manage tasks that user inputs
 public class TaskManager {
-    private ArrayList<Task> tasksList = new ArrayList<>();
-
-    /*
-    public void handleTasks(Scanner scanner) {
-        while (true) {
-            // check for available input
-            if (!scanner.hasNextLine()) {
-                break;
-            }
-
-            String userInput = scanner.nextLine();
-            // stop if user inputs bye
-            if (userInput.equalsIgnoreCase("Bye")) {
-                break;
-            }
-
-            // try here
-            Commands.executeCommand(String userInput, this);
-        }
-        scanner.close();
-    }
-    */
-
+    private final ArrayList<Task> tasksList = new ArrayList<>();
 
     // method to add task to taskslist
     public void addTask(Task task) {

@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class IntroBlaise {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IntroBlaiseException {
         String logo =
                 ".___        __               __________.__         .__\n" +
                         "|   | _____/  |________  ____\\______   \\  | _____  |__| ______ ____\n" +
@@ -17,13 +17,15 @@ public class IntroBlaise {
         Greetings greetings = new Greetings();
 
         Scanner scanner = new Scanner(System.in);
-        greetings.greet(scanner);
+        greetings.greet(scanner); // say hi to user
         while(true) {
             String userInput = scanner.nextLine();
+            // say bye to user if user inputs "bye"
             if (userInput.equalsIgnoreCase("Bye")) {
                 greetings.sayBye();
                 break;
             }
+            // if not, execute whatever commands that user inputs
             commands.executeCommand(userInput);
         }
         scanner.close();

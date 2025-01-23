@@ -1,2 +1,5 @@
-package PACKAGE_NAME;public class InvalidInputException {
+public class InvalidInputException extends IntroBlaiseException{
+    public InvalidInputException (String invalidInputException) {
+        super(invalidInputException);
+    }
 }

@@ -22,6 +22,8 @@ public class Commands {
                 addDeadlineTask(userInput);
             } else if (userInput.startsWith("event")) {
                 addEventTask(userInput);
+            } else if (userInput.startsWith("delete")) {
+                deleteTask(userInput);
             } else {
                 throw new InvalidInputException("Please give a valid command.");
             }
@@ -168,5 +170,19 @@ public class Commands {
         }
         Event eventTask = new Event(description, from, to);
         return eventTask;
+    }
+
+    public void deleteTask(String userInput) {
+        int taskNo = Integer.parseInt(userInput.substring(7)) - 1;
+        Task currTask = taskManager.getTask(taskNo);
+        taskManager.removeTask(currTask);
+
+        int numOfTask = taskManager.getTasksList().size();
+
+        System.out.println("    __________________");
+        System.out.println("    Noted. I've removed this task:");
+        System.out.println("        " + currTask);
+        System.out.println("    Now you have " + numOfTask + " tasks in the list.");
+        System.out.println("    __________________");
     }
 }

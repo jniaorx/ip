@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Manages a list of tasks, allowing tasks to be added, removed, retrieved, and displayed.
@@ -8,6 +9,11 @@ import java.util.ArrayList;
 public class TaskManager {
     // Stores the list of tasks.
     private final ArrayList<Task> tasksList = new ArrayList<>();
+    private final SaveData saveData; // Instance of CreateFilePath
+
+    public TaskManager() {
+        this.saveData = new SaveData();
+    }
 
     /**
      * Adds a new task to the task list.
@@ -26,7 +32,9 @@ public class TaskManager {
      * @param task The task to be removed.
      */
     public void removeTask(Task task) {
+
         tasksList.remove(task);
+
     }
 
     /**
@@ -69,5 +77,26 @@ public class TaskManager {
      */
     public ArrayList<Task> getTasksList() {
         return tasksList;
+    }
+
+    public void saveTasks() {
+        List<String> taskStrings = new ArrayList<>();
+        for (Task task : tasksList) {
+            taskStrings.add(taskToString(task)); // Convert tasks to strings
+        }
+        saveData.saveTasks(taskStrings); // Save tasks to file
+    }
+
+    private String taskToString(Task task) {
+        if (task instanceof ToDo) {
+            return "T | " + (task.isDone ? "1" : "0") + " | " + task.description;
+        } else if (task instanceof Deadline) {
+            Deadline deadline = (Deadline) task;
+            return "D | " + (task.isDone ? "1" : "0") + " | " + task.description + " | " + deadline.by;
+        } else if (task instanceof Event) {
+            Event event = (Event) task;
+            return "E | " + (task.isDone ? "1" : "0") + " | " + task.description + " | " + event.from + " to " + event.to;
+        }
+        return ""; // Default case
     }
 }

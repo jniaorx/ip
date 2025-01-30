@@ -133,7 +133,7 @@ public class TaskManager {
             return "D | " + (task.isDone ? "1" : "0") + " | " + task.description + " | " + deadline.by;
         } else if (task instanceof Event) {
             Event event = (Event) task;
-            return "E | " + (task.isDone ? "1" : "0") + " | " + task.description + " | " + event.to + " to " + event.from;
+            return "E | " + (task.isDone ? "1" : "0") + " | " + task.description + " | " + event.from + " to " + event.to;
         }
         return ""; // Default case
     }

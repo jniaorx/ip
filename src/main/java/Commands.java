@@ -50,7 +50,7 @@ public class Commands {
                 String dateInput = userInput.substring(9).trim(); // Extract the date part from input
 
                 // Define the expected date format
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MM-yyyy");
 
                 try {
                     // Convert the string to LocalDate
@@ -59,7 +59,7 @@ public class Commands {
                     // Call the method with the parsed LocalDate
                     taskManager.printTasksForDate(localDate);
                 } catch (DateTimeParseException e) {
-                    System.out.println("Invalid date format. Please enter the date in d/MM/yyyy format.");
+                    System.out.println("Invalid date format. Please enter the date in d-MM-yyyy format.");
                 }
             } else {
                 throw new InvalidInputException("Err...I don't understand this :(. Please give a valid command!");

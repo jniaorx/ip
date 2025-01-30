@@ -6,15 +6,17 @@ import java.time.format.DateTimeFormatter;
  * additional details about the start time and end time of the task.
  */
 public class Event extends Task{
+    protected String from;
+    protected String to;
     /**
      * The starting date/time of the event.
      */
-    protected LocalDateTime from;
+    protected LocalDateTime parsedFrom;
 
     /**
      * The ending date/time of the event.
      */
-    protected LocalDateTime to;
+    protected LocalDateTime parsedTo;
 
     /**
      * Constructs an {@code Event} object with the specified description, start time, and end time.
@@ -24,8 +26,10 @@ public class Event extends Task{
      */
     public Event(String description, String from, String to) {
         super(description);
-        this.from = parseDateTime(from);
-        this.to = parseDateTime(to);
+        this.from = from;
+        this.to = to;
+        this.parsedFrom = parseDateTime(from);
+        this.parsedTo = parseDateTime(to);
     }
 
     private LocalDateTime parseDateTime(String dateTimeStr) {
@@ -34,11 +38,11 @@ public class Event extends Task{
     }
 
     public LocalDateTime getFrom() {
-        return from;
+        return parsedFrom;
     }
 
     public LocalDateTime getTo() {
-        return to;
+        return parsedTo;
     }
 
     /**
@@ -48,10 +52,11 @@ public class Event extends Task{
      */
     @Override
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
-        String formattedFrom = from.format(formatter);
-        String formattedTo = to.format(formatter);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MM-yyyy HHmm");
+        String formattedFrom = parsedFrom.format(formatter);
+        String formattedTo = parsedTo.format(formatter);
 
         return "[E]" + super.toString() + " (from: " + formattedFrom + " to: " + formattedTo + ")";
     }
+
 }

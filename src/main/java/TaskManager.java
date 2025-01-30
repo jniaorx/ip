@@ -13,6 +13,7 @@ public class TaskManager {
 
     public TaskManager() {
         this.saveData = new SaveData();
+        loadTasks();
     }
 
     /**
@@ -81,7 +82,7 @@ public class TaskManager {
         return tasksList;
     }
 
-    public void saveTasks() {
+    private void saveTasks() {
         List<String> taskStrings = new ArrayList<>();
         for (Task task : tasksList) {
             taskStrings.add(taskToString(task)); // Convert tasks to strings

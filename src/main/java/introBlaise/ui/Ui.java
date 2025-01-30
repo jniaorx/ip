@@ -1,3 +1,7 @@
+package introBlaise.ui;
+
+import introBlaise.ui.Greetings;
+
 import java.util.Scanner;
 
 /**
@@ -8,7 +12,7 @@ public class Ui {
     private Greetings greetings;
 
     /**
-     * Constructor initializes the scanner for user input and the Greetings component.
+     * Constructor initializes the scanner for user input and the introBlaise.ui.Greetings component.
      */
     public Ui() {
         this.scanner = new Scanner(System.in);
@@ -28,7 +32,7 @@ public class Ui {
                         "\n";
         System.out.println("Hello from\n" + logo);
 
-        // Delegate greeting responsibility to Greetings class
+        // Delegate greeting responsibility to introBlaise.ui.Greetings class
         greetings.greet(scanner);
     }
 

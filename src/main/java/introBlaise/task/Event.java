@@ -1,11 +1,13 @@
+package introBlaise.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 /**
  * Represents a task that occurs within a specific time frame.
- * The {@code Event} class extends the {@code Task} class to include
+ * The {@code introBlaise.task.Event} class extends the {@code introBlaise.task.Task} class to include
  * additional details about the start time and end time of the task.
  */
-public class Event extends Task{
+public class Event extends Task {
     protected String from;
     protected String to;
     /**
@@ -19,7 +21,7 @@ public class Event extends Task{
     protected LocalDateTime parsedTo;
 
     /**
-     * Constructs an {@code Event} object with the specified description, start time, and end time.
+     * Constructs an {@code introBlaise.task.Event} object with the specified description, start time, and end time.
      * @param description A brief description of the event.
      * @param from The starting date/time of the event.
      * @param to The ending date/tine of the event.

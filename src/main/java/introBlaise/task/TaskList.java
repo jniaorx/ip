@@ -1,3 +1,10 @@
+package introBlaise.task;
+
+import introBlaise.exceptions.EmptyTaskListException;
+import introBlaise.storage.Storage;
+import introBlaise.task.Deadline;
+import introBlaise.task.Event;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +23,7 @@ public class TaskList {
         this.storage = new Storage();
         List<String> loadedTasks = storage.loadTasks();
 
-        // Convert loaded tasks from stings to Task objects and update taskslist
+        // Convert loaded tasks from stings to introBlaise.task.Task objects and update taskslist
         for (String taskStr : loadedTasks) {
             Task task = stringToTask(taskStr);
             if (task != null) {
@@ -31,7 +38,7 @@ public class TaskList {
      * @param task The task to be added.
      */
     public void addTask(Task task) {
-        // Task newTask = new Task(description);
+        // introBlaise.task.Task newTask = new introBlaise.task.Task(description);
         tasksList.add(task); // Add new task to the list.
         // System.out.println("    __________________");
         // System.out.println("    added: " + description);
@@ -52,7 +59,7 @@ public class TaskList {
 
     /**
      * Prints the list of tasks to the console.
-     * If the task list is empty, an {@code EmptyTaskListException} is thrown and its
+     * If the task list is empty, an {@code introBlaise.exceptions.EmptyTaskListException} is thrown and its
      * message is printed instead.
      */
     public void printTaskList() {
@@ -104,15 +111,15 @@ public class TaskList {
 
     public void printTasksForDate(LocalDate date) {
         for (Task task : tasksList) {
-            // Check if the task is an instance of Deadline
+            // Check if the task is an instance of introBlaise.task.Deadline
             if (task instanceof Deadline) {
                 Deadline deadlineTask = (Deadline) task;
-                LocalDate taskDate = deadlineTask.getDeadline().toLocalDate(); // Get the date part from Deadline
+                LocalDate taskDate = deadlineTask.getDeadline().toLocalDate(); // Get the date part from introBlaise.task.Deadline
                 if (taskDate.isEqual(date)) {
                     System.out.println(task);
                 }
             }
-            // Check if the task is an instance of Event
+            // Check if the task is an instance of introBlaise.task.Event
             else if (task instanceof Event) {
                 Event eventTask = (Event) task;
                 LocalDate eventDate = eventTask.getFrom().toLocalDate();
@@ -120,7 +127,7 @@ public class TaskList {
                     System.out.println(task);
                 }
             }
-            // Skip ToDo tasks as they don't have a date
+            // Skip introBlaise.task.ToDo tasks as they don't have a date
         }
     }
 

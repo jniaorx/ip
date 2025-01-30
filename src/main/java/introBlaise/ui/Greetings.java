@@ -1,15 +1,17 @@
+package introBlaise.ui;
+
 import java.util.Scanner;
 
 /**
  * Handles user greetings and farewells for the bot.
- * The {@code Greetings} class provides methods to greet the user when
+ * The {@code introBlaise.ui.Greetings} class provides methods to greet the user when
  * they start interacting with the application and bid them farewell
  * when they exit.
  */
 
 public class Greetings {
     /**
-     * Constructs a {@code Greetings} object.
+     * Constructs a {@code introBlaise.ui.Greetings} object.
      * This constructor does not perform any initialization.
      */
     public Greetings() {

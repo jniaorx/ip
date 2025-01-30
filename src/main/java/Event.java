@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 /**
  * Represents a task that occurs within a specific time frame.
  * The {@code Event} class extends the {@code Task} class to include
@@ -7,12 +9,12 @@ public class Event extends Task{
     /**
      * The starting date/time of the event.
      */
-    protected String from;
+    protected LocalDateTime from;
 
     /**
      * The ending date/time of the event.
      */
-    protected String to;
+    protected LocalDateTime to;
 
     /**
      * Constructs an {@code Event} object with the specified description, start time, and end time.
@@ -22,8 +24,21 @@ public class Event extends Task{
      */
     public Event(String description, String from, String to) {
         super(description); // Calls the constructor of the Task class
-        this.from = from;
-        this.to = to;
+        this.from = parseDateTime(from);
+        this.to = parseDateTime(to);
+    }
+
+    private LocalDateTime parseDateTime(String dateTimeStr) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy HHmm");
+        return LocalDateTime.parse(dateTimeStr, formatter);
+    }
+
+    public LocalDateTime getFrom() {
+        return from;
+    }
+
+    public LocalDateTime getTo() {
+        return to;
     }
 
     /**
@@ -33,6 +48,10 @@ public class Event extends Task{
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+        String formattedFrom = from.format(formatter);
+        String formattedTo = to.format(formatter);
+
+        return "[E]" + super.toString() + " (from: " + formattedFrom + " to: " + formattedTo + ")";
     }
 }

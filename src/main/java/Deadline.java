@@ -8,7 +8,6 @@ import java.time.format.DateTimeFormatter;
  */
 public class Deadline extends Task{
     /** The deadline by which the task should be completed, represented as a string. */
-    protected String by;
     private LocalDateTime deadline;
 
     /**
@@ -18,7 +17,6 @@ public class Deadline extends Task{
      */
     public Deadline(String description, String by) {
         super(description);
-        this.by = by;
         this.deadline = parseDeadline(by);
     }
 

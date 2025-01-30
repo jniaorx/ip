@@ -1,9 +1,13 @@
+package introBlaise.ui;
+
+import introBlaise.task.TaskList;
+
 /**
- * The entry point for the IntroBlaise bot.
+ * The entry point for the introBlaise.ui.IntroBlaise bot.
  */
 public class IntroBlaise {
     /**
-     * Main method to run the IntroBlaise bot.
+     * Main method to run the introBlaise.ui.IntroBlaise bot.
      * @param args Command-line arguments.
      */
     public static void main(String[] args) {

@@ -1,3 +1,13 @@
+package introBlaise.ui;
+
+import introBlaise.exceptions.*;
+import introBlaise.task.ToDo;
+import introBlaise.task.Deadline;
+import introBlaise.task.Event;
+import introBlaise.task.TaskList;
+import introBlaise.task.Task;
+
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -38,10 +48,10 @@ public class Parser {
                 // Adds a new To-Do task to the list.
                 addTodoTask(userInput);
             } else if (userInput.startsWith("deadline")) {
-                // Adds a new Deadline task with a specific due date.
+                // Adds a new introBlaise.task.Deadline task with a specific due date.
                 addDeadlineTask(userInput);
             } else if (userInput.startsWith("event")) {
-                // Adds a new Event task with a duration.
+                // Adds a new introBlaise.task.Event task with a duration.
                 addEventTask(userInput);
             } else if (userInput.startsWith("delete")) {
                 // Deletes a task from the list based on its index.
@@ -57,7 +67,7 @@ public class Parser {
                     LocalDate localDate = LocalDate.parse(dateInput, formatter);
 
                     // Call the method with the parsed LocalDate
-                } catch (DateTimeParseException e) {
+                 } catch (DateTimeParseException e) {
                     System.out.println("Invalid date format. Please enter the date in d-MM-yyyy format.");
                 }
             } else {
@@ -139,7 +149,7 @@ public class Parser {
 
             // Error thrown if user does not input description.
             if (description.isEmpty()) {
-                throw new EmptyDescriptionException("Please enter a description for your task!");
+                throw new AlreadyUndoneException.EmptyDescriptionException("Please enter a description for your task!");
             }
 
             ToDo todoTask = new ToDo(description);
@@ -156,19 +166,19 @@ public class Parser {
             System.out.println("Uh oh! Invalid number. Please enter a number after 'unmark'.");
         } catch (StringIndexOutOfBoundsException e) {
             System.out.println("Errr...Please enter a description");
-        } catch (EmptyDescriptionException e) {
+        } catch (AlreadyUndoneException.EmptyDescriptionException e) {
             System.out.println(e.getMessage());
         }
     }
 
     /**
-     * Adds a Deadline task to the task list.
+     * Adds a introBlaise.task.Deadline task to the task list.
      * @param userInput The user input string, expected in  the format deadline x /by date where x is the task description.
      * @throws StringIndexOutOfBoundsException Exception thrown when format of user input is incorrect.
      */
     public void addDeadlineTask(String userInput) throws StringIndexOutOfBoundsException {
         try {
-            // Get Deadline task from user input.
+            // Get introBlaise.task.Deadline task from user input.
             Deadline deadlineTask = getDeadlineTask(userInput);
             taskList.addTask(deadlineTask);
             int numOfTask = taskList.getTasksList().size();
@@ -187,9 +197,9 @@ public class Parser {
     }
 
     /**
-     * Creates a Deadline task based on user input.
+     * Creates a introBlaise.task.Deadline task based on user input.
      * @param userInput The user input string, expected in  the format deadline x /by date where x is the task description.
-     * @return A Deadline task.
+     * @return A introBlaise.task.Deadline task.
      * @throws InvalidDeadlineFormatException Exception thrown when format of user's input is incorrect.
      */
     private static Deadline getDeadlineTask(String userInput) throws InvalidDeadlineFormatException {
@@ -204,7 +214,7 @@ public class Parser {
     }
 
     /**
-     * Adds an Event task to the task list.
+     * Adds an introBlaise.task.Event task to the task list.
      * @param userInput The user input string, expected in  the format event x /from date /to date where x is the task description.
      * @throws StringIndexOutOfBoundsException Exception thrown when format of user input is incorrect.
      */
@@ -221,24 +231,25 @@ public class Parser {
             System.out.println("    _________________________________");
         } catch (StringIndexOutOfBoundsException e) {
             System.out.println("Please enter a description and a duration for your task!");
-        } catch (InvalidEventFromFormatException | InvalidEventToFormatException | EmptyDescriptionException e) {
+        } catch (InvalidEventFromFormatException | InvalidEventToFormatException |
+                 AlreadyUndoneException.EmptyDescriptionException e) {
             System.out.println(e.getMessage());
         }
     }
 
     /**
-     * Creates an Event task based on user input.
+     * Creates an introBlaise.task.Event task based on user input.
      * @param userInput The user input string, expected in  the format event x /from date /to date where x is the task description.
-     * @return An Event task.
-     * @throws EmptyDescriptionException Exception thrown when no description is entered.
+     * @return An introBlaise.task.Event task.
+     * @throws AlreadyUndoneException.EmptyDescriptionException Exception thrown when no description is entered.
      * @throws InvalidEventFromFormatException Exception thrown when format of user input is incorrect.
      * @throws InvalidEventToFormatException Exception thrown when format of user input is incorrect.
      */
-    private static Event getEvent(String userInput) throws EmptyDescriptionException, InvalidEventFromFormatException, InvalidEventToFormatException {
+    private static Event getEvent(String userInput) throws AlreadyUndoneException.EmptyDescriptionException, InvalidEventFromFormatException, InvalidEventToFormatException {
         // Extract description from user input.
         String description = userInput.substring(5, userInput.indexOf("/")).trim();
         if (description.isEmpty()) {
-            throw new EmptyDescriptionException("Please enter a description for your task!");
+            throw new AlreadyUndoneException.EmptyDescriptionException("Please enter a description for your task!");
         }
         if (!userInput.contains("/from")) {
             throw new InvalidEventFromFormatException("Please include a 'From' date by using /from!");

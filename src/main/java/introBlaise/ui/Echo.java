@@ -1,3 +1,5 @@
+package introBlaise.ui;
+
 import java.util.Scanner;
 
 /**
@@ -7,8 +9,8 @@ import java.util.Scanner;
  */
 public class Echo {
     /**
-     * Default constructor or the {@code Echo} class.
-     * Initializes an {@code Echo} instance. This constructor does not perform
+     * Default constructor or the {@code introBlaise.ui.Echo} class.
+     * Initializes an {@code introBlaise.ui.Echo} instance. This constructor does not perform
      * any specific initialization as no fields are defined for the class.
      */
     public Echo() {

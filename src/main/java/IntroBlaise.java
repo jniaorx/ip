@@ -13,7 +13,7 @@ public class IntroBlaise {
 
         // Initialize application components
         TaskManager taskManager = new TaskManager();
-        Commands commands = new Commands(taskManager);
+        Parser commands = new Parser(taskManager);
 
         // Main loop for user interaction
         while (true) {

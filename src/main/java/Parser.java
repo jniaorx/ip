@@ -7,14 +7,14 @@ import java.time.format.DateTimeParseException;
  * It interprets user inputs, executes corresponding operations, and manages tasks
  * using the TaskManager instance.
  */
-public class Commands {
+public class Parser {
     private final TaskManager taskManager;
 
     /**
      * Constructor for Commands.
      * @param taskManager The TaskManager instance responsible for managing tasks.
      */
-    public Commands(TaskManager taskManager) {
+    public Parser(TaskManager taskManager) {
         this.taskManager = taskManager;
     }
 

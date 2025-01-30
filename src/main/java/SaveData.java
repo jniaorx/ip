@@ -1,4 +1,3 @@
-
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -36,54 +35,72 @@ public class SaveData {
     public List<String> loadTasks() {
         List<String> tasks = new ArrayList<>();
 
-        try (BufferedReader br = new BufferedReader(new FileReader(FILE_PATH))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                tasks.add(line);
+        // Check if the file exists and is not empty
+        try {
+            Path filePath = Paths.get(FILE_PATH);
+            if (Files.exists(filePath) && Files.size(filePath) > 0) {
+                // Read from the file if it exists and is not empty
+                try (BufferedReader br = new BufferedReader(new FileReader(FILE_PATH))) {
+                    String line;
+                    while ((line = br.readLine()) != null) {
+                        tasks.add(line);
+                    }
+                }
+            } else {
+                System.out.println("File is empty or does not exist. No tasks to load.");
             }
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found, starting with an empty task list.");
         } catch (IOException e) {
             System.out.println("Error reading file: " + e.getMessage());
         }
 
         return tasks;
-
     }
 
-    public Task stringToTask(String line) {
-        String[] parts = line.split(" \\| ");
-        String taskType = parts[0].trim();
-        String isDone = parts[1].trim();
-        String description = parts[2].trim();
 
-        switch (taskType) {
-        case "T":
-            Task todo = new ToDo(description);
-            if ("1".equals(isDone)) {
-                todo.markAsDone();
+    public Task stringToTask(String line) {
+        try {
+            String[] parts = line.split(" \\| ");
+            if (parts.length < 4) { // Check if the parts array has enough data
+                System.out.println("There is currently no tasks to be done.");
+                return null;
             }
-            return todo;
-        case "D":
-            String deadlineDate = parts[3].trim();
-            Task deadline = new Deadline(description, deadlineDate);
-            if ("1".equals(isDone)) {
-                deadline.markAsDone();
+
+            String taskType = parts[0].trim();
+            String isDone = parts[1].trim();
+            String description = parts[2].trim();
+
+            switch (taskType) {
+            case "T":
+                Task todo = new ToDo(description);
+                if ("1".equals(isDone)) {
+                    todo.markAsDone();
+                }
+                return todo;
+            case "D":
+                String deadlineDate = parts[3].trim();
+                Task deadline = new Deadline(description, deadlineDate);
+                if ("1".equals(isDone)) {
+                    deadline.markAsDone();
+                }
+                return deadline;
+            case "E":
+                String eventDate = parts[3].trim();
+                String[] eventDetails = eventDate.split(" to ");
+                Task event = new Event(description, eventDetails[0], eventDetails[1]);
+                if ("1".equals(isDone)) {
+                    event.markAsDone();
+                }
+                return event;
+            default:
+                System.out.println("Skipping corrupted task line: " + line);
+                return null;
             }
-            return deadline;
-        case "E":
-            String eventDate = parts[3].trim();
-            String[] eventDetails = eventDate.split(" to ");
-            Task event = new Event(description, eventDetails[0], eventDetails[1]);
-            if ("1".equals(isDone)) {
-                event.markAsDone();
-            }
-            return event;
-        default:
-            System.out.println("Corrupted task format: " + line);
+        } catch (Exception e) {
+            System.out.println("Error parsing task line: " + e.getMessage());
             return null;
         }
     }
+
 
     public void saveTasks(List<String> tasks) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_PATH))) {

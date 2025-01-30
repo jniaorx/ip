@@ -1,3 +1,6 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents a task with a specific deadline that needs to be completed before a certain date or time.
  * This class extends the {@code Task} class and adds a deadline attribute to store the due date/time
@@ -6,6 +9,7 @@
 public class Deadline extends Task{
     /** The deadline by which the task should be completed, represented as a string. */
     protected String by;
+    private LocalDateTime deadline;
 
     /**
      * Constructs a new {@code Deadline} task with the specified description and deadline.
@@ -15,6 +19,16 @@ public class Deadline extends Task{
     public Deadline(String description, String by) {
         super(description);
         this.by = by;
+        this.deadline = parseDeadline(by);
+    }
+
+    private LocalDateTime parseDeadline(String by) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MM-yyyy HHmm");
+        return LocalDateTime.parse(by, formatter);
+    }
+
+    public LocalDateTime getDeadline() {
+        return deadline;
     }
 
     /**
@@ -24,6 +38,8 @@ public class Deadline extends Task{
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+        String formattedDate = deadline.format(formatter);
+        return "[D]" + super.toString() + " (by: " + formattedDate + ")";
     }
 }

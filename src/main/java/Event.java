@@ -1,18 +1,22 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 /**
  * Represents a task that occurs within a specific time frame.
  * The {@code Event} class extends the {@code Task} class to include
  * additional details about the start time and end time of the task.
  */
 public class Event extends Task{
+    protected String from;
+    protected String to;
     /**
      * The starting date/time of the event.
      */
-    protected String from;
+    protected LocalDateTime parsedFrom;
 
     /**
      * The ending date/time of the event.
      */
-    protected String to;
+    protected LocalDateTime parsedTo;
 
     /**
      * Constructs an {@code Event} object with the specified description, start time, and end time.
@@ -21,9 +25,24 @@ public class Event extends Task{
      * @param to The ending date/tine of the event.
      */
     public Event(String description, String from, String to) {
-        super(description); // Calls the constructor of the Task class
+        super(description);
         this.from = from;
         this.to = to;
+        this.parsedFrom = parseDateTime(from);
+        this.parsedTo = parseDateTime(to);
+    }
+
+    private LocalDateTime parseDateTime(String dateTimeStr) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MM-yyyy HHmm");
+        return LocalDateTime.parse(dateTimeStr, formatter);
+    }
+
+    public LocalDateTime getFrom() {
+        return parsedFrom;
+    }
+
+    public LocalDateTime getTo() {
+        return parsedTo;
     }
 
     /**
@@ -33,6 +52,11 @@ public class Event extends Task{
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MM-yyyy HHmm");
+        String formattedFrom = parsedFrom.format(formatter);
+        String formattedTo = parsedTo.format(formatter);
+
+        return "[E]" + super.toString() + " (from: " + formattedFrom + " to: " + formattedTo + ")";
     }
+
 }

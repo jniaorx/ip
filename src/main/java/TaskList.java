@@ -7,12 +7,12 @@ import java.util.List;
  * THe {@code TaskManager} class serves as a central utility for handling user tasks,
  * providing operations to interact with and manipulate the task list.
  */
-public class TaskManager {
+public class TaskList {
     // Stores the list of tasks.
     private final ArrayList<Task> tasksList = new ArrayList<>();
     private final Storage storage; // Instance of saveData
 
-    public TaskManager() {
+    public TaskList() {
         this.storage = new Storage();
         List<String> loadedTasks = storage.loadTasks();
 

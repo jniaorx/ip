@@ -12,8 +12,8 @@ public class IntroBlaise {
         ui.showWelcome();
 
         // Initialize application components
-        TaskManager taskManager = new TaskManager();
-        Parser commands = new Parser(taskManager);
+        TaskList taskList = new TaskList();
+        Parser commands = new Parser(taskList);
 
         // Main loop for user interaction
         while (true) {

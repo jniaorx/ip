@@ -31,7 +31,9 @@ public class Task {
     /**
      * Marks the task as done by setting its status to true.
      */
-    public void markAsDone() { this.isDone = true; }
+    public void markAsDone() {
+        this.isDone = true;
+    }
 
     /**
      * Marks the task as not done by setting its status to false.

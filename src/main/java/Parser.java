@@ -7,15 +7,15 @@ import java.time.format.DateTimeParseException;
  * It interprets user inputs, executes corresponding operations, and manages tasks
  * using the TaskManager instance.
  */
-public class Commands {
-    private final TaskManager taskManager;
+public class Parser {
+    private final TaskList taskList;
 
     /**
      * Constructor for Commands.
-     * @param taskManager The TaskManager instance responsible for managing tasks.
+     * @param taskList The TaskManager instance responsible for managing tasks.
      */
-    public Commands(TaskManager taskManager) {
-        this.taskManager = taskManager;
+    public Parser(TaskList taskList) {
+        this.taskList = taskList;
     }
 
     /**
@@ -27,7 +27,7 @@ public class Commands {
         try {
             if (userInput.equalsIgnoreCase("List")) {
                 // Displays the task list when "list" is input.
-                taskManager.printTaskList();
+                taskList.printTaskList();
             } else if (userInput.startsWith("mark")) {
                 // Marks a task as done based on its index.
                 markTaskAsDone(userInput);
@@ -57,7 +57,6 @@ public class Commands {
                     LocalDate localDate = LocalDate.parse(dateInput, formatter);
 
                     // Call the method with the parsed LocalDate
-                    taskManager.printTasksForDate(localDate);
                 } catch (DateTimeParseException e) {
                     System.out.println("Invalid date format. Please enter the date in d-MM-yyyy format.");
                 }
@@ -79,9 +78,9 @@ public class Commands {
         try {
             // Extract task index from the input and mark the task as done.
             int taskNo = Integer.parseInt(userInput.substring(5)) - 1;
-            Task currTask = taskManager.getTask(taskNo);
+            Task currTask = taskList.getTask(taskNo);
             currTask.markAsDone();
-            taskManager.saveTasks();
+            taskList.saveTasks();
             // Notify the user that the task is marked as done.
             System.out.println("    _________________________________");
             System.out.println("    Well done! I've marked this task as done:");
@@ -104,14 +103,14 @@ public class Commands {
         try {
             // Extract the task index from the input and mark the task as undone.
             int taskNo = Integer.parseInt(userInput.substring(7)) - 1;
-            Task currTask = taskManager.getTask(taskNo);
+            Task currTask = taskList.getTask(taskNo);
 
             // Error thrown when user tries to unmark an undone task.
             if (!currTask.isDone) {
                 throw new AlreadyUndoneException("This task has already been marked undone!");
             }
             currTask.markAsUndone();
-            taskManager.saveTasks();
+            taskList.saveTasks();
 
             // Notify the user that the task is marked as not done.
             System.out.println("    _________________________________");
@@ -144,8 +143,8 @@ public class Commands {
             }
 
             ToDo todoTask = new ToDo(description);
-            taskManager.addTask(todoTask);
-            int numOfTask = taskManager.getTasksList().size();
+            taskList.addTask(todoTask);
+            int numOfTask = taskList.getTasksList().size();
 
             // Notify the user that the task has been added.
             System.out.println("    _________________________________");
@@ -171,8 +170,8 @@ public class Commands {
         try {
             // Get Deadline task from user input.
             Deadline deadlineTask = getDeadlineTask(userInput);
-            taskManager.addTask(deadlineTask);
-            int numOfTask = taskManager.getTasksList().size();
+            taskList.addTask(deadlineTask);
+            int numOfTask = taskList.getTasksList().size();
 
             // Notify the user that the task has been added.
             System.out.println("    _________________________________");
@@ -212,8 +211,8 @@ public class Commands {
     public void addEventTask(String userInput) throws StringIndexOutOfBoundsException {
         try {
             Event eventTask = getEvent(userInput);
-            taskManager.addTask(eventTask);
-            int numOfTask = taskManager.getTasksList().size(); // no of task in task list
+            taskList.addTask(eventTask);
+            int numOfTask = taskList.getTasksList().size(); // no of task in task list
 
             System.out.println("    _________________________________");
             System.out.println("    Got it. I've added this task:");
@@ -269,15 +268,15 @@ public class Commands {
      */
     public void deleteTask(String userInput) throws IndexOutOfBoundsException, NumberFormatException {
         try {
-            if (taskManager.getTasksList().isEmpty()) {
+            if (taskList.getTasksList().isEmpty()) {
                 throw new DeleteEmptyTaskListException("Your task list is empty. You can't delete anything. Please add tasks.");
             }
             // Extract task from user input.
             int taskNo = Integer.parseInt(userInput.substring(7)) - 1;
-            Task currTask = taskManager.getTask(taskNo);
-            taskManager.removeTask(currTask);
+            Task currTask = taskList.getTask(taskNo);
+            taskList.removeTask(currTask);
 
-            int numOfTask = taskManager.getTasksList().size();
+            int numOfTask = taskList.getTasksList().size();
 
             // Notify the user that the task has been deleted.
             System.out.println("    _________________________________");

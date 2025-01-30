@@ -7,18 +7,18 @@ import java.util.List;
  * THe {@code TaskManager} class serves as a central utility for handling user tasks,
  * providing operations to interact with and manipulate the task list.
  */
-public class TaskManager {
+public class TaskList {
     // Stores the list of tasks.
     private final ArrayList<Task> tasksList = new ArrayList<>();
-    private final SaveData saveData; // Instance of saveData
+    private final Storage storage; // Instance of saveData
 
-    public TaskManager() {
-        this.saveData = new SaveData();
-        List<String> loadedTasks = saveData.loadTasks();
+    public TaskList() {
+        this.storage = new Storage();
+        List<String> loadedTasks = storage.loadTasks();
 
         // Convert loaded tasks from stings to Task objects and update taskslist
         for (String taskStr : loadedTasks) {
-            Task task = saveData.stringToTask(taskStr);
+            Task task = stringToTask(taskStr);
             if (task != null) {
                 tasksList.add(task);
             }
@@ -99,7 +99,7 @@ public class TaskManager {
         for (Task task : tasksList) {
             taskStrings.add(taskToString(task)); // Convert tasks to strings
         }
-        saveData.saveTasks(taskStrings); // Save tasks to file
+        storage.saveTasks(taskStrings); // Save tasks to file
     }
 
     public void printTasksForDate(LocalDate date) {
@@ -136,5 +136,49 @@ public class TaskManager {
             return "E | " + (task.isDone ? "1" : "0") + " | " + task.description + " | " + event.from + " to " + event.to;
         }
         return ""; // Default case
+    }
+
+    private Task stringToTask(String line) {
+        try {
+            String[] parts = line.split(" \\| ");
+            if (parts.length < 4) { // Check if the parts array has enough data
+                System.out.println("There is currently no tasks to be done.");
+                return null;
+            }
+
+            String taskType = parts[0].trim();
+            String isDone = parts[1].trim();
+            String description = parts[2].trim();
+
+            switch (taskType) {
+            case "T":
+                Task todo = new ToDo(description);
+                if ("1".equals(isDone)) {
+                    todo.markAsDone();
+                }
+                return todo;
+            case "D":
+                String deadlineDate = parts[3].trim();
+                Task deadline = new Deadline(description, deadlineDate);
+                if ("1".equals(isDone)) {
+                    deadline.markAsDone();
+                }
+                return deadline;
+            case "E":
+                String eventDate = parts[3].trim();
+                String[] eventDetails = eventDate.split(" to ");
+                Task event = new Event(description, eventDetails[0], eventDetails[1]);
+                if ("1".equals(isDone)) {
+                    event.markAsDone();
+                }
+                return event;
+            default:
+                System.out.println("Skipping corrupted task line: " + line);
+                return null;
+            }
+        } catch (Exception e) {
+            System.out.println("Error parsing task line: " + e.getMessage());
+            return null;
+        }
     }
 }

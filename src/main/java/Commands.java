@@ -1,3 +1,7 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 /**
  * The Commands class handles the execution fo user commands in the chatbot.
  * It interprets user inputs, executes corresponding operations, and manages tasks
@@ -42,6 +46,21 @@ public class Commands {
             } else if (userInput.startsWith("delete")) {
                 // Deletes a task from the list based on its index.
                 deleteTask(userInput);
+            } else if (userInput.startsWith("tasks on")) {
+                String dateInput = userInput.substring(9).trim(); // Extract the date part from input
+
+                // Define the expected date format
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+
+                try {
+                    // Convert the string to LocalDate
+                    LocalDate localDate = LocalDate.parse(dateInput, formatter);
+
+                    // Call the method with the parsed LocalDate
+                    taskManager.printTasksForDate(localDate);
+                } catch (DateTimeParseException e) {
+                    System.out.println("Invalid date format. Please enter the date in d/MM/yyyy format.");
+                }
             } else {
                 throw new InvalidInputException("Err...I don't understand this :(. Please give a valid command!");
             }

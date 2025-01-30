@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -100,6 +101,29 @@ public class TaskManager {
         }
         saveData.saveTasks(taskStrings); // Save tasks to file
     }
+
+    public void printTasksForDate(LocalDate date) {
+        for (Task task : tasksList) {
+            // Check if the task is an instance of Deadline
+            if (task instanceof Deadline) {
+                Deadline deadlineTask = (Deadline) task;
+                LocalDate taskDate = deadlineTask.getDeadline().toLocalDate(); // Get the date part from Deadline
+                if (taskDate.isEqual(date)) {
+                    System.out.println(task);
+                }
+            }
+            // Check if the task is an instance of Event
+            else if (task instanceof Event) {
+                Event eventTask = (Event) task;
+                LocalDate eventDate = eventTask.getFrom().toLocalDate();
+                if (eventDate.isEqual(date)) {
+                    System.out.println(task);
+                }
+            }
+            // Skip ToDo tasks as they don't have a date
+        }
+    }
+
 
     private String taskToString(Task task) {
         if (task instanceof ToDo) {

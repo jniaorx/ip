@@ -23,13 +23,13 @@ public class Event extends Task{
      * @param to The ending date/tine of the event.
      */
     public Event(String description, String from, String to) {
-        super(description); // Calls the constructor of the Task class
+        super(description);
         this.from = parseDateTime(from);
         this.to = parseDateTime(to);
     }
 
     private LocalDateTime parseDateTime(String dateTimeStr) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy HHmm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MM-yyyy HHmm");
         return LocalDateTime.parse(dateTimeStr, formatter);
     }
 

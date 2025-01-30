@@ -5,11 +5,11 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SaveData {
+public class Storage {
     private static final String DIRECTORY_PATH = "data";
     private static final String FILE_PATH = "data/introBlaise.txt";
 
-    public SaveData() {
+    public Storage() {
         createFile();
     }
 

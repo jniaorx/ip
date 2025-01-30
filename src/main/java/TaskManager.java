@@ -10,15 +10,15 @@ import java.util.List;
 public class TaskManager {
     // Stores the list of tasks.
     private final ArrayList<Task> tasksList = new ArrayList<>();
-    private final SaveData saveData; // Instance of saveData
+    private final Storage storage; // Instance of saveData
 
     public TaskManager() {
-        this.saveData = new SaveData();
-        List<String> loadedTasks = saveData.loadTasks();
+        this.storage = new Storage();
+        List<String> loadedTasks = storage.loadTasks();
 
         // Convert loaded tasks from stings to Task objects and update taskslist
         for (String taskStr : loadedTasks) {
-            Task task = saveData.stringToTask(taskStr);
+            Task task = storage.stringToTask(taskStr);
             if (task != null) {
                 tasksList.add(task);
             }
@@ -99,7 +99,7 @@ public class TaskManager {
         for (Task task : tasksList) {
             taskStrings.add(taskToString(task)); // Convert tasks to strings
         }
-        saveData.saveTasks(taskStrings); // Save tasks to file
+        storage.saveTasks(taskStrings); // Save tasks to file
     }
 
     public void printTasksForDate(LocalDate date) {

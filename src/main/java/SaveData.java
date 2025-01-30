@@ -61,7 +61,7 @@ public class SaveData {
         try {
             String[] parts = line.split(" \\| ");
             if (parts.length < 4) { // Check if the parts array has enough data
-                System.out.println("Skipping corrupted task line: " + line);
+                System.out.println("There is currently no tasks to be done.");
                 return null;
             }
 

@@ -25,6 +25,7 @@ public class TaskManager {
         // System.out.println("    __________________");
         // System.out.println("    added: " + description);
         // System.out.println("    __________________");
+        saveTasks();
     }
 
     /**
@@ -34,6 +35,7 @@ public class TaskManager {
     public void removeTask(Task task) {
 
         tasksList.remove(task);
+        saveTasks();;
 
     }
 

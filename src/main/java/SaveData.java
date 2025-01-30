@@ -1,5 +1,8 @@
+
 import java.io.*;
-import java.nio.file.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,12 +51,11 @@ public class SaveData {
 
     }
 
-    private static Task stringToTask(String line) {
+    public Task stringToTask(String line) {
         String[] parts = line.split(" \\| ");
         String taskType = parts[0].trim();
         String isDone = parts[1].trim();
         String description = parts[2].trim();
-        String dates = parts[3].trim();
 
         switch (taskType) {
         case "T":
@@ -63,13 +65,15 @@ public class SaveData {
             }
             return todo;
         case "D":
-            Task deadline = new Deadline(description, dates);
+            String deadlineDate = parts[3].trim();
+            Task deadline = new Deadline(description, deadlineDate);
             if ("1".equals(isDone)) {
                 deadline.markAsDone();
             }
             return deadline;
         case "E":
-            String[] eventDetails = dates.split(" to ");
+            String eventDate = parts[3].trim();
+            String[] eventDetails = eventDate.split(" to ");
             Task event = new Event(description, eventDetails[0], eventDetails[1]);
             if ("1".equals(isDone)) {
                 event.markAsDone();
@@ -91,7 +95,6 @@ public class SaveData {
             System.out.println("Error saving tasks: " + e.getMessage());
         }
     }
-
 
     public void handleCorruptedFile() {
         System.out.println("Warning: Corrupted file detected. Resetting...");

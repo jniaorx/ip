@@ -1,0 +1,3 @@
+T | 0 | return book
+D | 1 | go school | tmrw
+E | 0 | idk bruh | 6th June to 8th June

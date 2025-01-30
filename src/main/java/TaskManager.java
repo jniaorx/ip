@@ -9,11 +9,20 @@ import java.util.List;
 public class TaskManager {
     // Stores the list of tasks.
     private final ArrayList<Task> tasksList = new ArrayList<>();
-    private final SaveData saveData; // Instance of CreateFilePath
+    private final SaveData saveData; // Instance of saveData
 
     public TaskManager() {
         this.saveData = new SaveData();
-        loadTasks();
+        List<String> loadedTasks = saveData.loadTasks();
+
+        // Convert loaded tasks from stings to Task objects and update taskslist
+        for (String taskStr : loadedTasks) {
+            Task task = saveData.stringToTask(taskStr);
+            if (task != null) {
+                tasksList.add(task);
+            }
+        }
+
     }
 
     /**
@@ -82,7 +91,7 @@ public class TaskManager {
         return tasksList;
     }
 
-    private void saveTasks() {
+    public void saveTasks() {
         List<String> taskStrings = new ArrayList<>();
         for (Task task : tasksList) {
             taskStrings.add(taskToString(task)); // Convert tasks to strings

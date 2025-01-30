@@ -62,7 +62,7 @@ public class Commands {
             int taskNo = Integer.parseInt(userInput.substring(5)) - 1;
             Task currTask = taskManager.getTask(taskNo);
             currTask.markAsDone();
-
+            taskManager.saveTasks();
             // Notify the user that the task is marked as done.
             System.out.println("    _________________________________");
             System.out.println("    Well done! I've marked this task as done:");
@@ -92,6 +92,7 @@ public class Commands {
                 throw new AlreadyUndoneException("This task has already been marked undone!");
             }
             currTask.markAsUndone();
+            taskManager.saveTasks();
 
             // Notify the user that the task is marked as not done.
             System.out.println("    _________________________________");

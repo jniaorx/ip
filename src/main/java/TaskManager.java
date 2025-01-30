@@ -80,6 +80,7 @@ public class TaskManager {
      * @return The task at the specified index.
      */
     public Task getTask(int taskIndex) {
+
         return tasksList.get(taskIndex);
     }
 
@@ -88,6 +89,7 @@ public class TaskManager {
      * @return AN {@code ArrayList} containing all tasks.
      */
     public ArrayList<Task> getTasksList() {
+
         return tasksList;
     }
 

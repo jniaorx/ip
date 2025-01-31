@@ -51,7 +51,7 @@ public class Deadline extends Task {
     /**
      * Returns a string representation of the deadline task, including its type, description,
      * and the deadline by which it must be completed.
-     * 
+     *
      * @return A string in the format "[D][status] description (by: deadline)"
      */
     @Override

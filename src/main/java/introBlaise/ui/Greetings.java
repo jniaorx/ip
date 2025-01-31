@@ -21,7 +21,7 @@ public class Greetings {
      * Greets the user and captures their name.
      * This method prompts the user for their name and responds with a personalized
      * greeting. A {@link Scanner} object is used to read the user's input.
-     * 
+     *
      * @param scanner A {@code Scanner} object to read user input.
      */
     public void greet(Scanner scanner) {

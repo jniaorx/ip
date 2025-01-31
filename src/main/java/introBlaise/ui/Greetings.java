@@ -4,14 +4,14 @@ import java.util.Scanner;
 
 /**
  * Handles user greetings and farewells for the bot.
- * The {@code introBlaise.ui.Greetings} class provides methods to greet the user when
+ * The {@code Greetings} class provides methods to greet the user when
  * they start interacting with the application and bid them farewell
  * when they exit.
  */
 
 public class Greetings {
     /**
-     * Constructs a {@code introBlaise.ui.Greetings} object.
+     * Constructs a {@code Greetings} object.
      * This constructor does not perform any initialization.
      */
     public Greetings() {
@@ -21,6 +21,7 @@ public class Greetings {
      * Greets the user and captures their name.
      * This method prompts the user for their name and responds with a personalized
      * greeting. A {@link Scanner} object is used to read the user's input.
+     * 
      * @param scanner A {@code Scanner} object to read user input.
      */
     public void greet(Scanner scanner) {

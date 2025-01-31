@@ -21,7 +21,7 @@ public class Echo {
      * This method reads input from the provided {@link Scanner} object and prints
      * it back to the console in a formatted manner. The interaction ends when the
      * user inputs the word "bye",
-     * 
+     *
      * @param scanner A {@link Scanner} object used to read input from the user.
      */
     public void echo(Scanner scanner) {

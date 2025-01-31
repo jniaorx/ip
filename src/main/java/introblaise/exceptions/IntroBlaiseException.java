@@ -1,4 +1,4 @@
-package introBlaise.exceptions;
+package introblaise.exceptions;
 
 /**
  * A custom exception class for the introBlaise.ui.IntroBlaise bot.

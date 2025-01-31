@@ -1,11 +1,11 @@
-package introBlaise.ui;
+package introblaise.ui;
 
-import introBlaise.exceptions.*;
-import introBlaise.task.ToDo;
-import introBlaise.task.Deadline;
-import introBlaise.task.Event;
-import introBlaise.task.TaskList;
-import introBlaise.task.Task;
+import introblaise.exceptions.*;
+import introblaise.task.ToDo;
+import introblaise.task.Deadline;
+import introblaise.task.Event;
+import introblaise.task.TaskList;
+import introblaise.task.Task;
 
 
 import java.time.LocalDate;

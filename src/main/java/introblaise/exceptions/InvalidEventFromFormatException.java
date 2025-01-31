@@ -1,6 +1,4 @@
-package introBlaise.exceptions;
-
-import introBlaise.exceptions.IntroBlaiseException;
+package introblaise.exceptions;
 
 /**
  * Exception class representing an error condition where user inputs

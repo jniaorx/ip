@@ -1,4 +1,4 @@
-package introBlaise.task;
+package introblaise.task;
 
 import org.junit.jupiter.api.Test;
 

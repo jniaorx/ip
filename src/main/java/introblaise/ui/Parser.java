@@ -1,11 +1,16 @@
-package introBlaise.ui;
+package introblaise.ui;
 
-import introBlaise.exceptions.*;
-import introBlaise.task.ToDo;
-import introBlaise.task.Deadline;
-import introBlaise.task.Event;
-import introBlaise.task.TaskList;
-import introBlaise.task.Task;
+import introblaise.exceptions.AlreadyUndoneException;
+import introblaise.exceptions.InvalidEventFromFormatException;
+import introblaise.exceptions.InvalidEventToFormatException;
+import introblaise.exceptions.InvalidInputException;
+import introblaise.exceptions.InvalidDeadlineFormatException;
+import introblaise.exceptions.DeleteEmptyTaskListException;
+import introblaise.task.ToDo;
+import introblaise.task.Deadline;
+import introblaise.task.Event;
+import introblaise.task.TaskList;
+import introblaise.task.Task;
 
 
 import java.time.LocalDate;
@@ -290,7 +295,8 @@ public class Parser {
     public void deleteTask(String userInput) throws IndexOutOfBoundsException, NumberFormatException {
         try {
             if (taskList.getTasksList().isEmpty()) {
-                throw new DeleteEmptyTaskListException("Your task list is empty. You can't delete anything. Please add tasks.");
+                throw new DeleteEmptyTaskListException("Your task list is empty. You can't delete anything. "
+                        + "Please add tasks.");
             }
             // Extract task from user input.
             int taskNo = Integer.parseInt(userInput.substring(7)) - 1;
@@ -308,7 +314,8 @@ public class Parser {
         } catch (DeleteEmptyTaskListException e) {
             System.out.println(e.getMessage());
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Uh oh! Invalid index. Have you entered the index? Are you sure you are deleting the correct task?");
+            System.out.println("Uh oh! Invalid index. Have you entered the index? Are you sure "
+                    + "you are deleting the correct task?");
         } catch (NumberFormatException e) {
             System.out.println("Uh oh! Invalid number. Please enter a number after 'delete'.");
         }

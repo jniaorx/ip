@@ -1,4 +1,4 @@
-package introBlaise.task;
+package introblaise.task;
 
 import org.junit.jupiter.api.Test;
 
@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TaskListTest {
     @Test
-    public void testAddTaskAndRetrieve() {
+    public void addTask_taskAdded_taskListSizeIncreases() {
         TaskList taskList = new TaskList();
         int originalSize = taskList.getSize();
         ToDo task = new ToDo("Complete CS2103T");

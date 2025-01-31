@@ -1,11 +1,11 @@
-package introBlaise.task;
+package introblaise.task;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TaskTest {
     @Test
-    public void testTaskInitialization() {
+    public void taskIntialization_correctDescriptionAndDefaultStatus() {
         Task task = new Task("Finish CS2103T assignment");
 
         assertEquals("Finish CS2103T assignment", task.description, "Task description should be correctly initialzied.");
@@ -14,7 +14,7 @@ public class TaskTest {
     }
 
     @Test
-    public void testMarkAsDone() {
+    public void markAsDone_taskMarkedDone() {
         Task task = new Task("Write JUnit tests");
 
         task.markAsDone();
@@ -24,7 +24,7 @@ public class TaskTest {
     }
 
     @Test
-    public void testMarkAsUndone() {
+    public void markAsUndone_taskMarkedUndone() {
         Task task = new Task("Write JUnit tests");
 
         task.markAsDone();

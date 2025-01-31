@@ -1,6 +1,4 @@
-package introBlaise.exceptions;
-
-import introBlaise.exceptions.IntroBlaiseException;
+package introblaise.exceptions;
 
 /**
  * Exception class representing an error condition where user inputs
@@ -8,7 +6,7 @@ import introBlaise.exceptions.IntroBlaiseException;
  */
 public class InvalidEventFromFormatException extends IntroBlaiseException {
     /**
-     * Constructs a new {@code introBlaise.exceptions.InvalidEventFromFormatException} with the specified detail message.
+     * Constructs a new {@code InvalidEventFromFormatException} with the specified detail message.
      * @param exception The detail message that explains the reason for this exception.
      */
     public InvalidEventFromFormatException(String exception) {

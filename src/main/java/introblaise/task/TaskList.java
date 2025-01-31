@@ -1,9 +1,7 @@
-package introBlaise.task;
+package introblaise.task;
 
-import introBlaise.exceptions.EmptyTaskListException;
-import introBlaise.storage.Storage;
-import introBlaise.task.Deadline;
-import introBlaise.task.Event;
+import introblaise.exceptions.EmptyTaskListException;
+import introblaise.storage.Storage;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -19,10 +17,6 @@ public class TaskList {
     private final ArrayList<Task> tasksList = new ArrayList<>();
     private final Storage storage; // Instance of saveData
 
-    /**
-     * Constructs a TaskList object, initializing it with tasks loaded from storage.
-     * It parses the tasks saved in a file into task objects and adds them to the list.
-     */
     public TaskList() {
         this.storage = new Storage();
         List<String> loadedTasks = storage.loadTasks();
@@ -131,7 +125,9 @@ public class TaskList {
             // Check if the task is an instance of introBlaise.task.Deadline
             if (task instanceof Deadline) {
                 Deadline deadlineTask = (Deadline) task;
-                LocalDate taskDate = deadlineTask.getDeadline().toLocalDate(); // Get the date part from introBlaise.task.Deadline
+
+                // Get the date part from Deadline
+                LocalDate taskDate = deadlineTask.getDeadline().toLocalDate();
                 if (taskDate.isEqual(date)) {
                     System.out.println(task);
                 }

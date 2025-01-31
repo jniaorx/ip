@@ -1,4 +1,4 @@
-package introBlaise.ui;
+package introblaise.ui;
 
 import java.util.Scanner;
 

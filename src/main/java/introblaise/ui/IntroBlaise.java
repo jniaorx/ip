@@ -1,6 +1,6 @@
-package introBlaise.ui;
+package introblaise.ui;
 
-import introBlaise.task.TaskList;
+import introblaise.task.TaskList;
 
 /**
  * The entry point for the IntroBlaise bot.

@@ -1,8 +1,8 @@
-package introBlaise.exceptions;
+package introblaise.exceptions;
 
 /**
  * Exception class representing an error condition where user inputs
- * incorrect format for a introBlaise.task.Deadline task.
+ * incorrect format for a Deadline task.
  */
 public class InvalidDeadlineFormatException extends IntroBlaiseException {
     /**

@@ -7,7 +7,7 @@ Hello from
 
 
     _________________________________
-    Sup! I am introBlaise.ui.IntroBlaise. What's your name?
+    Sup! I am introblaise.ui.IntroBlaise. What's your name?
     _________________________________
     Hi extro blaise!(ʘ‿ʘ)╯ Nice to meet you! You can start adding tasks to your very own task list! :)
     _________________________________

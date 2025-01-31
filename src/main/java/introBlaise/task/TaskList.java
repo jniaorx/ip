@@ -131,6 +131,10 @@ public class TaskList {
         }
     }
 
+    public int getSize() {
+        return tasksList.size();
+    }
+
 
     private String taskToString(Task task) {
         if (task instanceof ToDo) {

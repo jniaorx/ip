@@ -282,7 +282,7 @@ public class Parser {
 
     /**
      * Deletes a task from the task list based on user input.
-     * 
+     *
      * @param userInput The user input string, expected in the format delete x where x is the task description.
      * @throws IndexOutOfBoundsException Exception thrown when user is deleting the wrong task.
      * @throws NumberFormatException Exception thrown when number format of user input is incorrect.

@@ -6,7 +6,7 @@ package introblaise.exceptions;
  */
 public class InvalidEventFromFormatException extends IntroBlaiseException {
     /**
-     * Constructs a new {@code introBlaise.exceptions.InvalidEventFromFormatException} with the specified detail message.
+     * Constructs a new {@code InvalidEventFromFormatException} with the specified detail message.
      * @param exception The detail message that explains the reason for this exception.
      */
     public InvalidEventFromFormatException(String exception) {

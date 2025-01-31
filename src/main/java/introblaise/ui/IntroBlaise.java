@@ -3,11 +3,11 @@ package introblaise.ui;
 import introblaise.task.TaskList;
 
 /**
- * The entry point for the introBlaise.ui.IntroBlaise bot.
+ * The entry point for the IntroBlaise bot.
  */
 public class IntroBlaise {
     /**
-     * Main method to run the introBlaise.ui.IntroBlaise bot.
+     * Main method to run the IntroBlaise bot.
      * @param args Command-line arguments.
      */
     public static void main(String[] args) {

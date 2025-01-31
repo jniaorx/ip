@@ -34,7 +34,8 @@ public class Greetings {
 
             // Responds with a personalized greeting.
             System.out.println("    _________________________________");
-            System.out.println("    Hi " + name + "!(ʘ‿ʘ)╯ Nice to meet you! You can start adding tasks to your very own task list! :)");
+            System.out.println("    Hi " + name + "!(ʘ‿ʘ)╯ Nice to meet you! "
+                    + "You can start adding tasks to your very own task list! :)");
             System.out.println("    _________________________________");
         }
     }

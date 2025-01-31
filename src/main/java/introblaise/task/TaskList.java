@@ -112,7 +112,9 @@ public class TaskList {
             // Check if the task is an instance of introBlaise.task.Deadline
             if (task instanceof Deadline) {
                 Deadline deadlineTask = (Deadline) task;
-                LocalDate taskDate = deadlineTask.getDeadline().toLocalDate(); // Get the date part from introBlaise.task.Deadline
+
+                // Get the date part from Deadline
+                LocalDate taskDate = deadlineTask.getDeadline().toLocalDate();
                 if (taskDate.isEqual(date)) {
                     System.out.println(task);
                 }
@@ -125,7 +127,7 @@ public class TaskList {
                     System.out.println(task);
                 }
             }
-            // Skip introBlaise.task.ToDo tasks as they don't have a date
+            // Skip ToDo tasks as they don't have a date
         }
     }
 
@@ -142,7 +144,8 @@ public class TaskList {
             return "D | " + (task.isDone ? "1" : "0") + " | " + task.description + " | " + deadline.by;
         } else if (task instanceof Event) {
             Event event = (Event) task;
-            return "E | " + (task.isDone ? "1" : "0") + " | " + task.description + " | " + event.from + " to " + event.to;
+            return "E | " + (task.isDone ? "1" : "0") + " | " + task.description + " | "
+                    + event.from + " to " + event.to;
         }
         return ""; // Default case
     }

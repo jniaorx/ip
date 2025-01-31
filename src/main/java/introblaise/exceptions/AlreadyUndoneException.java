@@ -6,7 +6,7 @@ package introblaise.exceptions;
  */
 public class AlreadyUndoneException extends IntroBlaiseException {
     /**
-     * Constructs a new {@code introBlaise.exceptions.AlreadyUndoneException} with the specified detail message.
+     * Constructs a new {@code AlreadyUndoneException} with the specified detail message.
      * @param exception The detail message that explains the reason for this exception.
      */
     public AlreadyUndoneException(String exception) {
@@ -19,7 +19,8 @@ public class AlreadyUndoneException extends IntroBlaiseException {
      */
     public static class EmptyDescriptionException extends IntroBlaiseException {
         /**
-         * Constructs a new {@code introBlaise.exceptions.AlreadyUndoneException.EmptyDescriptionException} with the specified detail message.
+         * Constructs a new {@code EmptyDescriptionException} with the
+         * specified detail message.
          * @param exception The detail message that explains the reason for this exception.
          */
         public EmptyDescriptionException(String exception) {

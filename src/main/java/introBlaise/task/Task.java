@@ -15,6 +15,7 @@ public class Task {
     /**
      * Constructs a new introBlaise.task.Task with the specified description.
      * The task is initially marked as not done.
+     *
      * @param description A string describing the task.
      */
     public Task(String description) {
@@ -24,6 +25,7 @@ public class Task {
 
     /**
      * Returns the status icon representing whether the task is done.
+     *
      * @return "X" if the task is done, otherwise a space (" ").
      */
     public String getStatusIcon() {
@@ -47,6 +49,7 @@ public class Task {
     /**
      * Returns a string representation of the task.
      * The string includes the task's status icon and description
+     * 
      * @return A formatted string representing the task.
      */
     @Override

@@ -12,7 +12,7 @@ public class Ui {
     private Greetings greetings;
 
     /**
-     * Constructor initializes the scanner for user input and the introBlaise.ui.Greetings component.
+     * Constructor initializes the scanner for user input and the Greetings component.
      */
     public Ui() {
         this.scanner = new Scanner(System.in);
@@ -32,12 +32,12 @@ public class Ui {
                         "\n";
         System.out.println("Hello from\n" + logo);
 
-        // Delegate greeting responsibility to introBlaise.ui.Greetings class
         greetings.greet(scanner);
     }
 
     /**
      * Reads user input from the console.
+     *
      * @return The input string entered by the user.
      */
     public String readInput() {

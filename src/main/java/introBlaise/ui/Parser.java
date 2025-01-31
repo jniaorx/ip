@@ -31,6 +31,7 @@ public class Parser {
     /**
      * Executes a command based on the user's input.
      * Handles different task operations such as listing, adding, marking, unmarking,and deleting tasks.
+     *
      * @param userInput The user's input as a command string.
      */
     public void executeCommand(String userInput) {
@@ -67,6 +68,7 @@ public class Parser {
                     LocalDate localDate = LocalDate.parse(dateInput, formatter);
 
                     // Call the method with the parsed LocalDate
+                    taskList.printTasksForDate(localDate);
                  } catch (DateTimeParseException e) {
                     System.out.println("Invalid date format. Please enter the date in d-MM-yyyy format.");
                 }
@@ -80,6 +82,7 @@ public class Parser {
 
     /**
      * Marks a task as done based on user input.
+     *
      * @param userInput The user input string, expected in the format "mark x" where x is the task number.
      * @throws IndexOutOfBoundsException Exception thrown when format of user input is incorrect.
      * @throws NumberFormatException Exception thrown when number format of user input is incorrect.
@@ -105,6 +108,7 @@ public class Parser {
 
     /**
      * Marks a task as undone based on user input.
+     *
      * @param userInput The user input string, expected in the format "unmark x" where x is the task number.
      * @throws IndexOutOfBoundsException Exception thrown when format of user input is incorrect.
      * @throws NumberFormatException Exception thrown when number format of user input is incorrect.
@@ -138,6 +142,7 @@ public class Parser {
 
     /**
      * Adds a To-Do task to the task list.
+     *
      * @param userInput The user input string, expected in the format "todo x" where x is the task description.
      * @throws NumberFormatException Exception thrown when number format of user input is incorrect.
      * @throws StringIndexOutOfBoundsException Exception thrown when format of user input is incorrect.
@@ -172,13 +177,14 @@ public class Parser {
     }
 
     /**
-     * Adds a introBlaise.task.Deadline task to the task list.
+     * Adds a Deadline task to the task list.
+     *
      * @param userInput The user input string, expected in  the format deadline x /by date where x is the task description.
      * @throws StringIndexOutOfBoundsException Exception thrown when format of user input is incorrect.
      */
     public void addDeadlineTask(String userInput) throws StringIndexOutOfBoundsException {
         try {
-            // Get introBlaise.task.Deadline task from user input.
+            // Get iDeadline task from user input.
             Deadline deadlineTask = getDeadlineTask(userInput);
             taskList.addTask(deadlineTask);
             int numOfTask = taskList.getTasksList().size();
@@ -197,9 +203,10 @@ public class Parser {
     }
 
     /**
-     * Creates a introBlaise.task.Deadline task based on user input.
+     * Creates a Deadline task based on user input.
+     *
      * @param userInput The user input string, expected in  the format deadline x /by date where x is the task description.
-     * @return A introBlaise.task.Deadline task.
+     * @return A Deadline task.
      * @throws InvalidDeadlineFormatException Exception thrown when format of user's input is incorrect.
      */
     private static Deadline getDeadlineTask(String userInput) throws InvalidDeadlineFormatException {
@@ -214,7 +221,8 @@ public class Parser {
     }
 
     /**
-     * Adds an introBlaise.task.Event task to the task list.
+     * Adds an Event task to the task list.
+     *
      * @param userInput The user input string, expected in  the format event x /from date /to date where x is the task description.
      * @throws StringIndexOutOfBoundsException Exception thrown when format of user input is incorrect.
      */
@@ -238,7 +246,8 @@ public class Parser {
     }
 
     /**
-     * Creates an introBlaise.task.Event task based on user input.
+     * Creates an Event task based on user input.
+     *
      * @param userInput The user input string, expected in  the format event x /from date /to date where x is the task description.
      * @return An introBlaise.task.Event task.
      * @throws AlreadyUndoneException.EmptyDescriptionException Exception thrown when no description is entered.
@@ -273,6 +282,7 @@ public class Parser {
 
     /**
      * Deletes a task from the task list based on user input.
+     *
      * @param userInput The user input string, expected in the format delete x where x is the task description.
      * @throws IndexOutOfBoundsException Exception thrown when user is deleting the wrong task.
      * @throws NumberFormatException Exception thrown when number format of user input is incorrect.

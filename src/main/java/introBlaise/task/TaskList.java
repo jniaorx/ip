@@ -19,6 +19,10 @@ public class TaskList {
     private final ArrayList<Task> tasksList = new ArrayList<>();
     private final Storage storage; // Instance of saveData
 
+    /**
+     * Constructs a TaskList object, initializing it with tasks loaded from storage.
+     * It parses the tasks saved in a file into task objects and adds them to the list.
+     */
     public TaskList() {
         this.storage = new Storage();
         List<String> loadedTasks = storage.loadTasks();
@@ -35,6 +39,7 @@ public class TaskList {
 
     /**
      * Adds a new task to the task list.
+     *
      * @param task The task to be added.
      */
     public void addTask(Task task) {
@@ -43,11 +48,12 @@ public class TaskList {
         // System.out.println("    __________________");
         // System.out.println("    added: " + description);
         // System.out.println("    __________________");
-        saveTasks();
+        saveTasks(); // Save updated task list to storage.
     }
 
     /**
      * Removes a specific task from the task list.
+     *
      * @param task The task to be removed.
      */
     public void removeTask(Task task) {
@@ -84,6 +90,7 @@ public class TaskList {
 
     /**
      * Retrieves a specific task from the task list.
+     *
      * @param taskIndex The index of the task to retrieve.
      * @return The task at the specified index.
      */
@@ -94,13 +101,18 @@ public class TaskList {
 
     /**
      * Returns the full list of tasks.
-     * @return AN {@code ArrayList} containing all tasks.
+     *
+     * @return An {@code ArrayList} containing all tasks.
      */
     public ArrayList<Task> getTasksList() {
 
         return tasksList;
     }
 
+    /**
+     * Saves the tasks list to storage.
+     * Converts task objects to strings before saving them.
+     */
     public void saveTasks() {
         List<String> taskStrings = new ArrayList<>();
         for (Task task : tasksList) {
@@ -109,6 +121,11 @@ public class TaskList {
         storage.saveTasks(taskStrings); // Save tasks to file
     }
 
+    /**
+     * Prints tasks scheduled for a specific date.
+     *
+     * @param date The date to check for tasks.
+     */
     public void printTasksForDate(LocalDate date) {
         for (Task task : tasksList) {
             // Check if the task is an instance of introBlaise.task.Deadline
@@ -127,15 +144,25 @@ public class TaskList {
                     System.out.println(task);
                 }
             }
-            // Skip introBlaise.task.ToDo tasks as they don't have a date
+            // Skip ToDo tasks as they don't have a specific date
         }
     }
 
+    /**
+     * Returns the number of tasks in the list.
+     *
+     * @return The size of the task list.
+     */
     public int getSize() {
         return tasksList.size();
     }
 
-
+    /**
+     * Converts a task object into a string representation.
+     *
+     * @param task The task to be converted.
+     * @return A string representation of the task.
+     */
     private String taskToString(Task task) {
         if (task instanceof ToDo) {
             return "T | " + (task.isDone ? "1" : "0") + " | " + task.description;
@@ -149,6 +176,12 @@ public class TaskList {
         return ""; // Default case
     }
 
+    /**
+     * Converts a string representation of a task into a task object.
+     *
+     * @param line The string representing a task.
+     * @return The task object represented by the string.
+     */
     private Task stringToTask(String line) {
         try {
             String[] parts = line.split(" \\| ");

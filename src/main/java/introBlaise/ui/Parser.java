@@ -67,6 +67,7 @@ public class Parser {
                     LocalDate localDate = LocalDate.parse(dateInput, formatter);
 
                     // Call the method with the parsed LocalDate
+                    taskList.printTasksForDate(localDate);
                  } catch (DateTimeParseException e) {
                     System.out.println("Invalid date format. Please enter the date in d-MM-yyyy format.");
                 }

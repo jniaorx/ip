@@ -16,6 +16,9 @@ import introblaise.task.Task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.List;
+
+import com.sun.security.jgss.GSSUtil;
 
 /**
  * The Commands class handles the execution fo user commands in the chatbot.
@@ -77,6 +80,8 @@ public class Parser {
                  } catch (DateTimeParseException e) {
                     System.out.println("Invalid date format. Please enter the date in d-MM-yyyy format.");
                 }
+            } else if (userInput.startsWith("find")) {
+                handleFindCommand(userInput);
             } else {
                 throw new InvalidInputException("Err...I don't understand this :(. Please give a valid command!");
             }
@@ -189,7 +194,7 @@ public class Parser {
      */
     public void addDeadlineTask(String userInput) throws StringIndexOutOfBoundsException {
         try {
-            // Get iDeadline task from user input.
+            // Get Deadline task from user input.
             Deadline deadlineTask = getDeadlineTask(userInput);
             taskList.addTask(deadlineTask);
             int numOfTask = taskList.getTasksList().size();
@@ -318,6 +323,25 @@ public class Parser {
                     + "you are deleting the correct task?");
         } catch (NumberFormatException e) {
             System.out.println("Uh oh! Invalid number. Please enter a number after 'delete'.");
+        }
+    }
+
+    public void handleFindCommand(String userInput) {
+        String keyword = userInput.substring(5).trim();
+        if (keyword.isEmpty()) {
+            System.out.println("Please provide a keyword to search.");
+            return;
+        }
+
+        List<Task> matchingTasks = taskList.findTasksByKeyword(keyword);
+        if (matchingTasks.isEmpty()) {
+            System.out.println("No tasks found with the keyword: " + keyword);
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                Task task = matchingTasks.get(i);
+                System.out.println((i + 1) + "." + task);
+            }
         }
     }
 }

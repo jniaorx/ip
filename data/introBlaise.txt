@@ -5,3 +5,4 @@ D | 0 | return book | 31-01-2025 1600
 D | 0 | return book | 5-02-2025 1600
 D | 0 | return book | 2-05-2024 1700
 D | 0 | return book | 2-05-2025 1700
+E | 0 | lesson | 02-05-2025 1600 to 02-05-2025 1700

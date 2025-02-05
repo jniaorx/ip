@@ -63,7 +63,6 @@ public class Event extends Task {
      * @return The parsed end date/time as a LocalDateTime object.
      */
     public LocalDateTime getTo() {
-
         return parsedTo;
     }
 
@@ -76,7 +75,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MM-yyyy HHmm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
         String formattedFrom = parsedFrom.format(formatter);
         String formattedTo = parsedTo.format(formatter);
 

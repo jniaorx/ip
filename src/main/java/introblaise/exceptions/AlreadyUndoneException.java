@@ -12,19 +12,4 @@ public class AlreadyUndoneException extends IntroBlaiseException {
     public AlreadyUndoneException(String exception) {
         super(exception);
     }
-
-    /**
-     * Exception class representing an error condition where an attempt is made to add
-     * a task without description.
-     */
-    public static class EmptyDescriptionException extends IntroBlaiseException {
-        /**
-         * Constructs a new {@code EmptyDescriptionException} with the
-         * specified detail message.
-         * @param exception The detail message that explains the reason for this exception.
-         */
-        public EmptyDescriptionException(String exception) {
-            super(exception);
-        }
-    }
 }

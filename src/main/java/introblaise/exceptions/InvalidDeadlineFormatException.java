@@ -10,6 +10,7 @@ public class InvalidDeadlineFormatException extends IntroBlaiseException {
      * @param exception The detail message that explains the reason for this exception.
      */
     public InvalidDeadlineFormatException(String exception) {
+
         super(exception);
     }
 }

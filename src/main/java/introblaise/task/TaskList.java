@@ -21,7 +21,7 @@ public class TaskList {
         this.storage = new Storage();
         List<String> loadedTasks = storage.loadTasks();
 
-        // Convert loaded tasks from stings to introBlaise.task.Task objects and update taskslist
+        // Convert loaded tasks from strings to Task objects and update taskslist
         for (String taskStr : loadedTasks) {
             Task task = stringToTask(taskStr);
             if (task != null) {
@@ -53,7 +53,7 @@ public class TaskList {
     public void removeTask(Task task) {
 
         tasksList.remove(task);
-        saveTasks();;
+        saveTasks();
 
     }
 
@@ -181,7 +181,7 @@ public class TaskList {
     private Task stringToTask(String line) {
         try {
             String[] parts = line.split(" \\| ");
-            if (parts.length < 4) { // Check if the parts array has enough data
+            if (parts.length < 1) { // Check if the parts array has enough data
                 System.out.println("There is currently no tasks to be done.");
                 return null;
             }

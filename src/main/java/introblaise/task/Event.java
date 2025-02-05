@@ -53,6 +53,7 @@ public class Event extends Task {
      * @return The parsed start date/time as a LocalDateTime object.
      */
     public LocalDateTime getFrom() {
+
         return parsedFrom;
     }
 
@@ -62,6 +63,7 @@ public class Event extends Task {
      * @return The parsed end date/time as a LocalDateTime object.
      */
     public LocalDateTime getTo() {
+
         return parsedTo;
     }
 

@@ -196,6 +196,13 @@ public class Parser {
         try {
             // Get Deadline task from user input.
             Deadline deadlineTask = getDeadlineTask(userInput);
+
+            // Ensure task is valid before adding it to the list
+            if (deadlineTask.getDeadline() == null) {
+                System.out.println("Task was not added due to an invalid deadline.");
+                return;
+            }
+
             taskList.addTask(deadlineTask);
             int numOfTask = taskList.getTasksList().size();
 

@@ -2,6 +2,7 @@ package introblaise.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * Represents a task with a specific deadline that needs to be completed before a certain date or time.
@@ -34,9 +35,14 @@ public class Deadline extends Task {
      * @param by The deadline string.
      * @return A LocalDateTime object representing the deadline.
      */
-    private LocalDateTime parseDeadline(String by) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MM-yyyy HHmm");
-        return LocalDateTime.parse(by, formatter);
+    private LocalDateTime parseDeadline(String by) throws IllegalArgumentException{
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MM-yyyy HHmm");
+            return LocalDateTime.parse(by, formatter);
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid date format! Please use 'd-MM-yyyy HHmm'.");
+        }
+        return null;
     }
 
     /**
@@ -56,8 +62,12 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+        if (deadline == null) {
+            return "[D]" + super.toString() + " (by: Invalid Deadline)";
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
         String formattedDate = deadline.format(formatter);
         return "[D]" + super.toString() + " (by: " + formattedDate + ")";
     }
+
 }

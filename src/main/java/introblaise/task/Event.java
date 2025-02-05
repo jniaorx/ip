@@ -2,6 +2,8 @@ package introblaise.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 /**
  * Represents a task that occurs within a specific time frame.
  * The {@code introBlaise.task.Event} class extends the {@code introBlaise.task.Task} class to include
@@ -31,8 +33,8 @@ public class Event extends Task {
         super(description);
         this.from = from;
         this.to = to;
-        this.parsedFrom = parseDateTime(from);
-        this.parsedTo = parseDateTime(to);
+        this.parsedFrom = parseEventDateTime(from);
+        this.parsedTo = parseEventDateTime(to);
     }
 
     /**
@@ -42,9 +44,14 @@ public class Event extends Task {
      * @param dateTimeStr The string representation of date/time.
      * @return A LocalDateTime object parsed from the provided string.
      */
-    private LocalDateTime parseDateTime(String dateTimeStr) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MM-yyyy HHmm");
-        return LocalDateTime.parse(dateTimeStr, formatter);
+    private LocalDateTime parseEventDateTime(String dateTimeStr) {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MM-yyyy HHmm");
+            return LocalDateTime.parse(dateTimeStr, formatter);
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid date format! Please use 'd-MM-yyyy HHmm'.");
+        }
+        return null;
     }
 
     /**
@@ -53,7 +60,6 @@ public class Event extends Task {
      * @return The parsed start date/time as a LocalDateTime object.
      */
     public LocalDateTime getFrom() {
-
         return parsedFrom;
     }
 
@@ -75,6 +81,9 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
+        if (parsedFrom == null || parsedTo == null) {
+            return "[E]" + super.toString() + " (by: Invalid Event Time)";
+        }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
         String formattedFrom = parsedFrom.format(formatter);
         String formattedTo = parsedTo.format(formatter);

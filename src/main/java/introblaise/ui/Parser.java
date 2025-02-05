@@ -197,7 +197,7 @@ public class Parser {
             // Get Deadline task from user input.
             Deadline deadlineTask = getDeadlineTask(userInput);
 
-            // Ensure task is valid before adding it to the list
+            // Ensure deadline is valid before adding it to the list
             if (deadlineTask.getDeadline() == null) {
                 System.out.println("Task was not added due to an invalid deadline.");
                 return;
@@ -246,6 +246,13 @@ public class Parser {
     public void addEventTask(String userInput) throws StringIndexOutOfBoundsException {
         try {
             Event eventTask = getEvent(userInput);
+
+            // Ensure deadline is valid before adding it to the list
+            if (eventTask.getFrom() == null || eventTask.getTo() == null) {
+                System.out.println("Task was not added due to an invalid date and time.");
+                return;
+            }
+
             taskList.addTask(eventTask);
             int numOfTask = taskList.getTasksList().size(); // no of task in task list
 

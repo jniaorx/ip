@@ -51,7 +51,6 @@ public class TaskList {
      * @param task The task to be removed.
      */
     public void removeTask(Task task) {
-
         tasksList.remove(task);
         saveTasks();
 
@@ -89,7 +88,6 @@ public class TaskList {
      * @return The task at the specified index.
      */
     public Task getTask(int taskIndex) {
-
         return tasksList.get(taskIndex);
     }
 
@@ -99,7 +97,6 @@ public class TaskList {
      * @return An {@code ArrayList} containing all tasks.
      */
     public ArrayList<Task> getTasksList() {
-
         return tasksList;
     }
 
@@ -229,7 +226,6 @@ public class TaskList {
                 matchingTasks.add(task);
             }
         }
-
         return matchingTasks;
     }
 }

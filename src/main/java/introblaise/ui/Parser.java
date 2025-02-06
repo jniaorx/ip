@@ -90,6 +90,10 @@ public class Parser {
             // Extract task index from the input and mark the task as done.
             int taskNo = Integer.parseInt(userInput.substring(5)) - 1;
             Task currTask = taskList.getTask(taskNo);
+            if (taskNo < 0 || taskNo >= taskList.getTasksList().size()) {
+                throw new IndexOutOfBoundsException("Invalid task number.");
+            }
+
             currTask.markAsDone();
             taskList.saveTasks();
             // Notify the user that the task is marked as done.
@@ -115,6 +119,10 @@ public class Parser {
         try {
             // Extract the task index from the input and mark the task as undone.
             int taskNo = Integer.parseInt(userInput.substring(7)) - 1;
+            if (taskNo < 0 || taskNo >= taskList.getTasksList().size()) {
+                throw new IndexOutOfBoundsException("Invalid task number.");
+            }
+
             Task currTask = taskList.getTask(taskNo);
 
             // Error thrown when user tries to unmark an undone task.
@@ -337,7 +345,6 @@ public class Parser {
         String dateInput = userInput.substring(9).trim(); // Extract the date part from input
         // Define the expected date format
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MM-yyyy");
-
         try {
             // Convert the string to LocalDate
             LocalDate localDate = LocalDate.parse(dateInput, formatter);
@@ -349,6 +356,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Retrieves task from task list that matches the keyword based on user input.
+     *
+     * @param userInput The user input string, expected in the format find x where x is the keyword.
+     */
     public void handleFindCommand(String userInput) {
         String keyword = userInput.substring(5).trim();
         if (keyword.isEmpty()) {

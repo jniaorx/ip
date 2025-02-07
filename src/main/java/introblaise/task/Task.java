@@ -46,6 +46,15 @@ public class Task {
     }
 
     /**
+     * Returns whether the task is marked as done or not.
+     *
+     * @return False if the task is marked as undone, true if the task is marked as done.
+     */
+    public boolean getIsDone() {
+        return isDone;
+    }
+
+    /**
      * Returns a string representation of the task.
      * The string includes the task's status icon and description
      *

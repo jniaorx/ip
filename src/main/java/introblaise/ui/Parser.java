@@ -1,25 +1,22 @@
 package introblaise.ui;
 
-import introblaise.exceptions.AlreadyUndoneException;
-import introblaise.exceptions.InvalidEventFromFormatException;
-import introblaise.exceptions.InvalidEventToFormatException;
-import introblaise.exceptions.InvalidInputException;
-import introblaise.exceptions.InvalidDeadlineFormatException;
-import introblaise.exceptions.DeleteEmptyTaskListException;
-import introblaise.exceptions.EmptyDescriptionException;
-import introblaise.task.ToDo;
-import introblaise.task.Deadline;
-import introblaise.task.Event;
-import introblaise.task.TaskList;
-import introblaise.task.Task;
-
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
-import com.sun.security.jgss.GSSUtil;
+import introblaise.exceptions.AlreadyUndoneException;
+import introblaise.exceptions.DeleteEmptyTaskListException;
+import introblaise.exceptions.EmptyDescriptionException;
+import introblaise.exceptions.InvalidDeadlineFormatException;
+import introblaise.exceptions.InvalidEventFromFormatException;
+import introblaise.exceptions.InvalidEventToFormatException;
+import introblaise.exceptions.InvalidInputException;
+import introblaise.task.Deadline;
+import introblaise.task.Event;
+import introblaise.task.Task;
+import introblaise.task.TaskList;
+import introblaise.task.ToDo;
 
 /**
  * The Commands class handles the execution fo user commands in the chatbot.
@@ -125,7 +122,7 @@ public class Parser {
             Task currTask = taskList.getTask(taskNo);
 
             // Error thrown when user tries to unmark an undone task.
-            if (!currTask.isDone) {
+            if (!currTask.getIsDone()) {
                 throw new AlreadyUndoneException("This task has already been marked undone!");
             }
             currTask.markAsUndone();
@@ -166,8 +163,8 @@ public class Parser {
 
             // Notify the user that the task has been added.
             StringBuilder response = new StringBuilder();
-            response.append("Got it. I've added this task: ").append("\n").append(todoTask).append("\n").
-                    append("Now you have ").append(numOfTask).append(" tasks in the list.");
+            response.append("Got it. I've added this task: ").append("\n").append(todoTask).append("\n")
+                            .append("Now you have ").append(numOfTask).append(" tasks in the list.");
             return response.toString().trim();
         } catch (NumberFormatException e) {
             return "Uh oh! Invalid number. Please enter a number after 'unmark'.";
@@ -181,7 +178,8 @@ public class Parser {
     /**
      * Adds a Deadline task to the task list.
      *
-     * @param userInput The user input string, expected in  the format deadline x /by date where x is the task description.
+     * @param userInput The user input string,
+     *                  expected in the format deadline x /by date where x is the task description.
      * @throws StringIndexOutOfBoundsException Exception thrown when format of user input is incorrect.
      */
     public String addDeadlineTask(String userInput) throws StringIndexOutOfBoundsException {
@@ -199,7 +197,8 @@ public class Parser {
 
             // Notify the user that the task has been added.
             StringBuilder response = new StringBuilder();
-            response.append("Got it. I've added this task: ").append("\n").append(deadlineTask).append("\n").append("Now you have ").append(numOfTask).append(" tasks in the list.");
+            response.append("Got it. I've added this task: ").append("\n").append(deadlineTask).append("\n")
+                    .append("Now you have ").append(numOfTask).append(" tasks in the list.");
             return response.toString().trim();
         } catch (StringIndexOutOfBoundsException e) {
             return "Please enter a description and a deadline for your task!";
@@ -211,7 +210,8 @@ public class Parser {
     /**
      * Creates a Deadline task based on user input.
      *
-     * @param userInput The user input string, expected in  the format deadline x /by date where x is the task description.
+     * @param userInput The user input string,
+     *                  expected in the format deadline x /by date where x is the task description.
      * @return A Deadline task.
      * @throws InvalidDeadlineFormatException Exception thrown when format of user's input is incorrect.
      */
@@ -220,16 +220,17 @@ public class Parser {
         int separator = userInput.indexOf("/") + 4;
         String deadline = userInput.substring(separator);
         if (deadline.isEmpty()) {
-            throw new InvalidDeadlineFormatException("There seems to be no deadline entered...? Please enter a deadline after the word /by.");
+            throw new InvalidDeadlineFormatException("There seems to be no deadline entered...? "
+                    + "Please enter a deadline after the word /by.");
         }
-
         return new Deadline(description, deadline);
     }
 
     /**
      * Adds an Event task to the task list.
      *
-     * @param userInput The user input string, expected in the format event x /from date /to date where x is the task description.
+     * @param userInput The user input string, expected in the format event
+     *                  x /from date /to date where x is the task description.
      * @throws StringIndexOutOfBoundsException Exception thrown when format of user input is incorrect.
      */
     public String addEventTask(String userInput) throws StringIndexOutOfBoundsException {
@@ -245,13 +246,13 @@ public class Parser {
             int numOfTask = taskList.getTasksList().size(); // no of task in task list
 
             StringBuilder response = new StringBuilder();
-           response.append("Got it. I've added this task: ").append("\n").append(eventTask)
+            response.append("Got it. I've added this task: ").append("\n").append(eventTask)
                     .append("\n").append("Now you have ").append(numOfTask).append(" tasks in the list.");
             return response.toString().trim();
         } catch (StringIndexOutOfBoundsException e) {
             return "Please enter a description and a duration for your task!";
-        } catch (InvalidEventFromFormatException | InvalidEventToFormatException |
-                 EmptyDescriptionException e) {
+        } catch (InvalidEventFromFormatException | InvalidEventToFormatException
+                 | EmptyDescriptionException e) {
             return e.getMessage();
         }
     }
@@ -259,13 +260,15 @@ public class Parser {
     /**
      * Creates an Event task based on user input.
      *
-     * @param userInput The user input string, expected in  the format event x /from date /to date where x is the task description.
+     * @param userInput The user input string,
+     *                  expected in the format event x /from date /to date where x is the task description.
      * @return An introBlaise.task.Event task.
      * @throws EmptyDescriptionException Exception thrown when no description is entered.
      * @throws InvalidEventFromFormatException Exception thrown when format of user input is incorrect.
      * @throws InvalidEventToFormatException Exception thrown when format of user input is incorrect.
      */
-    private static Event getEvent(String userInput) throws EmptyDescriptionException, InvalidEventFromFormatException, InvalidEventToFormatException {
+    private static Event getEvent(String userInput) throws EmptyDescriptionException,
+            InvalidEventFromFormatException, InvalidEventToFormatException {
         // Extract description from user input.
         String description = userInput.substring(5, userInput.indexOf("/")).trim();
         if (description.isEmpty()) {

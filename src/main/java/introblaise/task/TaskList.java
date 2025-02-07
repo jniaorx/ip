@@ -115,7 +115,8 @@ public class TaskList {
      *
      * @param date The date to check for tasks.
      */
-    public void printTasksForDate(LocalDate date) {
+    public String printTasksForDate(LocalDate date) {
+        StringBuilder result = new StringBuilder();
         for (Task task : tasksList) {
             // Check if the task is an instance of introBlaise.task.Deadline
             if (task instanceof Deadline) {
@@ -124,7 +125,7 @@ public class TaskList {
                 // Get the date part from Deadline
                 LocalDate taskDate = deadlineTask.getDeadline().toLocalDate();
                 if (taskDate.isEqual(date)) {
-                    System.out.println(task);
+                    result.append(task);
                 }
             }
             // Check if the task is an instance of introBlaise.task.Event
@@ -132,11 +133,12 @@ public class TaskList {
                 Event eventTask = (Event) task;
                 LocalDate eventDate = eventTask.getFrom().toLocalDate();
                 if (eventDate.isEqual(date)) {
-                    System.out.println(task);
+                    result.append(task);
                 }
             }
             // Skip ToDo tasks as they don't have a specific date
         }
+        return result.toString().trim();
     }
 
     /**

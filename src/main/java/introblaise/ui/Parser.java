@@ -164,9 +164,9 @@ public class Parser {
 
             // Notify the user that the task has been added.
             StringBuilder response = new StringBuilder();
-            StringBuilder responseString = response.append("Got it. I've added this task: ").append(todoTask).append("\n").
+            response.append("Got it. I've added this task: ").append(todoTask).append("\n").
                     append("Now you have ").append(numOfTask).append(" tasks in the list.");
-            return responseString.toString().trim();
+            return response.toString().trim();
         } catch (NumberFormatException e) {
             return "Uh oh! Invalid number. Please enter a number after 'unmark'.";
         } catch (StringIndexOutOfBoundsException e) {
@@ -197,9 +197,8 @@ public class Parser {
 
             // Notify the user that the task has been added.
             StringBuilder response = new StringBuilder();
-            StringBuilder responseString = response.append("Got it. I've added this task: ").append(deadlineTask)
-                    .append("\n").append("Now you have ").append(numOfTask).append(" tasks in the list.");
-            return responseString.toString().trim();
+            response.append("Got it. I've added this task: ").append(deadlineTask).append("\n").append("Now you have ").append(numOfTask).append(" tasks in the list.");
+            return response.toString().trim();
         } catch (StringIndexOutOfBoundsException e) {
             return "Please enter a description and a deadline for your task!";
         } catch (InvalidDeadlineFormatException e) {
@@ -244,9 +243,9 @@ public class Parser {
             int numOfTask = taskList.getTasksList().size(); // no of task in task list
 
             StringBuilder response = new StringBuilder();
-            StringBuilder responseString = response.append("Got it. I've added this task: ").append(eventTask)
+           response.append("Got it. I've added this task: ").append(eventTask)
                     .append("\n").append("Now you have ").append(numOfTask).append(" tasks in the list.");
-            return responseString.toString().trim();
+            return response.toString().trim();
         } catch (StringIndexOutOfBoundsException e) {
             return "Please enter a description and a duration for your task!";
         } catch (InvalidEventFromFormatException | InvalidEventToFormatException |
@@ -312,9 +311,9 @@ public class Parser {
 
             // Notify the user that the task has been deleted.
             StringBuilder response = new StringBuilder();
-            StringBuilder responseString = response.append("Noted. I've removed this task: ").append(currTask)
+            response.append("Noted. I've removed this task: ").append(currTask)
                     .append("\n").append("Now you have ").append(numOfTask).append(" tasks in the list.");
-            return responseString.toString().trim();
+            return response.toString().trim();
         } catch (DeleteEmptyTaskListException e) {
             return e.getMessage();
         } catch (IndexOutOfBoundsException e) {
@@ -330,7 +329,7 @@ public class Parser {
      *
      * @param userInput The user input string, expected in the format "tasks on d-MM-yyyy".
      */
-    public void getTasksOnDate(String userInput) {
+    public String getTasksOnDate(String userInput) {
         String dateInput = userInput.substring(9).trim(); // Extract the date part from input
         // Define the expected date format
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MM-yyyy");
@@ -339,9 +338,9 @@ public class Parser {
             LocalDate localDate = LocalDate.parse(dateInput, formatter);
 
             // Call the method with the parsed LocalDate
-            taskList.printTasksForDate(localDate);
+            return taskList.printTasksForDate(localDate);
         } catch (DateTimeParseException e) {
-            System.out.println("Invalid date format. Please enter the date in d-MM-yyyy format.");
+            return "Invalid date format. Please enter the date in d-MM-yyyy format.";
         }
     }
 

@@ -97,7 +97,7 @@ public class Parser {
             currTask.markAsDone();
             taskList.saveTasks();
             // Notify the user that the task is marked as done.a
-            return "Well done! I've marked this task as done: " + currTask;
+            return "Well done! I've marked this task as done: " + "\n" + currTask;
         } catch (IndexOutOfBoundsException e) {
             return "Uh oh! Invalid index. Are you sure you are marking the correct task?";
         } catch (NumberFormatException e) {
@@ -130,7 +130,7 @@ public class Parser {
             taskList.saveTasks();
 
             // Notify the user that the task is marked as not done.
-            return "OK, I've marked this task as not done yet: " + currTask;
+            return "OK, I've marked this task as not done yet: " + "\n" + currTask;
 
         } catch (IndexOutOfBoundsException e) {
             return "Uh oh! Invalid index. Are you sure you are unmarking the correct task?";
@@ -164,7 +164,7 @@ public class Parser {
 
             // Notify the user that the task has been added.
             StringBuilder response = new StringBuilder();
-            response.append("Got it. I've added this task: ").append(todoTask).append("\n").
+            response.append("Got it. I've added this task: ").append("\n").append(todoTask).append("\n").
                     append("Now you have ").append(numOfTask).append(" tasks in the list.");
             return response.toString().trim();
         } catch (NumberFormatException e) {
@@ -197,7 +197,7 @@ public class Parser {
 
             // Notify the user that the task has been added.
             StringBuilder response = new StringBuilder();
-            response.append("Got it. I've added this task: ").append(deadlineTask).append("\n").append("Now you have ").append(numOfTask).append(" tasks in the list.");
+            response.append("Got it. I've added this task: ").append("\n").append(deadlineTask).append("\n").append("Now you have ").append(numOfTask).append(" tasks in the list.");
             return response.toString().trim();
         } catch (StringIndexOutOfBoundsException e) {
             return "Please enter a description and a deadline for your task!";
@@ -243,7 +243,7 @@ public class Parser {
             int numOfTask = taskList.getTasksList().size(); // no of task in task list
 
             StringBuilder response = new StringBuilder();
-           response.append("Got it. I've added this task: ").append(eventTask)
+           response.append("Got it. I've added this task: ").append("\n").append(eventTask)
                     .append("\n").append("Now you have ").append(numOfTask).append(" tasks in the list.");
             return response.toString().trim();
         } catch (StringIndexOutOfBoundsException e) {
@@ -311,7 +311,7 @@ public class Parser {
 
             // Notify the user that the task has been deleted.
             StringBuilder response = new StringBuilder();
-            response.append("Noted. I've removed this task: ").append(currTask)
+            response.append("Noted. I've removed this task: ").append("\n").append(currTask)
                     .append("\n").append("Now you have ").append(numOfTask).append(" tasks in the list.");
             return response.toString().trim();
         } catch (DeleteEmptyTaskListException e) {

@@ -45,7 +45,9 @@ public class Parser {
      */
     public String executeCommand(String userInput) {
         try {
-            if (userInput.equalsIgnoreCase("List")) {
+            if (userInput.equalsIgnoreCase("Bye")) {
+                return "Bye! Hope to see you again soon! :(";
+            } else if (userInput.equalsIgnoreCase("List")) {
                 // Displays the task list when "list" is input.
                 return taskList.printTaskList();
             } else if (userInput.startsWith("mark")) {

@@ -43,6 +43,9 @@ public class IntroBlaise {
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
-        return "Duke heard: " + input;
+        TaskList taskList = new TaskList();
+        Parser commands = new Parser(taskList);
+
+        return commands.executeCommand(input);
     }
 }

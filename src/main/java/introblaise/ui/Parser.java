@@ -43,11 +43,11 @@ public class Parser {
      *
      * @param userInput The user's input as a command string.
      */
-    public void executeCommand(String userInput) {
+    public String executeCommand(String userInput) {
         try {
             if (userInput.equalsIgnoreCase("List")) {
                 // Displays the task list when "list" is input.
-                taskList.printTaskList();
+                return taskList.printTaskList();
             } else if (userInput.startsWith("mark")) {
                 // Marks a task as done based on its index.
                 markTaskAsDone(userInput);
@@ -74,7 +74,7 @@ public class Parser {
                 throw new InvalidInputException("Err...I don't understand this :(. Please give a valid command!");
             }
         } catch (InvalidInputException e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         }
     }
 

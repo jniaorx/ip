@@ -61,23 +61,21 @@ public class TaskList {
      * If the task list is empty, an {@code introBlaise.exceptions.EmptyTaskListException} is thrown and its
      * message is printed instead.
      */
-    public void printTaskList() {
+    public String printTaskList() {
         try {
             // Check if the task list is empty.
             if (tasksList.isEmpty()) {
                 throw new EmptyTaskListException("Oh no! Your task list is empty now. Please add tasks!");
             } else {
-                // Print all tasks in the list.
-                System.out.println("    _________________________________");
-                System.out.println("    Here are the tasks in your list:");
+                StringBuilder result = new StringBuilder();
                 for (int i = 0; i < tasksList.size(); i++) {
-                    System.out.println("    " + (i + 1) + ". " + getTask(i));
+                    result.append(i + 1).append(". ").append(getTask(i)).append("\n");
                 }
-                System.out.println("    _________________________________");
+                return result.toString().trim();
             }
         } catch (EmptyTaskListException e) {
             // Handle empty task list by printing the exception message.
-            System.out.println(e.getMessage());
+            return e.getMessage();
         }
     }
 

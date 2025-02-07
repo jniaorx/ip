@@ -50,26 +50,26 @@ public class Parser {
                 return taskList.printTaskList();
             } else if (userInput.startsWith("mark")) {
                 // Marks a task as done based on its index.
-                markTaskAsDone(userInput);
+                return markTaskAsDone(userInput);
             } else if (userInput.startsWith("unmark")) {
                 // Marks a task as not done based on its index.
-                unmarkTaskAsUndone(userInput);
+                return unmarkTaskAsUndone(userInput);
             } else if (userInput.startsWith("todo")) {
                 // Adds a new To-Do task to the list.
-                addTodoTask(userInput);
+                return addTodoTask(userInput);
             } else if (userInput.startsWith("deadline")) {
                 // Adds a new introBlaise.task.Deadline task with a specific due date.
-                addDeadlineTask(userInput);
+                return addDeadlineTask(userInput);
             } else if (userInput.startsWith("event")) {
                 // Adds a new introBlaise.task.Event task with a duration.
-                addEventTask(userInput);
+                return addEventTask(userInput);
             } else if (userInput.startsWith("delete")) {
                 // Deletes a task from the list based on its index.
-                deleteTask(userInput);
+                return deleteTask(userInput);
             } else if (userInput.startsWith("tasks on")) {
-                getTasksOnDate(userInput);
+                return getTasksOnDate(userInput);
             } else if (userInput.startsWith("find")) {
-                handleFindCommand(userInput);
+                return handleFindCommand(userInput);
             } else {
                 throw new InvalidInputException("Err...I don't understand this :(. Please give a valid command!");
             }
@@ -85,7 +85,7 @@ public class Parser {
      * @throws IndexOutOfBoundsException Exception thrown when format of user input is incorrect.
      * @throws NumberFormatException Exception thrown when number format of user input is incorrect.
      */
-    public void markTaskAsDone(String userInput) throws IndexOutOfBoundsException, NumberFormatException {
+    public String markTaskAsDone(String userInput) throws IndexOutOfBoundsException, NumberFormatException {
         try {
             // Extract task index from the input and mark the task as done.
             int taskNo = Integer.parseInt(userInput.substring(5)) - 1;
@@ -96,15 +96,12 @@ public class Parser {
 
             currTask.markAsDone();
             taskList.saveTasks();
-            // Notify the user that the task is marked as done.
-            System.out.println("    _________________________________");
-            System.out.println("    Well done! I've marked this task as done:");
-            System.out.println("        " + currTask);
-            System.out.println("    _________________________________");
+            // Notify the user that the task is marked as done.a
+            return "Well done! I've marked this task as done: " + currTask;
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Uh oh! Invalid index. Are you sure you are marking the correct task?");
+            return "Uh oh! Invalid index. Are you sure you are marking the correct task?";
         } catch (NumberFormatException e) {
-            System.out.println("Uh oh! Invalid number. Please enter a number after 'unmark'.");
+            return "Uh oh! Invalid number. Please enter a number after 'unmark'.";
         }
     }
 

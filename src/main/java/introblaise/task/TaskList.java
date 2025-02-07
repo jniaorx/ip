@@ -17,6 +17,9 @@ public class TaskList {
     private final ArrayList<Task> tasksList = new ArrayList<>();
     private final Storage storage; // Instance of saveData
 
+    /**
+     * Constructs a new task list for users to add tasks in it.
+     */
     public TaskList() {
         this.storage = new Storage();
         List<String> loadedTasks = storage.loadTasks();
@@ -164,7 +167,8 @@ public class TaskList {
             return "D | " + (task.isDone ? "1" : "0") + " | " + task.description + " | " + deadline.by;
         } else if (task instanceof Event) {
             Event event = (Event) task;
-            return "E | " + (task.isDone ? "1" : "0") + " | " + task.description + " | " + event.from + " to " + event.to;
+            return "E | " + (task.isDone ? "1" : "0") + " | " + task.description + " | " + event.from
+                    + " to " + event.to;
         }
         return ""; // Default case
     }
@@ -219,6 +223,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Finds and lists tasks that match the keyword based on user input.
+     * @param keyword The keyword of task that user wants to find.
+     * @return A list of tasks that matches the keyword.
+     */
     public List<Task> findTasksByKeyword(String keyword) {
         List<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasksList) {

@@ -40,6 +40,9 @@ public class IntroBlaise {
 
     /**
      * Generates a response for the user's chat message.
+     *
+     * @param input The user input, typically a command to be processed.
+     * @return A string response after the command has been executed.
      */
     public String getResponse(String input) {
         TaskList taskList = new TaskList();

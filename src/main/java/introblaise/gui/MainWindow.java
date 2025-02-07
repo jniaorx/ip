@@ -43,7 +43,7 @@ public class MainWindow extends AnchorPane {
     /**
      * Displays the welcome message from the Ui object in the welcome label.
      *
-     * This method calls the {@link Ui#showWelcome()} metod to retrieve the welcome message
+     * This method calls the {@link Ui#showWelcome()} method to retrieve the welcome message
      * and then sets it as the text of the welcome label in the GUI.
      *
      * @param ui The ui instance that generated the welcome message to be displayed.

@@ -36,7 +36,6 @@ public class IntroBlaise {
         // Close scanner before exiting
         ui.closeScanner();
         */
-        System.out.println("Hello!");
     }
 
     /**

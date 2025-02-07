@@ -1,10 +1,12 @@
 package introblaise.gui;
 
 import introblaise.ui.IntroBlaise;
+import introblaise.ui.Ui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -20,6 +22,8 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
+    @FXML
+    private Label welcomeLabel; // Label for welcome message
 
     private IntroBlaise introBlaise;
 
@@ -34,6 +38,14 @@ public class MainWindow extends AnchorPane {
     /** Injects the IntroBlaise instance */
     public void setIntroBlaise(IntroBlaise intro) {
         introBlaise = intro;
+    }
+
+    /**
+     *
+     * @param ui
+     */
+    public void showWelcomeMessage (Ui ui) {
+        welcomeLabel.setText(ui.showWelcome());
     }
 
     /**

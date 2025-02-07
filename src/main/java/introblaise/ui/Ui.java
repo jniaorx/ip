@@ -20,17 +20,14 @@ public class Ui {
     /**
      * Displays the bot's welcome message with an ASCII logo and greets the user.
      */
-    public void showWelcome() {
+    public String showWelcome() {
         String logo =
                 ".___        __               __________.__         .__\n" +
                         "|   | _____/  |________  ____\\______   \\  | _____  |__| ______ ____\n" +
                         "|   |/    \\   __\\_  __ \\/  _ \\|    |  _/  | \\__  \\ |  |/  ___// __ \\\n" +
                         "|   |   |  \\  |  |  | \\(  <_> )    |   \\  |__/ __ \\|  |\\___ \\\\  ___/\n" +
-                        "|___|___|  /__|  |__|   \\____/|______  /____(____  /__/____  >\\___  >\n" +
-                        "\n";
-        System.out.println("Hello from\n" + logo);
-
-        greetings.greet(scanner);
+                        "|___|___|  /__|  |__|   \\____/|______  /____(____  /__/____  >\n";
+        return "Hello from" + "\n" + logo;
     }
 
     /**

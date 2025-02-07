@@ -4,9 +4,9 @@ import introblaise.ui.IntroBlaise;
 import introblaise.ui.Ui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -48,7 +48,7 @@ public class MainWindow extends AnchorPane {
      *
      * @param ui The ui instance that generated the welcome message to be displayed.
      */
-    public void showWelcomeMessage (Ui ui) {
+    public void showWelcomeMessage(Ui ui) {
         welcomeLabel.setText(ui.showWelcome());
     }
 

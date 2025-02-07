@@ -1,10 +1,19 @@
 package introblaise.task;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.Test;
+
+/**
+ * Unit tests for the {@link TaskList} class.
+ *
+ * This class tests the functionality of tasks being added into the task list.
+ */
 public class TaskListTest {
+    /**
+     * Tests that calling {@link TaskList#addTask(Task)} correctly adds task into
+     * the task list by checking the size of the task list.
+     */
     @Test
     public void addTask_taskAdded_taskListSizeIncreases() {
         TaskList taskList = new TaskList();

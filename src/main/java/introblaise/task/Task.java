@@ -2,15 +2,14 @@ package introblaise.task;
 
 /**
  * Represents a generic task with a description and completion status.
- * The {@code introBlaise.task.Task} class serves as a base class for different types of tasks.
+ * The {@code Task} class serves as a base class for different types of tasks.
  * It provides methods to manage the task's description and completion status.
  */
 public class Task {
     // The description of the task.
     protected String description;
-
     // Indicates whether the task is marked as done.
-    public boolean isDone;
+    private boolean isDone;
 
     /**
      * Constructs a new introBlaise.task.Task with the specified description.
@@ -47,9 +46,18 @@ public class Task {
     }
 
     /**
+     * Returns whether the task is marked as done or not.
+     *
+     * @return False if the task is marked as undone, true if the task is marked as done.
+     */
+    public boolean getIsDone() {
+        return isDone;
+    }
+
+    /**
      * Returns a string representation of the task.
      * The string includes the task's status icon and description
-     * 
+     *
      * @return A formatted string representing the task.
      */
     @Override

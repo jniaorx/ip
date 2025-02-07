@@ -35,7 +35,7 @@ public class Deadline extends Task {
      * @param by The deadline string.
      * @return A LocalDateTime object representing the deadline.
      */
-    private LocalDateTime parseDeadline(String by) throws IllegalArgumentException{
+    private LocalDateTime parseDeadline(String by) throws IllegalArgumentException {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MM-yyyy HHmm");
             return LocalDateTime.parse(by, formatter);

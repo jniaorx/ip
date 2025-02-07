@@ -231,29 +231,27 @@ public class Parser {
      * @param userInput The user input string, expected in the format event x /from date /to date where x is the task description.
      * @throws StringIndexOutOfBoundsException Exception thrown when format of user input is incorrect.
      */
-    public void addEventTask(String userInput) throws StringIndexOutOfBoundsException {
+    public String addEventTask(String userInput) throws StringIndexOutOfBoundsException {
         try {
             Event eventTask = getEvent(userInput);
 
             // Ensure deadline is valid before adding it to the list
             if (eventTask.getFrom() == null || eventTask.getTo() == null) {
-                System.out.println("Task was not added due to an invalid date and time.");
-                return;
+                return "Task was not added due to an invalid date and time.";
             }
 
             taskList.addTask(eventTask);
             int numOfTask = taskList.getTasksList().size(); // no of task in task list
 
-            System.out.println("    _________________________________");
-            System.out.println("    Got it. I've added this task:");
-            System.out.println("        " + eventTask);
-            System.out.println("    Now you have " + numOfTask + " tasks in the list.");
-            System.out.println("    _________________________________");
+            StringBuilder response = new StringBuilder();
+            StringBuilder responseString = response.append("Got it. I've added this task: ").append(eventTask)
+                    .append("\n").append("Now you have ").append(numOfTask).append(" tasks in the list.");
+            return responseString.toString().trim();
         } catch (StringIndexOutOfBoundsException e) {
-            System.out.println("Please enter a description and a duration for your task!");
+            return "Please enter a description and a duration for your task!";
         } catch (InvalidEventFromFormatException | InvalidEventToFormatException |
                  EmptyDescriptionException e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         }
     }
 
@@ -299,7 +297,7 @@ public class Parser {
      * @throws IndexOutOfBoundsException Exception thrown when user is deleting the wrong task.
      * @throws NumberFormatException Exception thrown when number format of user input is incorrect.
      */
-    public void deleteTask(String userInput) throws IndexOutOfBoundsException, NumberFormatException {
+    public String deleteTask(String userInput) throws IndexOutOfBoundsException, NumberFormatException {
         try {
             if (taskList.getTasksList().isEmpty()) {
                 throw new DeleteEmptyTaskListException("Your task list is empty. You can't delete anything. "
@@ -313,18 +311,17 @@ public class Parser {
             int numOfTask = taskList.getTasksList().size();
 
             // Notify the user that the task has been deleted.
-            System.out.println("    _________________________________");
-            System.out.println("    Noted. I've removed this task:");
-            System.out.println("        " + currTask);
-            System.out.println("    Now you have " + numOfTask + " tasks in the list.");
-            System.out.println("    _________________________________");
+            StringBuilder response = new StringBuilder();
+            StringBuilder responseString = response.append("Noted. I've removed this task: ").append(currTask)
+                    .append("\n").append("Now you have ").append(numOfTask).append(" tasks in the list.");
+            return responseString.toString().trim();
         } catch (DeleteEmptyTaskListException e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Uh oh! Invalid index. Have you entered the index? Are you sure "
-                    + "you are deleting the correct task?");
+            return "Uh oh! Invalid index. Have you entered the index? Are you sure "
+                    + "you are deleting the correct task?";
         } catch (NumberFormatException e) {
-            System.out.println("Uh oh! Invalid number. Please enter a number after 'delete'.");
+            return "Uh oh! Invalid number. Please enter a number after 'delete'.";
         }
     }
 

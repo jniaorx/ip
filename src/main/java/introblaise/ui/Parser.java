@@ -349,22 +349,23 @@ public class Parser {
      *
      * @param userInput The user input string, expected in the format find x where x is the keyword.
      */
-    public void handleFindCommand(String userInput) {
+    public String handleFindCommand(String userInput) {
         String keyword = userInput.substring(5).trim();
         if (keyword.isEmpty()) {
-            System.out.println("Please provide a keyword to search.");
-            return;
+            return "Please provide a keyword to search.";
         }
 
         List<Task> matchingTasks = taskList.findTasksByKeyword(keyword);
         if (matchingTasks.isEmpty()) {
-            System.out.println("No tasks found with the keyword: " + keyword);
+            return "No tasks found with the keyword: " + keyword;
         } else {
-            System.out.println("Here are the matching tasks in your list:");
+            StringBuilder response = new StringBuilder();
+            response.append("Here are the matching tasks in your list:").append("\n");
             for (int i = 0; i < matchingTasks.size(); i++) {
                 Task task = matchingTasks.get(i);
-                System.out.println((i + 1) + "." + task);
+                response.append((i + 1)).append(". ").append(task).append("\n");
             }
+            return response.toString().trim();
         }
     }
 }

@@ -125,7 +125,7 @@ public class TaskList {
                 // Get the date part from Deadline
                 LocalDate taskDate = deadlineTask.getDeadline().toLocalDate();
                 if (taskDate.isEqual(date)) {
-                    result.append(task);
+                    result.append(task).append("\n");
                 }
             }
             // Check if the task is an instance of introBlaise.task.Event
@@ -133,7 +133,7 @@ public class TaskList {
                 Event eventTask = (Event) task;
                 LocalDate eventDate = eventTask.getFrom().toLocalDate();
                 if (eventDate.isEqual(date)) {
-                    result.append(task);
+                    result.append(task).append("\n");
                 }
             }
             // Skip ToDo tasks as they don't have a specific date

@@ -51,7 +51,6 @@ public class TaskList {
      * @param task The task to be removed.
      */
     public void removeTask(Task task) {
-
         tasksList.remove(task);
         saveTasks();
 
@@ -62,23 +61,21 @@ public class TaskList {
      * If the task list is empty, an {@code introBlaise.exceptions.EmptyTaskListException} is thrown and its
      * message is printed instead.
      */
-    public void printTaskList() {
+    public String printTaskList() {
         try {
             // Check if the task list is empty.
             if (tasksList.isEmpty()) {
                 throw new EmptyTaskListException("Oh no! Your task list is empty now. Please add tasks!");
             } else {
-                // Print all tasks in the list.
-                System.out.println("    _________________________________");
-                System.out.println("    Here are the tasks in your list:");
+                StringBuilder result = new StringBuilder();
                 for (int i = 0; i < tasksList.size(); i++) {
-                    System.out.println("    " + (i + 1) + ". " + getTask(i));
+                    result.append(i + 1).append(". ").append(getTask(i)).append("\n");
                 }
-                System.out.println("    _________________________________");
+                return result.toString().trim();
             }
         } catch (EmptyTaskListException e) {
             // Handle empty task list by printing the exception message.
-            System.out.println(e.getMessage());
+            return e.getMessage();
         }
     }
 
@@ -89,7 +86,6 @@ public class TaskList {
      * @return The task at the specified index.
      */
     public Task getTask(int taskIndex) {
-
         return tasksList.get(taskIndex);
     }
 
@@ -99,7 +95,6 @@ public class TaskList {
      * @return An {@code ArrayList} containing all tasks.
      */
     public ArrayList<Task> getTasksList() {
-
         return tasksList;
     }
 
@@ -120,7 +115,8 @@ public class TaskList {
      *
      * @param date The date to check for tasks.
      */
-    public void printTasksForDate(LocalDate date) {
+    public String printTasksForDate(LocalDate date) {
+        StringBuilder result = new StringBuilder();
         for (Task task : tasksList) {
             // Check if the task is an instance of introBlaise.task.Deadline
             if (task instanceof Deadline) {
@@ -129,7 +125,7 @@ public class TaskList {
                 // Get the date part from Deadline
                 LocalDate taskDate = deadlineTask.getDeadline().toLocalDate();
                 if (taskDate.isEqual(date)) {
-                    System.out.println(task);
+                    result.append(task).append("\n");
                 }
             }
             // Check if the task is an instance of introBlaise.task.Event
@@ -137,11 +133,12 @@ public class TaskList {
                 Event eventTask = (Event) task;
                 LocalDate eventDate = eventTask.getFrom().toLocalDate();
                 if (eventDate.isEqual(date)) {
-                    System.out.println(task);
+                    result.append(task).append("\n");
                 }
             }
             // Skip ToDo tasks as they don't have a specific date
         }
+        return result.toString().trim();
     }
 
     /**
@@ -229,7 +226,6 @@ public class TaskList {
                 matchingTasks.add(task);
             }
         }
-
         return matchingTasks;
     }
 }

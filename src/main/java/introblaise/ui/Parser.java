@@ -43,38 +43,40 @@ public class Parser {
      *
      * @param userInput The user's input as a command string.
      */
-    public void executeCommand(String userInput) {
+    public String executeCommand(String userInput) {
         try {
-            if (userInput.equalsIgnoreCase("List")) {
+            if (userInput.equalsIgnoreCase("Bye")) {
+                return "Bye! Hope to see you again soon! :(";
+            } else if (userInput.equalsIgnoreCase("List")) {
                 // Displays the task list when "list" is input.
-                taskList.printTaskList();
+                return taskList.printTaskList();
             } else if (userInput.startsWith("mark")) {
                 // Marks a task as done based on its index.
-                markTaskAsDone(userInput);
+                return markTaskAsDone(userInput);
             } else if (userInput.startsWith("unmark")) {
                 // Marks a task as not done based on its index.
-                unmarkTaskAsUndone(userInput);
+                return unmarkTaskAsUndone(userInput);
             } else if (userInput.startsWith("todo")) {
                 // Adds a new To-Do task to the list.
-                addTodoTask(userInput);
+                return addTodoTask(userInput);
             } else if (userInput.startsWith("deadline")) {
                 // Adds a new introBlaise.task.Deadline task with a specific due date.
-                addDeadlineTask(userInput);
+                return addDeadlineTask(userInput);
             } else if (userInput.startsWith("event")) {
                 // Adds a new introBlaise.task.Event task with a duration.
-                addEventTask(userInput);
+                return addEventTask(userInput);
             } else if (userInput.startsWith("delete")) {
                 // Deletes a task from the list based on its index.
-                deleteTask(userInput);
+                return deleteTask(userInput);
             } else if (userInput.startsWith("tasks on")) {
-                getTasksOnDate(userInput);
+                return getTasksOnDate(userInput);
             } else if (userInput.startsWith("find")) {
-                handleFindCommand(userInput);
+                return handleFindCommand(userInput);
             } else {
                 throw new InvalidInputException("Err...I don't understand this :(. Please give a valid command!");
             }
         } catch (InvalidInputException e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         }
     }
 
@@ -85,22 +87,23 @@ public class Parser {
      * @throws IndexOutOfBoundsException Exception thrown when format of user input is incorrect.
      * @throws NumberFormatException Exception thrown when number format of user input is incorrect.
      */
-    public void markTaskAsDone(String userInput) throws IndexOutOfBoundsException, NumberFormatException {
+    public String markTaskAsDone(String userInput) throws IndexOutOfBoundsException, NumberFormatException {
         try {
             // Extract task index from the input and mark the task as done.
             int taskNo = Integer.parseInt(userInput.substring(5)) - 1;
             Task currTask = taskList.getTask(taskNo);
+            if (taskNo < 0 || taskNo >= taskList.getTasksList().size()) {
+                throw new IndexOutOfBoundsException("Invalid task number.");
+            }
+
             currTask.markAsDone();
             taskList.saveTasks();
-            // Notify the user that the task is marked as done.
-            System.out.println("    _________________________________");
-            System.out.println("    Well done! I've marked this task as done:");
-            System.out.println("        " + currTask);
-            System.out.println("    _________________________________");
+            // Notify the user that the task is marked as done.a
+            return "Well done! I've marked this task as done: " + "\n" + currTask;
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Uh oh! Invalid index. Are you sure you are marking the correct task?");
+            return "Uh oh! Invalid index. Are you sure you are marking the correct task?";
         } catch (NumberFormatException e) {
-            System.out.println("Uh oh! Invalid number. Please enter a number after 'unmark'.");
+            return "Uh oh! Invalid number. Please enter a number after 'unmark'.";
         }
     }
 
@@ -111,10 +114,14 @@ public class Parser {
      * @throws IndexOutOfBoundsException Exception thrown when format of user input is incorrect.
      * @throws NumberFormatException Exception thrown when number format of user input is incorrect.
      */
-    public void unmarkTaskAsUndone(String userInput) throws IndexOutOfBoundsException, NumberFormatException {
+    public String unmarkTaskAsUndone(String userInput) throws IndexOutOfBoundsException, NumberFormatException {
         try {
             // Extract the task index from the input and mark the task as undone.
             int taskNo = Integer.parseInt(userInput.substring(7)) - 1;
+            if (taskNo < 0 || taskNo >= taskList.getTasksList().size()) {
+                throw new IndexOutOfBoundsException("Invalid task number.");
+            }
+
             Task currTask = taskList.getTask(taskNo);
 
             // Error thrown when user tries to unmark an undone task.
@@ -125,16 +132,14 @@ public class Parser {
             taskList.saveTasks();
 
             // Notify the user that the task is marked as not done.
-            System.out.println("    _________________________________");
-            System.out.println("    OK, I've marked this task as not done yet:");
-            System.out.println("    " + currTask);
-            System.out.println("    _________________________________");
+            return "OK, I've marked this task as not done yet: " + "\n" + currTask;
+
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Uh oh! Invalid index. Are you sure you are unmarking the correct task?");
+            return "Uh oh! Invalid index. Are you sure you are unmarking the correct task?";
         } catch (NumberFormatException e) {
-            System.out.println("Uh oh! Invalid number. Please enter a number after 'unmark'.");
+            return "Uh oh! Invalid number. Please enter a number after 'unmark'.";
         } catch (AlreadyUndoneException e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         }
     }
 
@@ -145,7 +150,7 @@ public class Parser {
      * @throws NumberFormatException Exception thrown when number format of user input is incorrect.
      * @throws StringIndexOutOfBoundsException Exception thrown when format of user input is incorrect.
      */
-    public void addTodoTask(String userInput) throws NumberFormatException, StringIndexOutOfBoundsException {
+    public String addTodoTask(String userInput) throws NumberFormatException, StringIndexOutOfBoundsException {
         try {
             // Extract the description of the task from the input.
             String description = userInput.substring((5));
@@ -160,17 +165,16 @@ public class Parser {
             int numOfTask = taskList.getTasksList().size();
 
             // Notify the user that the task has been added.
-            System.out.println("    _________________________________");
-            System.out.println("    Got it. I've added this task:");
-            System.out.println("        " + todoTask);
-            System.out.println("    Now you have " + numOfTask + " tasks in the list.");
-            System.out.println("    _________________________________");
+            StringBuilder response = new StringBuilder();
+            response.append("Got it. I've added this task: ").append("\n").append(todoTask).append("\n").
+                    append("Now you have ").append(numOfTask).append(" tasks in the list.");
+            return response.toString().trim();
         } catch (NumberFormatException e) {
-            System.out.println("Uh oh! Invalid number. Please enter a number after 'unmark'.");
+            return "Uh oh! Invalid number. Please enter a number after 'unmark'.";
         } catch (StringIndexOutOfBoundsException e) {
-            System.out.println("Errr...Please enter a description");
+            return "Errr...Please enter a description";
         } catch (EmptyDescriptionException e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         }
     }
 
@@ -180,30 +184,27 @@ public class Parser {
      * @param userInput The user input string, expected in  the format deadline x /by date where x is the task description.
      * @throws StringIndexOutOfBoundsException Exception thrown when format of user input is incorrect.
      */
-    public void addDeadlineTask(String userInput) throws StringIndexOutOfBoundsException {
+    public String addDeadlineTask(String userInput) throws StringIndexOutOfBoundsException {
         try {
             // Get Deadline task from user input.
             Deadline deadlineTask = getDeadlineTask(userInput);
 
             // Ensure deadline is valid before adding it to the list
             if (deadlineTask.getDeadline() == null) {
-                System.out.println("Task was not added due to an invalid deadline.");
-                return;
+                return "Task was not added due to an invalid deadline.";
             }
 
             taskList.addTask(deadlineTask);
             int numOfTask = taskList.getTasksList().size();
 
             // Notify the user that the task has been added.
-            System.out.println("    _________________________________");
-            System.out.println("    Got it. I've added this task:");
-            System.out.println("        " + deadlineTask);
-            System.out.println("    Now you have " + numOfTask + " tasks in the list.");
-            System.out.println("    _________________________________");
+            StringBuilder response = new StringBuilder();
+            response.append("Got it. I've added this task: ").append("\n").append(deadlineTask).append("\n").append("Now you have ").append(numOfTask).append(" tasks in the list.");
+            return response.toString().trim();
         } catch (StringIndexOutOfBoundsException e) {
-            System.out.println("Please enter a description and a deadline for your task!");
+            return "Please enter a description and a deadline for your task!";
         } catch (InvalidDeadlineFormatException e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         }
     }
 
@@ -231,29 +232,27 @@ public class Parser {
      * @param userInput The user input string, expected in the format event x /from date /to date where x is the task description.
      * @throws StringIndexOutOfBoundsException Exception thrown when format of user input is incorrect.
      */
-    public void addEventTask(String userInput) throws StringIndexOutOfBoundsException {
+    public String addEventTask(String userInput) throws StringIndexOutOfBoundsException {
         try {
             Event eventTask = getEvent(userInput);
 
             // Ensure deadline is valid before adding it to the list
             if (eventTask.getFrom() == null || eventTask.getTo() == null) {
-                System.out.println("Task was not added due to an invalid date and time.");
-                return;
+                return "Task was not added due to an invalid date and time.";
             }
 
             taskList.addTask(eventTask);
             int numOfTask = taskList.getTasksList().size(); // no of task in task list
 
-            System.out.println("    _________________________________");
-            System.out.println("    Got it. I've added this task:");
-            System.out.println("        " + eventTask);
-            System.out.println("    Now you have " + numOfTask + " tasks in the list.");
-            System.out.println("    _________________________________");
+            StringBuilder response = new StringBuilder();
+           response.append("Got it. I've added this task: ").append("\n").append(eventTask)
+                    .append("\n").append("Now you have ").append(numOfTask).append(" tasks in the list.");
+            return response.toString().trim();
         } catch (StringIndexOutOfBoundsException e) {
-            System.out.println("Please enter a description and a duration for your task!");
+            return "Please enter a description and a duration for your task!";
         } catch (InvalidEventFromFormatException | InvalidEventToFormatException |
                  EmptyDescriptionException e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         }
     }
 
@@ -299,7 +298,7 @@ public class Parser {
      * @throws IndexOutOfBoundsException Exception thrown when user is deleting the wrong task.
      * @throws NumberFormatException Exception thrown when number format of user input is incorrect.
      */
-    public void deleteTask(String userInput) throws IndexOutOfBoundsException, NumberFormatException {
+    public String deleteTask(String userInput) throws IndexOutOfBoundsException, NumberFormatException {
         try {
             if (taskList.getTasksList().isEmpty()) {
                 throw new DeleteEmptyTaskListException("Your task list is empty. You can't delete anything. "
@@ -313,18 +312,17 @@ public class Parser {
             int numOfTask = taskList.getTasksList().size();
 
             // Notify the user that the task has been deleted.
-            System.out.println("    _________________________________");
-            System.out.println("    Noted. I've removed this task:");
-            System.out.println("        " + currTask);
-            System.out.println("    Now you have " + numOfTask + " tasks in the list.");
-            System.out.println("    _________________________________");
+            StringBuilder response = new StringBuilder();
+            response.append("Noted. I've removed this task: ").append("\n").append(currTask)
+                    .append("\n").append("Now you have ").append(numOfTask).append(" tasks in the list.");
+            return response.toString().trim();
         } catch (DeleteEmptyTaskListException e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Uh oh! Invalid index. Have you entered the index? Are you sure "
-                    + "you are deleting the correct task?");
+            return "Uh oh! Invalid index. Have you entered the index? Are you sure "
+                    + "you are deleting the correct task?";
         } catch (NumberFormatException e) {
-            System.out.println("Uh oh! Invalid number. Please enter a number after 'delete'.");
+            return "Uh oh! Invalid number. Please enter a number after 'delete'.";
         }
     }
 
@@ -333,38 +331,43 @@ public class Parser {
      *
      * @param userInput The user input string, expected in the format "tasks on d-MM-yyyy".
      */
-    public void getTasksOnDate(String userInput) {
+    public String getTasksOnDate(String userInput) {
         String dateInput = userInput.substring(9).trim(); // Extract the date part from input
         // Define the expected date format
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MM-yyyy");
-
         try {
             // Convert the string to LocalDate
             LocalDate localDate = LocalDate.parse(dateInput, formatter);
 
             // Call the method with the parsed LocalDate
-            taskList.printTasksForDate(localDate);
+            return taskList.printTasksForDate(localDate);
         } catch (DateTimeParseException e) {
-            System.out.println("Invalid date format. Please enter the date in d-MM-yyyy format.");
+            return "Invalid date format. Please enter the date in d-MM-yyyy format.";
         }
     }
 
-    public void handleFindCommand(String userInput) {
+    /**
+     * Retrieves task from task list that matches the keyword based on user input.
+     *
+     * @param userInput The user input string, expected in the format find x where x is the keyword.
+     */
+    public String handleFindCommand(String userInput) {
         String keyword = userInput.substring(5).trim();
         if (keyword.isEmpty()) {
-            System.out.println("Please provide a keyword to search.");
-            return;
+            return "Please provide a keyword to search.";
         }
 
         List<Task> matchingTasks = taskList.findTasksByKeyword(keyword);
         if (matchingTasks.isEmpty()) {
-            System.out.println("No tasks found with the keyword: " + keyword);
+            return "No tasks found with the keyword: " + keyword;
         } else {
-            System.out.println("Here are the matching tasks in your list:");
+            StringBuilder response = new StringBuilder();
+            response.append("Here are the matching tasks in your list:").append("\n");
             for (int i = 0; i < matchingTasks.size(); i++) {
                 Task task = matchingTasks.get(i);
-                System.out.println((i + 1) + "." + task);
+                response.append((i + 1)).append(". ").append(task).append("\n");
             }
+            return response.toString().trim();
         }
     }
 }

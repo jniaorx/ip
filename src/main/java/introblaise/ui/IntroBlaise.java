@@ -12,6 +12,7 @@ public class IntroBlaise {
      * @param args Command-line arguments.
      */
     public static void main(String[] args) {
+        /*
         // Initialize UI
         Ui ui = new Ui();
         ui.showWelcome();
@@ -34,5 +35,19 @@ public class IntroBlaise {
 
         // Close scanner before exiting
         ui.closeScanner();
+        */
+    }
+
+    /**
+     * Generates a response for the user's chat message.
+     *
+     * @param input The user input, typically a command to be processed.
+     * @return A string response after the command has been executed.
+     */
+    public String getResponse(String input) {
+        TaskList taskList = new TaskList();
+        Parser commands = new Parser(taskList);
+
+        return commands.executeCommand(input);
     }
 }

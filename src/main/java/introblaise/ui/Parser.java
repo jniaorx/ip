@@ -112,7 +112,7 @@ public class Parser {
      * @throws IndexOutOfBoundsException Exception thrown when format of user input is incorrect.
      * @throws NumberFormatException Exception thrown when number format of user input is incorrect.
      */
-    public void unmarkTaskAsUndone(String userInput) throws IndexOutOfBoundsException, NumberFormatException {
+    public String unmarkTaskAsUndone(String userInput) throws IndexOutOfBoundsException, NumberFormatException {
         try {
             // Extract the task index from the input and mark the task as undone.
             int taskNo = Integer.parseInt(userInput.substring(7)) - 1;
@@ -130,16 +130,14 @@ public class Parser {
             taskList.saveTasks();
 
             // Notify the user that the task is marked as not done.
-            System.out.println("    _________________________________");
-            System.out.println("    OK, I've marked this task as not done yet:");
-            System.out.println("    " + currTask);
-            System.out.println("    _________________________________");
+            return "OK, I've marked this task as not done yet: " + currTask;
+
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Uh oh! Invalid index. Are you sure you are unmarking the correct task?");
+            return "Uh oh! Invalid index. Are you sure you are unmarking the correct task?";
         } catch (NumberFormatException e) {
-            System.out.println("Uh oh! Invalid number. Please enter a number after 'unmark'.");
+            return "Uh oh! Invalid number. Please enter a number after 'unmark'.";
         } catch (AlreadyUndoneException e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         }
     }
 
@@ -150,7 +148,7 @@ public class Parser {
      * @throws NumberFormatException Exception thrown when number format of user input is incorrect.
      * @throws StringIndexOutOfBoundsException Exception thrown when format of user input is incorrect.
      */
-    public void addTodoTask(String userInput) throws NumberFormatException, StringIndexOutOfBoundsException {
+    public String addTodoTask(String userInput) throws NumberFormatException, StringIndexOutOfBoundsException {
         try {
             // Extract the description of the task from the input.
             String description = userInput.substring((5));
@@ -165,17 +163,16 @@ public class Parser {
             int numOfTask = taskList.getTasksList().size();
 
             // Notify the user that the task has been added.
-            System.out.println("    _________________________________");
-            System.out.println("    Got it. I've added this task:");
-            System.out.println("        " + todoTask);
-            System.out.println("    Now you have " + numOfTask + " tasks in the list.");
-            System.out.println("    _________________________________");
+            StringBuilder response = new StringBuilder();
+            StringBuilder responseString = response.append("Got it. I've added this task: ").append(todoTask).append("\n").
+                    append("Now you have ").append(numOfTask).append(" tasks in the list.");
+            return responseString.toString().trim();
         } catch (NumberFormatException e) {
-            System.out.println("Uh oh! Invalid number. Please enter a number after 'unmark'.");
+            return "Uh oh! Invalid number. Please enter a number after 'unmark'.";
         } catch (StringIndexOutOfBoundsException e) {
-            System.out.println("Errr...Please enter a description");
+            return "Errr...Please enter a description";
         } catch (EmptyDescriptionException e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         }
     }
 
@@ -185,30 +182,28 @@ public class Parser {
      * @param userInput The user input string, expected in  the format deadline x /by date where x is the task description.
      * @throws StringIndexOutOfBoundsException Exception thrown when format of user input is incorrect.
      */
-    public void addDeadlineTask(String userInput) throws StringIndexOutOfBoundsException {
+    public String addDeadlineTask(String userInput) throws StringIndexOutOfBoundsException {
         try {
             // Get Deadline task from user input.
             Deadline deadlineTask = getDeadlineTask(userInput);
 
             // Ensure deadline is valid before adding it to the list
             if (deadlineTask.getDeadline() == null) {
-                System.out.println("Task was not added due to an invalid deadline.");
-                return;
+                return "Task was not added due to an invalid deadline.";
             }
 
             taskList.addTask(deadlineTask);
             int numOfTask = taskList.getTasksList().size();
 
             // Notify the user that the task has been added.
-            System.out.println("    _________________________________");
-            System.out.println("    Got it. I've added this task:");
-            System.out.println("        " + deadlineTask);
-            System.out.println("    Now you have " + numOfTask + " tasks in the list.");
-            System.out.println("    _________________________________");
+            StringBuilder response = new StringBuilder();
+            StringBuilder responseString = response.append("Got it. I've added this task: ").append(deadlineTask)
+                    .append("\n").append("Now you have ").append(numOfTask).append(" tasks in the list.");
+            return responseString.toString().trim();
         } catch (StringIndexOutOfBoundsException e) {
-            System.out.println("Please enter a description and a deadline for your task!");
+            return "Please enter a description and a deadline for your task!";
         } catch (InvalidDeadlineFormatException e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         }
     }
 

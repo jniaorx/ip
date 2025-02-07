@@ -22,7 +22,7 @@ public class TaskList {
      */
     public TaskList() {
         this.storage = new Storage();
-        List<String> loadedTasks = storage.loadTasks();
+        List<String> loadedTasks = storage.loadTasksFromFile();
 
         // Convert loaded tasks from strings to Task objects and update taskslist
         for (String taskStr : loadedTasks) {

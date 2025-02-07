@@ -61,7 +61,7 @@ public class Storage {
      *
      * @return A list of task descriptions read from the file.
      */
-    public List<String> loadTasks() {
+    public List<String> loadTasksFromFile() {
         List<String> tasks = new ArrayList<>();
 
         // Check if the file exists and is not empty

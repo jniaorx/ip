@@ -1,8 +1,10 @@
-package introblaise.task;
+package introblaise.tasktype;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import introblaise.task.Task;
 
 /**
  * Represents a task that occurs within a specific time frame.
@@ -10,17 +12,16 @@ import java.time.format.DateTimeParseException;
  * additional details about the start time and end time of the task.
  */
 public class Event extends Task {
-    /** The start date/time of the event represented as a string. */
-    protected String from;
-
-    /** The end date/time of the event represented as a string. */
-    protected String to;
-
     /** The parsed start date/time of the event as a LocalDateTime object. */
     protected LocalDateTime parsedFrom;
 
     /** The parsed end date/time of the event as a LocalDateTime object. */
     protected LocalDateTime parsedTo;
+    /** The start date/time of the event represented as a string. */
+    private String from;
+
+    /** The end date/time of the event represented as a string. */
+    private String to;
 
     /**
      * Constructs an {@code introBlaise.task.Event} object with the specified description, start time, and end time.
@@ -59,7 +60,7 @@ public class Event extends Task {
      *
      * @return The parsed start date/time as a LocalDateTime object.
      */
-    public LocalDateTime getFrom() {
+    public LocalDateTime getParsedFrom() {
         return parsedFrom;
     }
 
@@ -68,8 +69,25 @@ public class Event extends Task {
      *
      * @return The parsed end date/time as a LocalDateTime object.
      */
-    public LocalDateTime getTo() {
+    public LocalDateTime getParsedTo() {
         return parsedTo;
+    }
+    /**
+     * Gets the start date/tome of the event.
+     *
+     * @return The string start date/time of the event.
+     */
+    public String getTo() {
+        return to;
+    }
+
+    /**
+     * Gets the end date/time of the event.
+     *
+     * @return The string end date/time of the event.
+     */
+    public String getFrom() {
+        return from;
     }
 
     /**

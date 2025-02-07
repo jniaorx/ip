@@ -1,10 +1,11 @@
 D | 0 | return book | 21-09-2025 1600
-E | 0 | idk | 21-09-2025 1600 to 21-09-2025 1800
+E | 1 | idk | 21-09-2025 1600 to 21-09-2025 1800
 D | 1 | return book | 31-01-2025 1600
 D | 0 | return book | 5-02-2025 1600
 D | 0 | return book | 2-05-2024 1700
 D | 0 | return book | 2-05-2025 1700
 E | 0 | lesson | 02-05-2025 1600 to 02-05-2025 1700
 T | 0 | return batons
-D | 0 | return book | 7-02-2025 1700
 E | 0 | lesson | 7-02-2025 1600 to 7-02-0225 1700
+E | 0 | lecture | 7-02-2025 1900 to 7-02-2025 2000
+D | 0 | return socks | 02-07-2025 1800

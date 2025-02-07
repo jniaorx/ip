@@ -1,4 +1,6 @@
-package introblaise.task;
+package introblaise.tasktype;
+
+import introblaise.task.Task;
 
 /**
  * Represents a task without any date/time attached to it.

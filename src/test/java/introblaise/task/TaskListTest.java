@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+import introblaise.tasktype.ToDo;
+
 /**
  * Unit tests for the {@link TaskList} class.
  *

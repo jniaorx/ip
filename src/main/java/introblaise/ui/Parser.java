@@ -12,11 +12,12 @@ import introblaise.exceptions.InvalidDeadlineFormatException;
 import introblaise.exceptions.InvalidEventFromFormatException;
 import introblaise.exceptions.InvalidEventToFormatException;
 import introblaise.exceptions.InvalidInputException;
-import introblaise.task.Deadline;
-import introblaise.task.Event;
 import introblaise.task.Task;
 import introblaise.task.TaskList;
-import introblaise.task.ToDo;
+import introblaise.tasktype.Deadline;
+import introblaise.tasktype.Event;
+import introblaise.tasktype.ToDo;
+
 
 /**
  * The Commands class handles the execution fo user commands in the chatbot.
@@ -235,7 +236,7 @@ public class Parser {
             Event eventTask = getEvent(userInput);
 
             // Ensure deadline is valid before adding it to the list
-            if (eventTask.getFrom() == null || eventTask.getTo() == null) {
+            if (eventTask.getParsedFrom() == null || eventTask.getParsedTo() == null) {
                 return "Task was not added due to an invalid date and time.";
             }
 

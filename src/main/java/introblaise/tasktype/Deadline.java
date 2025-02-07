@@ -1,8 +1,10 @@
-package introblaise.task;
+package introblaise.tasktype;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import introblaise.task.Task;
 
 /**
  * Represents a task with a specific deadline that needs to be completed before a certain date or time.
@@ -11,7 +13,7 @@ import java.time.format.DateTimeParseException;
  */
 public class Deadline extends Task {
     /** The deadline by which the task should be completed, represented as a string. */
-    protected String by;
+    private String by;
 
     /** The actual deadline represented as a LocalDateTime object. */
     private LocalDateTime deadline;
@@ -52,6 +54,15 @@ public class Deadline extends Task {
      */
     public LocalDateTime getDeadline() {
         return deadline;
+    }
+
+    /**
+     * Gets the deadline for this task as String.
+     *
+     * @return The String representing the deadline of the task.
+     */
+    public String getBy() {
+        return by;
     }
 
     /**

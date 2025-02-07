@@ -6,6 +6,9 @@ import java.util.List;
 
 import introblaise.exceptions.EmptyTaskListException;
 import introblaise.storage.Storage;
+import introblaise.tasktype.Deadline;
+import introblaise.tasktype.Event;
+import introblaise.tasktype.ToDo;
 
 /**
  * Manages a list of tasks, allowing tasks to be added, removed, retrieved, and displayed.
@@ -130,11 +133,9 @@ public class TaskList {
                 if (taskDate.isEqual(date)) {
                     result.append(task).append("\n");
                 }
-            }
-            // Check if the task is an instance of introBlaise.task.Event
-            else if (task instanceof Event) {
+            } else if (task instanceof Event) { // Check if the task is an instance of task.Event
                 Event eventTask = (Event) task;
-                LocalDate eventDate = eventTask.getFrom().toLocalDate();
+                LocalDate eventDate = eventTask.getParsedFrom().toLocalDate();
                 if (eventDate.isEqual(date)) {
                     result.append(task).append("\n");
                 }
@@ -164,11 +165,11 @@ public class TaskList {
             return "T | " + (task.getIsDone() ? "1" : "0") + " | " + task.description;
         } else if (task instanceof Deadline) {
             Deadline deadline = (Deadline) task;
-            return "D | " + (task.getIsDone() ? "1" : "0") + " | " + task.description + " | " + deadline.by;
+            return "D | " + (task.getIsDone() ? "1" : "0") + " | " + task.description + " | " + deadline.getBy();
         } else if (task instanceof Event) {
             Event event = (Event) task;
-            return "E | " + (task.getIsDone() ? "1" : "0") + " | " + task.description + " | " + event.from
-                    + " to " + event.to;
+            return "E | " + (task.getIsDone() ? "1" : "0") + " | " + task.description + " | " + event.getFrom()
+                    + " to " + event.getTo();
         }
         return ""; // Default case
     }

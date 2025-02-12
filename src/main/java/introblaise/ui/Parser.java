@@ -236,7 +236,9 @@ public class Parser {
             Event eventTask = getEvent(userInput);
 
             // Ensure deadline is valid before adding it to the list
-            if (eventTask.getParsedFrom() == null || eventTask.getParsedTo() == null) {
+            boolean isInvalidParsedFrom = eventTask.getParsedFrom() == null;
+            boolean isInvalidParsedTo = eventTask.getParsedTo() == null;
+            if (isInvalidParsedFrom || isInvalidParsedTo) {
                 return "Task was not added due to an invalid date and time.";
             }
 

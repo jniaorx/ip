@@ -86,6 +86,8 @@ public class Parser {
         try {
             // Extract task index from the input and mark the task as done.
             int taskNo = Integer.parseInt(userInput.substring(5)) - 1;
+            assert taskNo >= 0 : "Task number must be non-negative";
+            assert taskNo < taskList.getTasksList().size() : "Task number must not exceed size of task list";
             Task currTask = taskList.getTask(taskNo);
             if (taskNo < 0 || taskNo >= taskList.getTasksList().size()) {
                 throw new IndexOutOfBoundsException("Invalid task number.");
@@ -113,6 +115,8 @@ public class Parser {
         try {
             // Extract the task index from the input and mark the task as undone.
             int taskNo = Integer.parseInt(userInput.substring(7)) - 1;
+            assert taskNo >= 0 : "Task number must be non-negative";
+            assert taskNo < taskList.getTasksList().size() : "Task number must not exceed size of task list";
             if (taskNo < 0 || taskNo >= taskList.getTasksList().size()) {
                 throw new IndexOutOfBoundsException("Invalid task number.");
             }
@@ -149,7 +153,7 @@ public class Parser {
         try {
             // Extract the description of the task from the input.
             String description = userInput.substring((5));
-
+            assert (!description.isEmpty()) : "The description should not be empty.";
             // Error thrown if user does not input description.
             if (description.isEmpty()) {
                 throw new EmptyDescriptionException("Please enter a description for your task!");
@@ -158,6 +162,7 @@ public class Parser {
             ToDo todoTask = new ToDo(description);
             taskList.addTask(todoTask);
             int numOfTask = taskList.getTasksList().size();
+            assert numOfTask > 0 : "The task list should not be empty.";
 
             // Notify the user that the task has been added.
             StringBuilder response = new StringBuilder();
@@ -192,6 +197,7 @@ public class Parser {
 
             taskList.addTask(deadlineTask);
             int numOfTask = taskList.getTasksList().size();
+            assert numOfTask > 0 : "The task list should not be empty.";
 
             // Notify the user that the task has been added.
             StringBuilder response = new StringBuilder();
@@ -215,6 +221,7 @@ public class Parser {
      */
     private static Deadline getDeadlineTask(String userInput) throws InvalidDeadlineFormatException {
         String description = userInput.substring(8, userInput.indexOf("/")).trim();
+        assert (!description.isEmpty()) : "The description should not be empty.";
         int separator = userInput.indexOf("/") + 4;
         String deadline = userInput.substring(separator);
         if (deadline.isEmpty()) {
@@ -242,6 +249,7 @@ public class Parser {
 
             taskList.addTask(eventTask);
             int numOfTask = taskList.getTasksList().size(); // no of task in task list
+            assert numOfTask > 0 : "The task list should not be empty.";
 
             StringBuilder response = new StringBuilder();
             response.append("Got it. I've added this task: ").append("\n").append(eventTask)
@@ -269,6 +277,7 @@ public class Parser {
             InvalidEventFromFormatException, InvalidEventToFormatException {
         // Extract description from user input.
         String description = userInput.substring(5, userInput.indexOf("/")).trim();
+        assert (!description.isEmpty()) : "The description should not be empty.";
         if (description.isEmpty()) {
             throw new EmptyDescriptionException("Please enter a description for your task!");
         }
@@ -307,6 +316,8 @@ public class Parser {
             }
             // Extract task from user input.
             int taskNo = Integer.parseInt(userInput.substring(7)) - 1;
+            assert taskNo >= 0 : "Task number must be non-negative";
+            assert taskNo < taskList.getTasksList().size() : "Task number must not exceed size of task list";
             Task currTask = taskList.getTask(taskNo);
             taskList.removeTask(currTask);
 

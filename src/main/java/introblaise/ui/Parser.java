@@ -44,36 +44,33 @@ public class Parser {
      */
     public String executeCommand(String userInput) {
         try {
-            if (userInput.equalsIgnoreCase("List")) {
-                // Displays the task list when "list" is input.
+            String[] parts = userInput.split(" ");
+            String command = parts[0].toLowerCase().trim();
+
+            switch (command) {
+            case "list":
                 return taskList.printTaskList();
-            } else if (userInput.startsWith("mark")) {
-                // Marks a task as done based on its index.
+            case "mark":
                 return markTaskAsDone(userInput);
-            } else if (userInput.startsWith("unmark")) {
-                // Marks a task as not done based on its index.
+            case "unmark":
                 return unmarkTaskAsUndone(userInput);
-            } else if (userInput.startsWith("todo")) {
-                // Adds a new To-Do task to the list.
+            case "todo":
                 return addTodoTask(userInput);
-            } else if (userInput.startsWith("deadline")) {
-                // Adds a new introBlaise.task.Deadline task with a specific due date.
+            case "deadline":
                 return addDeadlineTask(userInput);
-            } else if (userInput.startsWith("event")) {
-                // Adds a new introBlaise.task.Event task with a duration.
+            case "event":
                 return addEventTask(userInput);
-            } else if (userInput.startsWith("delete")) {
-                // Deletes a task from the list based on its index.
+            case "delete":
                 return deleteTask(userInput);
-            } else if (userInput.startsWith("tasks on")) {
+            case "tasks":
                 return getTasksOnDate(userInput);
-            } else if (userInput.startsWith("find")) {
+            case "find":
                 return handleFindCommand(userInput);
-            } else if (userInput.startsWith("tag")) {
+            case "tag":
                 return tagTask(userInput);
-            } else if (userInput.startsWith("removetag")) {
+            case "removetag":
                 return removeTag(userInput);
-            } else {
+            default:
                 throw new InvalidInputException("Err...I don't understand this :(. Please give a valid command!");
             }
         } catch (InvalidInputException e) {

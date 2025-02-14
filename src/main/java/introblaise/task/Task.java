@@ -10,7 +10,8 @@ public class Task {
     protected String description;
     // Indicates whether the task is marked as done.
     private boolean isDone;
-
+    private String tag;
+    private boolean isTagged;
     /**
      * Constructs a new introBlaise.task.Task with the specified description.
      * The task is initially marked as not done.
@@ -19,7 +20,9 @@ public class Task {
      */
     public Task(String description) {
         this.description = description;
-        this.isDone = false; // Default status is not done.
+        this.isDone = false;
+        this.tag = "";
+        this.isTagged = false;
     }
 
     /**
@@ -55,13 +58,53 @@ public class Task {
     }
 
     /**
+     * Returns whether the task is tagged or not.
+     *
+     * @return False if the task is untagged, true if the task is tagged.
+     */
+    public boolean getIsTagged() {
+        return isTagged;
+    }
+
+    /**
+     * Sets the tag for a task based on user input.
+     *
+     * @param label The tag description based on user input.
+     */
+    public void setTag(String label) {
+        this.isTagged = true;
+        this.tag = label.toLowerCase();
+    }
+
+    /**
+     * Removes the tag of a task.
+     */
+    public void deleteTag() {
+        this.isTagged = false;
+        this.tag = "";
+    }
+
+    /**
+     * Retrieves the tag of a task.
+     *
+     * @return The tag of a task.
+     */
+    public String getTag() {
+        return tag;
+    }
+
+    /**
      * Returns a string representation of the task.
-     * The string includes the task's status icon and description
+     * The string includes the task's status icon and description if it is not tagged.
+     * Returns the task's status icon, description and tag if it is tagged.
      *
      * @return A formatted string representing the task.
      */
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "] " + description;
+        if (!isTagged) {
+            return "[" + getStatusIcon() + "] " + description;
+        }
+        return "[" + getStatusIcon() + "] " + "|" + tag + "| " + description;
     }
 }

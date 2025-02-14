@@ -19,7 +19,6 @@ public class TaskList {
     // Stores the list of tasks.
     private final ArrayList<Task> tasksList = new ArrayList<>();
     private final Storage storage; // Instance of saveData
-
     /**
      * Constructs a new task list for users to add tasks in it.
      */
@@ -34,7 +33,6 @@ public class TaskList {
                 tasksList.add(task);
             }
         }
-
     }
 
     /**
@@ -59,7 +57,6 @@ public class TaskList {
     public void removeTask(Task task) {
         tasksList.remove(task);
         saveTasks();
-
     }
 
     /**
@@ -161,17 +158,18 @@ public class TaskList {
      * @return A string representation of the task.
      */
     private String taskToString(Task task) {
+        String base = "";
         if (task instanceof ToDo) {
-            return "T | " + (task.getIsDone() ? "1" : "0") + " | " + task.description;
+            base = "T | " + (task.getIsDone() ? "1" : "0") + " | " + task.description;
         } else if (task instanceof Deadline) {
             Deadline deadline = (Deadline) task;
-            return "D | " + (task.getIsDone() ? "1" : "0") + " | " + task.description + " | " + deadline.getBy();
+            base = "D | " + (task.getIsDone() ? "1" : "0") + " | " + task.description + " | " + deadline.getBy();
         } else if (task instanceof Event) {
             Event event = (Event) task;
-            return "E | " + (task.getIsDone() ? "1" : "0") + " | " + task.description + " | " + event.getFrom()
+            base = "E | " + (task.getIsDone() ? "1" : "0") + " | " + task.description + " | " + event.getFrom()
                     + " to " + event.getTo();
         }
-        return ""; // Default case
+        return base + " | " + (task.getIsTagged() ? "1" : "0") + " | " + task.getTag(); // Add tag info
     }
 
     /**
@@ -183,7 +181,7 @@ public class TaskList {
     private Task stringToTask(String line) {
         try {
             String[] parts = line.split(" \\| ");
-            if (parts.length < 1) { // Check if the parts array has enough data
+            if (parts.length < 3) { // Adjust length check
                 System.out.println("There is currently no tasks to be done.");
                 return null;
             }
@@ -191,33 +189,43 @@ public class TaskList {
             String taskType = parts[0].trim();
             String isDone = parts[1].trim();
             String description = parts[2].trim();
+            String isTagged = "0"; // Default, in case it's not present
+            String tag = "";
 
+            if (parts.length > 3) { // Check if tag info is present
+                isTagged = parts[parts.length - 2].trim();
+                tag = parts[parts.length - 1].trim();
+            }
+
+            Task task = null; // Declare task variable here
             switch (taskType) {
             case "T":
-                Task todo = new ToDo(description);
-                if ("1".equals(isDone)) {
-                    todo.markAsDone();
-                }
-                return todo;
+                task = new ToDo(description);
+                break;
             case "D":
                 String deadlineDate = parts[3].trim();
-                Task deadline = new Deadline(description, deadlineDate);
-                if ("1".equals(isDone)) {
-                    deadline.markAsDone();
-                }
-                return deadline;
+                task = new Deadline(description, deadlineDate);
+                break;
             case "E":
                 String eventDate = parts[3].trim();
                 String[] eventDetails = eventDate.split(" to ");
-                Task event = new Event(description, eventDetails[0], eventDetails[1]);
-                if ("1".equals(isDone)) {
-                    event.markAsDone();
-                }
-                return event;
+                task = new Event(description, eventDetails[0], eventDetails[1]);
+                break;
             default:
                 System.out.println("Skipping corrupted task line: " + line);
                 return null;
             }
+
+            if (task != null) {
+                if ("1".equals(isDone)) {
+                    task.markAsDone();
+                }
+                if ("1".equals(isTagged)) {
+                    task.setTag(tag);
+                }
+            }
+            return task;
+
         } catch (Exception e) {
             System.out.println("Error parsing task line: " + e.getMessage());
             return null;
@@ -226,6 +234,7 @@ public class TaskList {
 
     /**
      * Finds and lists tasks that match the keyword based on user input.
+     *
      * @param keyword The keyword of task that user wants to find.
      * @return A list of tasks that matches the keyword.
      */

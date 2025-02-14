@@ -29,6 +29,7 @@ public class Parser {
 
     /**
      * Constructor for Commands.
+     *
      * @param taskList The TaskManager instance responsible for managing tasks.
      */
     public Parser(TaskList taskList) {
@@ -68,6 +69,10 @@ public class Parser {
                 return getTasksOnDate(userInput);
             } else if (userInput.startsWith("find")) {
                 return handleFindCommand(userInput);
+            } else if (userInput.startsWith("tag")) {
+                return tagTask(userInput);
+            } else if (userInput.startsWith("removetag")) {
+                return removeTag(userInput);
             } else {
                 throw new InvalidInputException("Err...I don't understand this :(. Please give a valid command!");
             }
@@ -75,12 +80,13 @@ public class Parser {
             return e.getMessage();
         }
     }
+
     /**
      * Marks a task as done based on user input.
      *
      * @param userInput The user input string, expected in the format "mark x" where x is the task number.
      * @throws IndexOutOfBoundsException Exception thrown when format of user input is incorrect.
-     * @throws NumberFormatException Exception thrown when number format of user input is incorrect.
+     * @throws NumberFormatException     Exception thrown when number format of user input is incorrect.
      */
     public String markTaskAsDone(String userInput) throws IndexOutOfBoundsException, NumberFormatException {
         try {
@@ -109,7 +115,7 @@ public class Parser {
      *
      * @param userInput The user input string, expected in the format "unmark x" where x is the task number.
      * @throws IndexOutOfBoundsException Exception thrown when format of user input is incorrect.
-     * @throws NumberFormatException Exception thrown when number format of user input is incorrect.
+     * @throws NumberFormatException     Exception thrown when number format of user input is incorrect.
      */
     public String unmarkTaskAsUndone(String userInput) throws IndexOutOfBoundsException, NumberFormatException {
         try {
@@ -146,7 +152,7 @@ public class Parser {
      * Adds a To-Do task to the task list.
      *
      * @param userInput The user input string, expected in the format "todo x" where x is the task description.
-     * @throws NumberFormatException Exception thrown when number format of user input is incorrect.
+     * @throws NumberFormatException           Exception thrown when number format of user input is incorrect.
      * @throws StringIndexOutOfBoundsException Exception thrown when format of user input is incorrect.
      */
     public String addTodoTask(String userInput) throws NumberFormatException, StringIndexOutOfBoundsException {
@@ -167,7 +173,7 @@ public class Parser {
             // Notify the user that the task has been added.
             StringBuilder response = new StringBuilder();
             response.append("Got it. I've added this task: ").append("\n").append(todoTask).append("\n")
-                            .append("Now you have ").append(numOfTask).append(" tasks in the list.");
+                    .append("Now you have ").append(numOfTask).append(" tasks in the list.");
             return response.toString().trim();
         } catch (NumberFormatException e) {
             return "Uh oh! Invalid number. Please enter a number after 'unmark'.";
@@ -271,9 +277,9 @@ public class Parser {
      * @param userInput The user input string,
      *                  expected in the format event x /from date /to date where x is the task description.
      * @return An introBlaise.task.Event task.
-     * @throws EmptyDescriptionException Exception thrown when no description is entered.
+     * @throws EmptyDescriptionException       Exception thrown when no description is entered.
      * @throws InvalidEventFromFormatException Exception thrown when format of user input is incorrect.
-     * @throws InvalidEventToFormatException Exception thrown when format of user input is incorrect.
+     * @throws InvalidEventToFormatException   Exception thrown when format of user input is incorrect.
      */
     private static Event getEvent(String userInput) throws EmptyDescriptionException,
             InvalidEventFromFormatException, InvalidEventToFormatException {
@@ -308,7 +314,7 @@ public class Parser {
      *
      * @param userInput The user input string, expected in the format delete x where x is the task description.
      * @throws IndexOutOfBoundsException Exception thrown when user is deleting the wrong task.
-     * @throws NumberFormatException Exception thrown when number format of user input is incorrect.
+     * @throws NumberFormatException     Exception thrown when number format of user input is incorrect.
      */
     public String deleteTask(String userInput) throws IndexOutOfBoundsException, NumberFormatException {
         try {
@@ -383,5 +389,69 @@ public class Parser {
             }
             return response.toString().trim();
         }
+    }
+
+    /**
+     * Tags a task from the task list based on user input.
+     *
+     * @param userInput The user input string, expected in the format tag x y, where x is the task number and
+     *                  y is the label.
+     * @return A message indicating the success or failure of tag creation.
+     *      Returns a success message if the task is tagged,
+     *      or an error message if the input is invalid or the task number is out of range.
+     */
+    public String tagTask(String userInput) {
+        String[] parts = userInput.split(" ", 3);
+        if (parts.length != 3) {
+            return "Invalid input format. Use 'tag <task_number> <label>'";
+        }
+
+        try {
+            int taskNo = Integer.parseInt(parts[1].trim()) - 1;
+
+            if (taskNo < 0 || taskNo >= taskList.getTasksList().size()) {
+                return "Invalid task number. Please enter a valid number.";
+            }
+
+            Task currTask = taskList.getTask(taskNo);
+            String label = parts[2].trim();
+
+            if (currTask.getIsTagged()) {
+                return "This task is already tagged!";
+            }
+
+            currTask.setTag(label);
+            taskList.saveTasks();
+
+            return "Task tagged: " + currTask;
+        } catch (NumberFormatException e) {
+            return "Invalid task number. Please enter a number.";
+        }
+    }
+
+    /**
+     * Removes the tag of a task from the task list based on user input.
+     *
+     * @param userInput The user input string, expected in the format removetag x where x is the task number.
+     * @return A message indicating the success or failure of tag removal.
+     *     Returns a success message if the tag is removed,
+     *     or an error message if the input is invalid or the task number is out of range.
+     */
+    public String removeTag(String userInput) {
+        String taskNoStr = userInput.substring(10);
+        int taskNo = Integer.parseInt(taskNoStr) - 1;
+
+        if (taskNo < 0 || taskNo >= taskList.getTasksList().size()) {
+            return "Invalid task number. Please enter a valid number.";
+        }
+
+        Task currTask = taskList.getTask(taskNo);
+        if (!currTask.getIsTagged()) {
+            return "This task is not tagged.";
+        }
+        currTask.deleteTag();
+
+        taskList.saveTasks();
+        return "Tag for " + currTask + " has successfully been deleted!";
     }
 }

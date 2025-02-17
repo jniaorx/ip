@@ -6,9 +6,7 @@ package introblaise.task;
  * It provides methods to manage the task's description and completion status.
  */
 public class Task {
-    // The description of the task.
-    protected String description;
-    // Indicates whether the task is marked as done.
+    private final String description;
     private boolean isDone;
     private String tag;
     private boolean isTagged;
@@ -23,6 +21,10 @@ public class Task {
         this.isDone = false;
         this.tag = "";
         this.isTagged = false;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     /**

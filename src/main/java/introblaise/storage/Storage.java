@@ -10,6 +10,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
+import introblaise.parsers.StorageTaskParser;
+import introblaise.task.Task;
 
 /**
  * Handles the storage operations for tasks, including creating, loading, saving, and handling corrupted files.
@@ -61,7 +66,7 @@ public class Storage {
      *
      * @return A list of task descriptions read from the file.
      */
-    public List<String> loadTasksFromFile() {
+    public List<String> readFromFile() {
         List<String> tasks = new ArrayList<>();
 
         // Check if the file exists and is not empty
@@ -83,6 +88,24 @@ public class Storage {
         }
 
         return tasks;
+    }
+
+    /**
+     * Loads tasks from the storage file.
+     * This method reads all lines from the storage file, converts each line into a {@link Task}
+     * object using the {@link StorageTaskParser#stringToTask(String)} method, filters out
+     * any null tasks (which might result from parsing errors), and collects the valid
+     * tasks into a list.
+     *
+     * @return A {@link List} of {@link Task} objects loaded from the storage file.
+     *         Returns an empty list if the file is empty or if no valid tasks could
+     *         be parsed.
+     */
+    public List<Task> loadTasksFromFile() {
+        return readFromFile().stream()
+                .map(StorageTaskParser::stringToTask)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
     }
 
     /**

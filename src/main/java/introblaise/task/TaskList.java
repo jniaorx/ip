@@ -5,81 +5,54 @@ import java.util.ArrayList;
 import java.util.List;
 
 import introblaise.exceptions.EmptyTaskListException;
+import introblaise.parsers.StorageTaskParser;
 import introblaise.storage.Storage;
 import introblaise.tasktype.Deadline;
 import introblaise.tasktype.Event;
-import introblaise.tasktype.ToDo;
 
 /**
  * Manages a list of tasks, allowing tasks to be added, removed, retrieved, and displayed.
- * THe {@code TaskManager} class serves as a central utility for handling user tasks,
+ * The {@code TaskList} class serves as a central utility for handling user tasks,
  * providing operations to interact with and manipulate the task list.
  */
 public class TaskList {
-    // Stores the list of tasks.
-    private final ArrayList<Task> tasksList = new ArrayList<>();
-    private final Storage storage; // Instance of saveData
-    /**
-     * Constructs a new task list for users to add tasks in it.
-     */
-    public TaskList() {
-        this.storage = new Storage();
-        List<String> loadedTasks = storage.loadTasksFromFile();
-
-        // Convert loaded tasks from strings to Task objects and update taskslist
-        for (String taskStr : loadedTasks) {
-            Task task = stringToTask(taskStr);
-            if (task != null) {
-                tasksList.add(task);
-            }
-        }
-    }
+    private final ArrayList<Task> tasksList;
+    private final Storage storage;
 
     /**
-     * Adds a new task to the task list.
+     * Constructs a new {@code TaskList} for users to add tasks in it.
      *
-     * @param task The task to be added.
+     * @param storage The storage handler used to persist and retrieve tasks.
      */
-    public void addTask(Task task) {
-        // introBlaise.task.Task newTask = new introBlaise.task.Task(description);
-        tasksList.add(task); // Add new task to the list.
-        // System.out.println("    __________________");
-        // System.out.println("    added: " + description);
-        // System.out.println("    __________________");
-        saveTasks(); // Save updated task list to storage.
+    public TaskList(Storage storage) {
+        this.storage = storage;
+        this.tasksList = new ArrayList<>();
+        loadTask();
     }
 
     /**
-     * Removes a specific task from the task list.
+     * Loads tasks from storage and populates the task list.
+     */
+    public void loadTask() {
+        tasksList.addAll(storage.loadTasksFromFile());
+    }
+
+    /**
+     * Returns the number of tasks in the list.
      *
-     * @param task The task to be removed.
+     * @return The size of the task list.
      */
-    public void removeTask(Task task) {
-        tasksList.remove(task);
-        saveTasks();
+    public int getSize() {
+        return tasksList.size();
     }
 
     /**
-     * Prints the list of tasks to the console.
-     * If the task list is empty, an {@code introBlaise.exceptions.EmptyTaskListException} is thrown and its
-     * message is printed instead.
+     * Returns a copy of the full list of tasks.
+     *
+     * @return An {@code ArrayList} containing all tasks.
      */
-    public String printTaskList() {
-        try {
-            // Check if the task list is empty.
-            if (tasksList.isEmpty()) {
-                throw new EmptyTaskListException("Oh no! Your task list is empty now. Please add tasks!");
-            } else {
-                StringBuilder result = new StringBuilder();
-                for (int i = 0; i < tasksList.size(); i++) {
-                    result.append(i + 1).append(". ").append(getTask(i)).append("\n");
-                }
-                return result.toString().trim();
-            }
-        } catch (EmptyTaskListException e) {
-            // Handle empty task list by printing the exception message.
-            return e.getMessage();
-        }
+    public ArrayList<Task> getTasksList() {
+        return new ArrayList<>(tasksList);
     }
 
     /**
@@ -93,12 +66,23 @@ public class TaskList {
     }
 
     /**
-     * Returns the full list of tasks.
+     * Adds a new task to the task list.
      *
-     * @return An {@code ArrayList} containing all tasks.
+     * @param task The task to be added.
      */
-    public ArrayList<Task> getTasksList() {
-        return tasksList;
+    public void addTask(Task task) {
+        tasksList.add(task);
+        saveTasks();
+    }
+
+    /**
+     * Removes a specific task from the task list.
+     *
+     * @param task The task to be removed.
+     */
+    public void removeTask(Task task) {
+        tasksList.remove(task);
+        saveTasks();
     }
 
     /**
@@ -108,128 +92,95 @@ public class TaskList {
     public void saveTasks() {
         List<String> taskStrings = new ArrayList<>();
         for (Task task : tasksList) {
-            taskStrings.add(taskToString(task)); // Convert tasks to strings
+            String taskStr = StorageTaskParser.taskToString(task);
+            taskStrings.add(taskStr);
         }
-        storage.saveTasks(taskStrings); // Save tasks to file
+        storage.saveTasks(taskStrings);
     }
 
     /**
-     * Prints tasks scheduled for a specific date.
+     * Prints the formatted task list.
      *
-     * @param date The date to check for tasks.
+     * @return The formatted task list.
      */
-    public String printTasksForDate(LocalDate date) {
-        StringBuilder result = new StringBuilder();
-        for (Task task : tasksList) {
-            // Check if the task is an instance of introBlaise.task.Deadline
-            if (task instanceof Deadline) {
-                Deadline deadlineTask = (Deadline) task;
+    public String printTaskList() {
+        if (isTaskListEmpty()) {
+            return getEmptyTaskListMessage();
+        } else {
+            return formatTaskList();
+        }
+    }
 
-                // Get the date part from Deadline
-                LocalDate taskDate = deadlineTask.getDeadline().toLocalDate();
-                if (taskDate.isEqual(date)) {
-                    result.append(task).append("\n");
-                }
-            } else if (task instanceof Event) { // Check if the task is an instance of task.Event
-                Event eventTask = (Event) task;
-                LocalDate eventDate = eventTask.getParsedFrom().toLocalDate();
-                if (eventDate.isEqual(date)) {
-                    result.append(task).append("\n");
-                }
-            }
-            // Skip ToDo tasks as they don't have a specific date
+    /**
+     * Checks whether the task list is empty.
+     *
+     * @return {@code true} if the task list is empty, {@code false} otherwise.
+     */
+    private boolean isTaskListEmpty() {
+        return tasksList.isEmpty();
+    }
+
+    /**
+     * Returns a message indicating that the task list is empty.
+     *
+     * @return A string message informing the user that there are no tasks.
+     */
+    private String getEmptyTaskListMessage() {
+        try {
+            throw new EmptyTaskListException("Oh no! Your task list is empty now. Please add tasks!");
+        } catch (EmptyTaskListException e) {
+            return e.getMessage();
+        }
+    }
+
+    /**
+     * Formates the task list into a numbered string representation.
+     *
+     * @return A formatted string displaying all tasks with their indices.
+     */
+    private String formatTaskList() {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < tasksList.size(); i++) {
+            int indexNo = i + 1;
+            Task currTask = getTask(i);
+            result.append(indexNo).append(". ").append(currTask).append("\n");
         }
         return result.toString().trim();
     }
 
     /**
-     * Returns the number of tasks in the list.
+     * Returns a formatted list of tasks scheduled for a specific date.
      *
-     * @return The size of the task list.
+     * @param date The date for which tasks should be retrieved.
+     * @return A formatted string containing tasks scheduled for the give date.
      */
-    public int getSize() {
-        return tasksList.size();
+    public String printTasksForDate(LocalDate date) {
+        StringBuilder result = new StringBuilder();
+        for (Task task : tasksList) {
+            if (taskIsScheduledForDate(task, date)) {
+                result.append(task).append("\n");
+            }
+        }
+        return result.toString().trim();
     }
 
     /**
-     * Converts a task object into a string representation.
-     *
-     * @param task The task to be converted.
-     * @return A string representation of the task.
+     * Determines whether a task is scheduled for a given date.
+     * @param task The task to check.
+     * @param date The date to check against.
+     * @return {@code true} if the task is scheduled for the specified date, {@code false} otherwise.
      */
-    private String taskToString(Task task) {
-        String base = "";
-        if (task instanceof ToDo) {
-            base = "T | " + (task.getIsDone() ? "1" : "0") + " | " + task.description;
-        } else if (task instanceof Deadline) {
-            Deadline deadline = (Deadline) task;
-            base = "D | " + (task.getIsDone() ? "1" : "0") + " | " + task.description + " | " + deadline.getBy();
+    private boolean taskIsScheduledForDate(Task task, LocalDate date) {
+        if (task instanceof Deadline) {
+            Deadline deadlineTask = (Deadline) task;
+            LocalDate deadlineDate = deadlineTask.getFormattedDate();
+            return deadlineDate.equals(date);
         } else if (task instanceof Event) {
-            Event event = (Event) task;
-            base = "E | " + (task.getIsDone() ? "1" : "0") + " | " + task.description + " | " + event.getFrom()
-                    + " to " + event.getTo();
+            Event eventTask = (Event) task;
+            LocalDate eventDate = eventTask.getFormattedFromDate();
+            return eventDate.equals(date);
         }
-        return base + " | " + (task.getIsTagged() ? "1" : "0") + " | " + task.getTag(); // Add tag info
-    }
-
-    /**
-     * Converts a string representation of a task into a task object.
-     *
-     * @param line The string representing a task.
-     * @return The task object represented by the string.
-     */
-    private Task stringToTask(String line) {
-        try {
-            String[] parts = line.split(" \\| ");
-            if (parts.length < 3) { // Adjust length check
-                System.out.println("There is currently no tasks to be done.");
-                return null;
-            }
-
-            String taskType = parts[0].trim();
-            String isDone = parts[1].trim();
-            String description = parts[2].trim();
-            String isTagged = "0"; // Default, in case it's not present
-            String tag = "";
-
-            if (parts.length > 3) { // Check if tag info is present
-                isTagged = parts[parts.length - 2].trim();
-                tag = parts[parts.length - 1].trim();
-            }
-
-            Task task = null; // Declare task variable here
-            switch (taskType) {
-            case "T":
-                task = new ToDo(description);
-                break;
-            case "D":
-                String deadlineDate = parts[3].trim();
-                task = new Deadline(description, deadlineDate);
-                break;
-            case "E":
-                String eventDate = parts[3].trim();
-                String[] eventDetails = eventDate.split(" to ");
-                task = new Event(description, eventDetails[0], eventDetails[1]);
-                break;
-            default:
-                System.out.println("Skipping corrupted task line: " + line);
-                return null;
-            }
-
-            if (task != null) {
-                if ("1".equals(isDone)) {
-                    task.markAsDone();
-                }
-                if ("1".equals(isTagged)) {
-                    task.setTag(tag);
-                }
-            }
-            return task;
-
-        } catch (Exception e) {
-            System.out.println("Error parsing task line: " + e.getMessage());
-            return null;
-        }
+        return false;
     }
 
     /**
@@ -241,7 +192,8 @@ public class TaskList {
     public List<Task> findTasksByKeyword(String keyword) {
         List<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasksList) {
-            if (task.description.toLowerCase().contains(keyword.toLowerCase())) {
+            String taskDescription = task.getDescription().toLowerCase();
+            if (taskDescription.contains(keyword.toLowerCase())) {
                 matchingTasks.add(task);
             }
         }

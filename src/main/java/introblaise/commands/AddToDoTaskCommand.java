@@ -44,9 +44,9 @@ public class AddToDoTaskCommand implements TaskCommand {
         } catch (NumberFormatException e) {
             return "Uh oh! Invalid number. Please enter a number after 'unmark'.";
         } catch (StringIndexOutOfBoundsException e) {
-            return "Errr...Please enter a description";
+            return "Errr...Please enter a description...";
         } catch (InvalidInputException e) {
-            throw new RuntimeException(e);
+            return e.getMessage();
         }
     }
 

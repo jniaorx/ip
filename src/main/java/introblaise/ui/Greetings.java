@@ -25,15 +25,10 @@ public class Greetings {
      * @param scanner A {@code Scanner} object to read user input.
      */
     public void greet(Scanner scanner) {
-        // Prompt the user with a greeting message.
         System.out.println("    _________________________________");
         System.out.println("    Sup! I am IntroBlaise. What's your name?");
-
-        // Check if there is user input and read it.
         if (scanner.hasNextLine()) {
-            String name = scanner.nextLine(); // Read user's name.
-
-            // Responds with a personalized greeting.
+            String name = scanner.nextLine();
             System.out.println("    _________________________________");
             System.out.println("    Hi " + name + "!(ʘ‿ʘ)╯ Nice to meet you! "
                     + "You can start adding tasks to your very own task list! :)");
@@ -46,7 +41,6 @@ public class Greetings {
      * This method prints a goodbye message to the user when they exit the application.
      */
     public void sayBye() {
-        // Print a farewell message.
         System.out.println("    _________________________________");
         System.out.println("    Bye! Hope to see you again soon! :(");
         System.out.println("    _________________________________");

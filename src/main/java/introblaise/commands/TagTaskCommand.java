@@ -1,6 +1,7 @@
 package introblaise.commands;
 
 import introblaise.exceptions.EmptyLabelException;
+import introblaise.exceptions.InvalidInputException;
 import introblaise.parsers.UtilParser;
 import introblaise.task.Task;
 import introblaise.task.TaskList;
@@ -54,7 +55,7 @@ public class TagTaskCommand implements TaskCommand {
             return "Task tagged: " + currTask;
         } catch (IndexOutOfBoundsException e) {
             return "Uh oh! Invalid index. Have you entered the correct index?";
-        } catch (EmptyLabelException e) {
+        } catch (EmptyLabelException | InvalidInputException e) {
             return e.getMessage();
         }
     }
@@ -66,7 +67,7 @@ public class TagTaskCommand implements TaskCommand {
      * @return The task number (0-based index).
      * @throws NumberFormatException If the task number cannot be parsed as an integer.
      */
-    private int extractTaskNo(String userInput) {
+    private int extractTaskNo(String userInput) throws InvalidInputException {
         return UtilParser.parseTaskNumber(userInput);
     }
 
@@ -90,7 +91,7 @@ public class TagTaskCommand implements TaskCommand {
      * @return The tag label.
      * @throws EmptyLabelException If the tag label is empty.
      */
-    private String extractLabel(String userInput) throws EmptyLabelException {
+    private String extractLabel(String userInput) throws EmptyLabelException, InvalidInputException {
         return UtilParser.parseTagLabel(userInput);
     }
 

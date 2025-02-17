@@ -1,6 +1,7 @@
 package introblaise.commands;
 
 import introblaise.exceptions.AlreadyUndoneException;
+import introblaise.exceptions.InvalidInputException;
 import introblaise.parsers.UtilParser;
 import introblaise.task.Task;
 import introblaise.task.TaskList;
@@ -51,7 +52,7 @@ public class UnmarkTaskCommand implements TaskCommand {
             return "Uh oh! Invalid index. Are you sure you are unmarking the correct task?";
         } catch (NumberFormatException e) {
             return "Uh oh! Invalid number. Please enter a number after 'unmark'.";
-        } catch (AlreadyUndoneException e) {
+        } catch (AlreadyUndoneException | InvalidInputException e) {
             return e.getMessage();
         }
     }
@@ -63,7 +64,7 @@ public class UnmarkTaskCommand implements TaskCommand {
      * @return The task number (0-based index).
      * @throws NumberFormatException If the task number cannot be parsed as an integer.
      */
-    private int parseTaskNo(String userInput) {
+    private int parseTaskNo(String userInput) throws InvalidInputException {
         return UtilParser.parseTaskNumber(userInput);
     }
 

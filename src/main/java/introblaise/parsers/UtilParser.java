@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import introblaise.exceptions.EmptyDateException;
 import introblaise.exceptions.EmptyLabelException;
 import introblaise.exceptions.InvalidInputException;
 
@@ -24,11 +23,16 @@ public class UtilParser {
      * @throws NumberFormatException If the task number cannot be parsed as an integer.
      * @throws IndexOutOfBoundsException If the user input does not contain a task number.
      */
-    public static int parseTaskNumber(String userInput) {
-        String[] parts = userInput.split(" ");
-        String tasNoStr = parts[1];
-        int taskNo = Integer.parseInt(tasNoStr) - 1;
-        return taskNo;
+    public static int parseTaskNumber(String userInput) throws InvalidInputException {
+        try {
+            String[] parts = userInput.split(" ");
+            String tasNoStr = parts[1];
+            int taskNo = Integer.parseInt(tasNoStr) - 1;
+            return taskNo;
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            throw new InvalidInputException("Please enter the correct task number "
+                    + "in the format <command> <task number>");
+        }
     }
 
     /**
@@ -48,18 +52,28 @@ public class UtilParser {
     }
 
     /**
-     * Parses a date string from the user input.
+     * Extracts the date part from a date and time string.
+     * This method assumes that if the input string contains a space, the date part
+     * is the substring before the first space.  If no space is present, the entire
+     * input string is considered to be the date.
+     * <p>
+     * This method does *not* validate the format of the extracted date string.
+     * It simply isolates the part of the string before the first space (if any).
      *
-     * @param userInput The user input string.
-     * @return The date string.
-     * @throws EmptyDateException If no date is provided.
+     * @param dateTimeStr The date and time string.  This string may contain
+     *                    both the date and time, separated by a space, or it
+     *                    may contain only the date.
+     * @return The date part of the input string.  This will be the substring
+     *         before the first space, or the entire input string if no space
+     *         is present.  The returned string may contain leading or trailing
+     *         whitespace, which should be handled by the calling method if
+     *         necessary.
      */
-    public static String parseStringDateTime(String userInput) throws EmptyDateException {
-        String date = userInput.substring(9).trim();
-        if (date.isEmpty()) {
-            throw new EmptyDateException("Please enter a date!");
+    public static String extractStringDate(String dateTimeStr) {
+        if (dateTimeStr.contains(" ")) {
+            dateTimeStr = dateTimeStr.split(" ")[0];
         }
-        return date;
+        return dateTimeStr;
     }
 
     /**
@@ -73,6 +87,7 @@ public class UtilParser {
         LocalDate formattedDate = LocalDate.parse(dateString, formatter);
         return formattedDate;
     }
+
 
     /**
      * Converts a date and time string in the format "d-MM-yyyy HHmm" into a {@link LocalDateTime} object.
@@ -106,10 +121,10 @@ public class UtilParser {
      * @return The tag label.
      * @throws EmptyLabelException If no label is provided.
      */
-    public static String parseTagLabel(String userInput) throws EmptyLabelException {
+    public static String parseTagLabel(String userInput) throws EmptyLabelException, InvalidInputException {
         String[] parts = userInput.split(" ", 3);
         if (parts.length != 3) {
-            return "Invalid input format. Use 'tag <task_number> <label>'";
+            throw new InvalidInputException("Invalid input format. Use 'tag <task_number> <label>' to tag a task.");
         }
         String label = parts[2].trim();
         if (label.isEmpty()) {

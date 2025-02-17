@@ -1,5 +1,7 @@
 package introblaise.parsers;
 
+import java.time.format.DateTimeParseException;
+
 import introblaise.exceptions.InvalidInputException;
 import introblaise.task.Task;
 import introblaise.tasktype.Deadline;
@@ -32,7 +34,6 @@ public class DeadlineTaskParser implements TaskParser {
         String dateTime = parseDateTime(userInput);
 
         return new Deadline(description, dateTime);
-
     }
 
     /**
@@ -44,13 +45,17 @@ public class DeadlineTaskParser implements TaskParser {
      * @throws InvalidInputException If the description is empty or not found in the correct location.
      */
     private String parseDescription(String userInput) throws InvalidInputException {
-        String description = userInput.substring(8, userInput.indexOf("/")).trim();
-        assert (!description.isEmpty()) : "The description should not be empty.";
+        try {
+            String description = userInput.substring(8, userInput.indexOf("/")).trim();
+            assert (!description.isEmpty()) : "The description should not be empty.";
 
-        if (description.isEmpty()) {
+            if (description.isEmpty()) {
+                throw new InvalidInputException("Please enter a description for your deadline task.");
+            }
+            return description;
+        } catch (StringIndexOutOfBoundsException e) {
             throw new InvalidInputException("Please enter a description for your deadline task.");
         }
-        return description;
     }
 
     /**
@@ -62,12 +67,24 @@ public class DeadlineTaskParser implements TaskParser {
      * @throws InvalidInputException If the deadline date and time are missing or empty.
      */
     private String parseDateTime(String userInput) throws InvalidInputException {
-        int separator = userInput.indexOf("/") + 4;
-        String date = userInput.substring(separator).trim();
-        if (date.isEmpty()) {
-            throw new InvalidInputException("There seems to be no deadline entered...? "
-                    + "Please enter a deadline after the word /by.");
+        try {
+            int separator = userInput.indexOf("/") + 4;
+            String dateTime = userInput.substring(separator).trim();
+            if (dateTime.isEmpty()) {
+                throw new InvalidInputException("There seems to be no deadline entered...? "
+                        + "Please enter a deadline after the word /by.");
+            }
+            try {
+                UtilParser.convertFormattedDateTime(dateTime);
+            } catch (DateTimeParseException e) {
+                throw new InvalidInputException("Invalid date-time format: \"" + dateTime
+                        + "\". Please input your date and time in the format: d-MM-yyyy HHmm.");
+            }
+
+            return dateTime;
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new InvalidInputException("Please input in the format of deadline <description> /by <date> <time>");
         }
-        return date;
+
     }
 }

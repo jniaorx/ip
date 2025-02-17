@@ -49,7 +49,12 @@ public class Deadline extends Task {
      * @return the {@code LocalDate} representing the date of the deadline.
      */
     public LocalDate getFormattedDate() {
-        return UtilParser.convertDateString(dateTimeStr);
+        String dateString = extractStringDate(dateTimeStr);
+        return UtilParser.convertDateString(dateString);
+    }
+
+    private String extractStringDate(String dateTimeStr) {
+        return UtilParser.extractStringDate(dateTimeStr);
     }
 
     /**

@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import introblaise.exceptions.EmptyDateException;
 import introblaise.exceptions.EmptyTaskListException;
 import introblaise.parsers.StorageTaskParser;
 import introblaise.storage.Storage;
@@ -154,7 +155,7 @@ public class TaskList {
      * @param date The date for which tasks should be retrieved.
      * @return A formatted string containing tasks scheduled for the give date.
      */
-    public String printTasksForDate(LocalDate date) {
+    public String printTasksForDate(LocalDate date) throws EmptyDateException {
         StringBuilder result = new StringBuilder();
         for (Task task : tasksList) {
             if (taskIsScheduledForDate(task, date)) {
@@ -170,7 +171,7 @@ public class TaskList {
      * @param date The date to check against.
      * @return {@code true} if the task is scheduled for the specified date, {@code false} otherwise.
      */
-    private boolean taskIsScheduledForDate(Task task, LocalDate date) {
+    private boolean taskIsScheduledForDate(Task task, LocalDate date) throws EmptyDateException {
         if (task instanceof Deadline) {
             Deadline deadlineTask = (Deadline) task;
             LocalDate deadlineDate = deadlineTask.getFormattedDate();

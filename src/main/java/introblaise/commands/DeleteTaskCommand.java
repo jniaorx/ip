@@ -1,6 +1,7 @@
 package introblaise.commands;
 
 import introblaise.exceptions.DeleteEmptyTaskListException;
+import introblaise.exceptions.InvalidInputException;
 import introblaise.parsers.UtilParser;
 import introblaise.task.Task;
 import introblaise.task.TaskList;
@@ -46,7 +47,7 @@ public class DeleteTaskCommand implements TaskCommand {
             Task currTask = getTaskByTaskNo(taskNo);
             deleteTask(currTask);
             return buildResponseString(currTask);
-        } catch (DeleteEmptyTaskListException e) {
+        } catch (DeleteEmptyTaskListException | InvalidInputException e) {
             return e.getMessage();
         } catch (IndexOutOfBoundsException e) {
             return "Uh oh! Invalid index. Have you entered the index? Are you sure "
@@ -63,7 +64,7 @@ public class DeleteTaskCommand implements TaskCommand {
      * @return The task number (0-based index).
      * @throws NumberFormatException If the task number cannot be parsed as an integer.
      */
-    private int extractTaskNo(String userInput) {
+    private int extractTaskNo(String userInput) throws InvalidInputException {
         return UtilParser.parseTaskNumber(userInput);
     }
 

@@ -40,7 +40,7 @@ public class GetTasksOnDateCommand implements TaskCommand {
     @Override
     public String execute(String userInput) {
         try {
-            String taskDateStr = extractDateString(userInput);
+            String taskDateStr = extractStringDate(userInput);
             LocalDate formattedDate = convertDateStr(taskDateStr);
 
             return getTasksForDate(formattedDate);
@@ -52,14 +52,21 @@ public class GetTasksOnDateCommand implements TaskCommand {
     }
 
     /**
-     * Extracts the date string from the user input.
+     * Parses a date string from the user input.
      *
      * @param userInput The user input string.
      * @return The date string.
      * @throws EmptyDateException If no date is provided.
      */
-    private String extractDateString(String userInput) throws EmptyDateException {
-        return UtilParser.parseStringDateTime(userInput);
+    private String extractStringDate(String userInput) throws EmptyDateException {
+        String date = userInput.substring(9).trim();
+        if (date.isEmpty()) {
+            throw new EmptyDateException("Please enter a date!");
+        }
+        if (date.contains(" ")) {
+            date = date.split(" ")[0];
+        }
+        return date;
     }
 
     /**
@@ -78,7 +85,7 @@ public class GetTasksOnDateCommand implements TaskCommand {
      * @param formattedDate The date for which to retrieve tasks.
      * @return A string containing the formatted list of tasks.
      */
-    private String getTasksForDate(LocalDate formattedDate) {
+    private String getTasksForDate(LocalDate formattedDate) throws EmptyDateException {
         return taskList.printTasksForDate(formattedDate);
     }
 }

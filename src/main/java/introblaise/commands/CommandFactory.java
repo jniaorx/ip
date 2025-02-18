@@ -50,6 +50,7 @@ public class CommandFactory {
         commandMap.put("tag", new TagTaskCommand(taskList));
         commandMap.put("untag", new RemoveTagCommand(taskList));
         commandMap.put("help", new HelpCommand());
+        commandMap.put("clear", new ClearCommand(taskList));
     }
 
     /**

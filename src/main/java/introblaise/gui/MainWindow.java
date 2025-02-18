@@ -35,6 +35,9 @@ public class MainWindow extends AnchorPane {
     private Image dukeImage = new Image(Objects.requireNonNull(
             this.getClass().getResourceAsStream("/images/IntroBlaisePfp.png")));
 
+    /**
+     * Initializes scroll pane and loads CSS file.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());

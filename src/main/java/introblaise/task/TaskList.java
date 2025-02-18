@@ -200,4 +200,11 @@ public class TaskList {
         }
         return matchingTasks;
     }
+
+    /**
+     * Clears the entire task list to empty.
+     */
+    public void clearTaskList() {
+        tasksList.clear();
+    }
 }

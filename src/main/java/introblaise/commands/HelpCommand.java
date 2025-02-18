@@ -37,6 +37,7 @@ public class HelpCommand implements TaskCommand {
                 + "9. find [KEYWORD]: Search tasks by keyword\n"
                 + "10. tag [TASKINDEX] [LABEL]: Add a tag to a task\n"
                 + "11. untag [TASKINDEX]: Remove a tag from a task\n"
-                + "12. help: Show this help message";
+                + "12. clear: Clears the entire task list\n"
+                + "13. help: Show this help message";
     }
 }

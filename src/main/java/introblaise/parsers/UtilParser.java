@@ -30,8 +30,8 @@ public class UtilParser {
             int taskNo = Integer.parseInt(tasNoStr) - 1;
             return taskNo;
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            throw new InvalidInputException("Please enter the correct task number "
-                    + "in the format <command> <task number>");
+            throw new InvalidInputException("Please enter the correct task number. "
+                    + "It should be in the format: [COMMAND] [TASKNUMBER]");
         }
     }
 
@@ -130,11 +130,13 @@ public class UtilParser {
     public static String parseTagLabel(String userInput) throws EmptyLabelException, InvalidInputException {
         String[] parts = userInput.split(" ", 3);
         if (parts.length != 3) {
-            throw new InvalidInputException("Invalid input format. Use 'tag <task_number> <label>' to tag a task.");
+            throw new InvalidInputException("Invalid input format. It should be in the format: "
+                    + "tag [TASKNUMBER] [LABEL]");
         }
         String label = parts[2].trim();
         if (label.isEmpty()) {
-            throw new EmptyLabelException("Please enter a label for your tag!");
+            throw new EmptyLabelException("Please enter a label for your tag!"
+                    + "It should be in the format: tag [TASKNUMBER] [LABEL]");
         }
         return label;
     }

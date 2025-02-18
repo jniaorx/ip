@@ -47,14 +47,17 @@ public class DeadlineTaskParser implements TaskParser {
     private String parseDescription(String userInput) throws InvalidInputException {
         try {
             String description = userInput.substring(8, userInput.indexOf("/")).trim();
-            assert (!description.isEmpty()) : "The description should not be empty.";
+            assert (!description.isEmpty()) : "The description should not be empty."
+                    + "It should be in the format: deadline [DESCRIPTION]";
 
             if (description.isEmpty()) {
-                throw new InvalidInputException("Please enter a description for your deadline task.");
+                throw new InvalidInputException("Please enter a description for your deadline task."
+                        + "It should be in the format: deadline [DESCRIPTION] /by [dd-mm-yyyy] [HHmm]");
             }
             return description;
         } catch (StringIndexOutOfBoundsException e) {
-            throw new InvalidInputException("Please enter a description for your deadline task.");
+            throw new InvalidInputException("Please enter a description for your deadline task."
+                    + "It should be in the format: deadline [DESCRIPTION] /by [dd-mm-yyyy] [HHmm]");
         }
     }
 
@@ -72,7 +75,8 @@ public class DeadlineTaskParser implements TaskParser {
             String dateTime = userInput.substring(separator).trim();
             if (dateTime.isEmpty()) {
                 throw new InvalidInputException("There seems to be no deadline entered...? "
-                        + "Please enter a deadline after the word /by.");
+                        + "Please enter a deadline after the word /by."
+                        + " It should be in the format: deadline [DESCRIPTION] /by [dd-mm-yyyy] [HHmm]");
             }
             try {
                 UtilParser.convertFormattedDateTime(dateTime);
@@ -83,7 +87,8 @@ public class DeadlineTaskParser implements TaskParser {
 
             return dateTime;
         } catch (StringIndexOutOfBoundsException e) {
-            throw new InvalidInputException("Please input in the format of deadline <description> /by <date> <time>");
+            throw new InvalidInputException("Please input in the format of "
+                    + "deadline [DESCRIPTION] /by [dd-mm-yyyy] [HHmm]");
         }
 
     }

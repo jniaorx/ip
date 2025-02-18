@@ -81,7 +81,8 @@ public class EventTaskParser implements TaskParser {
             UtilParser.convertFormattedDateTime(from);
         } catch (DateTimeParseException e) {
             throw new InvalidInputException("Invalid date-time format: \"" + from
-                    + "\". Please input your date and time in the format: d-MM-yyyy HHmm.");
+                    + "\". It should be in the format: "
+                    + "event [DESCRIPTION] /from [dd-mm-yyyy HHmm] /to [dd-mm-yyyy HHmm]");
         }
         return from;
     }

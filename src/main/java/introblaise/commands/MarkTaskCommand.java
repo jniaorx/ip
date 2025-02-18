@@ -44,9 +44,11 @@ public class MarkTaskCommand implements TaskCommand {
             saveTask();
             return "Well done! I've marked this task as done: " + "\n" + currTask;
         } catch (IndexOutOfBoundsException e) {
-            return "Uh oh! Invalid index. Are you sure you are marking the correct task?";
+            return "Uh oh! Invalid index. Are you sure you are marking the correct task? It should be "
+                    + "in the format: mark [TASKNUMBER]";
         } catch (NumberFormatException e) {
-            return "Uh oh! Invalid number. Please enter a number after 'unmark'.";
+            return "Uh oh! Invalid number. Please enter a number after 'unmark'."
+                    + "It should be in the format: mark [TASKNUMBER]";
         } catch (InvalidInputException e) {
             return e.getMessage();
         }

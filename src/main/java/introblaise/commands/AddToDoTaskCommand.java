@@ -41,10 +41,8 @@ public class AddToDoTaskCommand implements TaskCommand {
             ToDo todoTask = (ToDo) toDoTaskParser.parse(userInput);
             addTaskToList(todoTask);
             return buildResponseString(todoTask);
-        } catch (NumberFormatException e) {
-            return "Uh oh! Invalid number. Please enter a number after 'unmark'.";
         } catch (StringIndexOutOfBoundsException e) {
-            return "Errr...Please enter a description...";
+            return "Errr...Please enter a description...It should be in the format: todo [DESCRIPTION]";
         } catch (InvalidInputException e) {
             return e.getMessage();
         }

@@ -52,7 +52,7 @@ public class TagTaskCommand implements TaskCommand {
 
             setTag(currTask, label);
             saveTask();
-            return "Task tagged: " + currTask;
+            return "I've tagged this task: " + currTask;
         } catch (IndexOutOfBoundsException e) {
             return "Uh oh! Invalid index. Have you entered the correct index?";
         } catch (EmptyLabelException | InvalidInputException e) {

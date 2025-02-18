@@ -41,7 +41,8 @@ public class CommandParser {
         TaskCommand taskCommand = getCommand(command);
 
         if (taskCommand == null) {
-            return new InvalidInputException("Err...I don't understand this :(. Please give a valid command!")
+            return new InvalidInputException("Err...I don't understand this :(. Please give a valid command! "
+                    + "Type \"help\" if you need guidance!")
                     .getMessage();
         }
 

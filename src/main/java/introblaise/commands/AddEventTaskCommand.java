@@ -42,7 +42,7 @@ public class AddEventTaskCommand implements TaskCommand {
             return buildResponseString(eventTask);
         } catch (StringIndexOutOfBoundsException e) {
             return "Please enter a description and a duration for your task in the format: "
-                    + "event <description> /from dd-mm-yyyy HHmm /to dd-mm-yyyy HHmm";
+                    + "event [DESCRIPTION] /from [dd-mm-yyyy HHmm] /to [dd-mm-yyyy HHmm]";
         } catch (InvalidInputException e) {
             return e.getMessage();
         }

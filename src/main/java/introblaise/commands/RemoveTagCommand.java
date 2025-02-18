@@ -46,7 +46,7 @@ public class RemoveTagCommand implements TaskCommand {
             }
             deleteTag(currTask);
             saveTask();
-            return "Tag for " + currTask + " has successfully been deleted!";
+            return "Tag for " + currTask + " has been successfully deleted!";
         } catch (IndexOutOfBoundsException e) {
             return "Uh oh! Invalid index. Have you entered the correct index?";
         } catch (InvalidInputException e) {

@@ -42,7 +42,7 @@ public class FindTaskCommand implements TaskCommand {
             List<Task> matchingTasks = findMatchingTasks(keyword);
 
             if (matchingTasks.isEmpty()) {
-                return "No tasks found with the keyword: " + keyword;
+                return "Oops! No tasks found with the keyword: " + keyword;
             } else {
                 return buildResponseString(matchingTasks);
             }

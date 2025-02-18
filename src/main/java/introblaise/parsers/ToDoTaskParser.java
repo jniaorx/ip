@@ -40,7 +40,8 @@ public class ToDoTaskParser implements TaskParser {
         String description = userInput.substring(5).trim();
         assert (!description.isEmpty()) : "The description should not be empty.";
         if (description.isEmpty()) {
-            throw new InvalidInputException("Please enter a description for your todo task!");
+            throw new InvalidInputException("Please enter a description for your todo task!"
+                    + "It should be in the format: todo [DESCRIPTION]");
         }
         return description;
     }

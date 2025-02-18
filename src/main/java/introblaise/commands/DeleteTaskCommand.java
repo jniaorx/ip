@@ -51,9 +51,10 @@ public class DeleteTaskCommand implements TaskCommand {
             return e.getMessage();
         } catch (IndexOutOfBoundsException e) {
             return "Uh oh! Invalid index. Have you entered the index? Are you sure "
-                    + "you are deleting the correct task?";
+                    + "you are deleting the correct task? It should be in the format: delete [TASKNUMBER]";
         } catch (NumberFormatException e) {
-            return "Uh oh! Invalid number. Please enter a number after 'delete'.";
+            return "Uh oh! Invalid number. Please enter a number after 'delete'."
+                    + "It should be in the format: delete [TASKNUMBER]";
         }
     }
 

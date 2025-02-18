@@ -57,5 +57,19 @@
 }
 
 .background-pane {
-    -fx-background-color: #4d6b7c !important;
+    -fx-background-color: #4d6b7c;
+}
+
+.welcome-label {
+    -fx-font-family: "Lucida Bright";
+    -fx-font-size: 18px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #1976D2;
+    -fx-background-color: #E3F2FD;
+    -fx-padding: 15px 20px;
+    -fx-border-radius: 8px;
+    -fx-alignment: center;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 6, 0, 3, 3);
+    -fx-max-width: 400px;
+    -fx-wrap-text: true;
 }

@@ -40,7 +40,7 @@
                 <VBox fx:id="dialogContainer"
                       prefHeight="552.0"
                       prefWidth="388.0" >
-                    <Label fx:id="welcomeLabel" text="IntroBlaise"/>
+                    <Label fx:id="welcomeLabel" text="" styleClass="welcome-label"/>
                 </VBox>
             </content>
         </ScrollPane>

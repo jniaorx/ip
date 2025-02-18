@@ -1,3 +1,0 @@
-T | 0 | study | 1 | work
-D | 0 | ip | 19-02-2025 2359 | 1 | study
-E | 0 | lecture | 18-02-2025 1600 to 18-02-2025 1700 | 1 | lecture

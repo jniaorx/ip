@@ -36,7 +36,8 @@ public class Ui {
                         + "|  |_)  |  |  `----./  _____   \\ |  | .----)   |   |  |____  \n"
                         + "|______/   |_______/__/     \\__\\|__| |_______/    |_______| \n";
 
-        return "Hello!\n" + "I am INTROBLAISE\n" + "Please type your commands to start!";
+        return "WASSUP!\n" + "I am INTROBLAISE,\n" + "Your FAVOURITE task manager!\n"
+                + "Please type your commands to start :)\n";
     }
 
     /**

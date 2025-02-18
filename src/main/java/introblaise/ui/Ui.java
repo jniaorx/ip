@@ -36,7 +36,7 @@ public class Ui {
                         + "|  |_)  |  |  `----./  _____   \\ |  | .----)   |   |  |____  \n"
                         + "|______/   |_______/__/     \\__\\|__| |_______/    |_______| \n";
 
-        return "Hello from\n" + logo;
+        return "Hello!\n" + "I am INTROBLAISE\n" + "Please type your commands to start!";
     }
 
     /**

@@ -2,7 +2,7 @@
 
 ![IntroBlaise Screenshot](Ui.png)
 
-Welcome to **IntroBlaise**, your friendly task management bot! IntroBlaise helps you organize your tasks efficiently using simple commands.
+Welcome to **IntroBlaise**, an introverted bot named Blaise! Your friendly task management bot! IntroBlaise helps you organize your tasks efficiently using simple commands.
 
 ---
 ## 📌 Features & Commands
@@ -205,6 +205,54 @@ untag 1
 ```
 Tag for [D][ ] |assignment| CS2103T IP (by: Feb 21 2025 23:59) has been successfully removed!
 ```
+
+---
+### 1️⃣2️⃣ Clearing task list: `clear`
+Clears the entire task list.
+
+**Format:**
+```
+clear
+```
+**Example:**
+```
+clear
+```
+**Response:**
+```
+Yay! Your task list has been cleared!
+```
+
+---
+### 1️⃣3️⃣ Displaying valid commands `help`
+Shows a list of valid commands.
+
+**Format:**
+```
+help
+```
+**Example:**
+```
+help
+```
+**Response:**
+```
+Hi! Here are the valid commands for IntroBlaise:
+1. todo [DESCRIPTION]: Add a To-Do task
+2. deadline [DESCRIPTION] /by [dd-mm-yyyy HHmm]: Add a Deadline task
+3. event [DESCRIPTION] /from [dd-mm-yyyy HHmm] /to [dd-mm-yyyy HHmm]: Add an Event task
+4. list: View all tasks
+5. mark [TASKINDEX]: Mark a task as done
+6. unmark [TASKINDEX]: Unmark a task as not done
+7. delete [TASKINDEX]: Delete a task
+8. tasks on [dd-mm-yyyy]: Search tasks by date
+9. find [KEYWORD]: Search tasks by keyword
+10. tag [TASKINDEX] [LABEL]: Add a tag to a task
+11. untag [TASKINDEX]: Remove a tag from a task
+12. clear: Clears the entire task list
+13. help: Show this help message";
+```
+
 
 ---
 ## 🎯 Conclusion

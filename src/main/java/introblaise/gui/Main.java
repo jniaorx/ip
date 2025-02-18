@@ -1,6 +1,7 @@
 package introblaise.gui;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import introblaise.ui.IntroBlaise;
 import introblaise.ui.Ui;
@@ -30,7 +31,8 @@ public class Main extends Application {
             MainWindow controller = fxmlLoader.getController();
             controller.setIntroBlaise(introBlaise); // Inject the IntroBlaise instance
             controller.showWelcomeMessage(ui); // Show the welcome message in the GUI
-
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/styles.css"))
+                    .toExternalForm());
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

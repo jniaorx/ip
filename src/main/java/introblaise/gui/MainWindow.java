@@ -1,5 +1,7 @@
 package introblaise.gui;
 
+import java.util.Objects;
+
 import introblaise.ui.IntroBlaise;
 import introblaise.ui.Ui;
 import javafx.application.Platform;
@@ -28,12 +30,17 @@ public class MainWindow extends AnchorPane {
 
     private IntroBlaise introBlaise;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/PinkUser.png"));
+    private Image userImage = new Image(Objects.requireNonNull(
+            this.getClass().getResourceAsStream("/images/UserPfp.png")));
+    private Image dukeImage = new Image(Objects.requireNonNull(
+            this.getClass().getResourceAsStream("/images/IntroBlaisePfp.png")));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        // Load CSS file
+        String cssUrl = Objects.requireNonNull(getClass().getResource("/css/styles.css")).toExternalForm();
+        getStylesheets().add(cssUrl);
     }
 
     /** Injects the IntroBlaise instance */

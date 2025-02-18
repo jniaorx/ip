@@ -23,7 +23,7 @@ public class TaskTest {
         Task task = new Task("Finish CS2103T assignment");
 
         assertEquals("Finish CS2103T assignment",
-                task.description, "Task description should be correctly initialzied.");
+                task.getDescription(), "Task description should be correctly initialzied.");
         assertFalse(task.getIsDone(), "New task should be marked as not done by default.");
         assertEquals("[ ] Finish CS2103T assignment", task.toString());
     }

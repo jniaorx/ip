@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+import introblaise.storage.Storage;
 import introblaise.tasktype.ToDo;
 
 /**
@@ -18,7 +19,8 @@ public class TaskListTest {
      */
     @Test
     public void addTask_taskAdded_taskListSizeIncreases() {
-        TaskList taskList = new TaskList();
+        Storage storage = new Storage();
+        TaskList taskList = new TaskList(storage);
         int originalSize = taskList.getSize();
         ToDo task = new ToDo("Complete CS2103T");
 

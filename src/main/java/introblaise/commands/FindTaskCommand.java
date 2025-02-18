@@ -46,7 +46,7 @@ public class FindTaskCommand implements TaskCommand {
             } else {
                 return buildResponseString(matchingTasks);
             }
-        } catch (InvalidInputException e) {
+        } catch (InvalidInputException | StringIndexOutOfBoundsException e) {
             return e.getMessage();
         }
     }
@@ -68,7 +68,7 @@ public class FindTaskCommand implements TaskCommand {
      * @param keyword The keyword to search for.
      * @return A list of {@link Task} objects whose descriptions contain the keyword.
      */
-    private List<Task> findMatchingTasks(String keyword) {
+    private List<Task> findMatchingTasks(String keyword) throws InvalidInputException {
         return taskList.findTasksByKeyword(keyword);
     }
 

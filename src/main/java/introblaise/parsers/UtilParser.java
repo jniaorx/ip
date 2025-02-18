@@ -44,11 +44,17 @@ public class UtilParser {
      * @throws InvalidInputException If no keyword is provided after "find".
      */
     public static String parseFindKeyword(String userInput) throws InvalidInputException {
-        String keyword = userInput.substring(5).trim();
-        if (keyword.isEmpty()) {
-            throw new InvalidInputException("Please provide a keyword to search.");
+        try {
+            String keyword = userInput.substring(5).trim();
+            if (keyword.isEmpty()) {
+                throw new InvalidInputException("Please provide a keyword to search."
+                        + " It should be in the format: find [KEYWORD]");
+            }
+            return keyword;
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new InvalidInputException("Please provide a keyword to search."
+                    + " It should be in the format: find [KEYWORD]");
         }
-        return keyword;
     }
 
     /**

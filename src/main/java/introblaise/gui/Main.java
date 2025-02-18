@@ -35,7 +35,8 @@ public class Main extends Application {
             scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/styles.css"))
                     .toExternalForm());
             stage.setTitle("IntroBlaise");
-            stage.getIcons().add(new Image(String.valueOf(Objects.requireNonNull(getClass().getResource("/images/IntroBlaisePfp.png")))));
+            stage.getIcons().add(new Image(String.valueOf(Objects.requireNonNull(getClass()
+                    .getResource("/images/IntroBlaisePfp.png")))));
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

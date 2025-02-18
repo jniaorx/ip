@@ -54,7 +54,8 @@ public class StorageTaskParser {
      * @param isDoneStr   The string representation of the completion status ("1" or "0").
      * @return The base string representation of the task.
      */
-    private static String getTaskBaseString(Task task, String description, String isDoneStr, String isTaggedStr, String taglabel) {
+    private static String getTaskBaseString(Task task, String description, String isDoneStr, String isTaggedStr,
+                                            String taglabel) {
         if (task instanceof ToDo) {
             return buildToDoSring(description, isDoneStr, isTaggedStr, taglabel);
         } else if (task instanceof Deadline) {
@@ -62,7 +63,8 @@ public class StorageTaskParser {
             return buildDeadlineString(description, isDoneStr, deadlineTask.getDateTimeStr(), isTaggedStr, taglabel);
         } else if (task instanceof Event) {
             Event eventTask = (Event) task;
-            return buildEventString(description, isDoneStr, eventTask.getFrom(), eventTask.getTo(), isTaggedStr, taglabel);
+            return buildEventString(description, isDoneStr, eventTask.getFrom(), eventTask.getTo(),
+                    isTaggedStr, taglabel);
         }
         return null;
     }
@@ -86,7 +88,8 @@ public class StorageTaskParser {
      * @param dateTimeStr The string representation of the deadline date and time.
      * @return The string representation of the Deadline task.
      */
-    private static String buildDeadlineString(String description, String isDoneStr, String dateTimeStr, String isTaggedStr, String tagLabel) {
+    private static String buildDeadlineString(String description, String isDoneStr, String dateTimeStr,
+                                              String isTaggedStr, String tagLabel) {
         return String.format("D | %s | %s | %s | %s | %s", isDoneStr, description, dateTimeStr, isTaggedStr, tagLabel);
     }
 
@@ -99,8 +102,10 @@ public class StorageTaskParser {
      * @param toStr       The string representation of the event end date and time.
      * @return The string representation of the Event task.
      */
-    private static String buildEventString(String description, String isDoneStr, String fromStr, String toStr, String isTaggedStr, String tagLabel) {
-        return String.format("E | %s | %s | %s to %s | %s | %s", isDoneStr, description, fromStr, toStr, isTaggedStr, tagLabel);
+    private static String buildEventString(String description, String isDoneStr, String fromStr, String toStr,
+                                           String isTaggedStr, String tagLabel) {
+        return String.format("E | %s | %s | %s to %s | %s | %s", isDoneStr, description, fromStr, toStr, isTaggedStr,
+                tagLabel);
     }
 
     /**

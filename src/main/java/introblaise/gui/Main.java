@@ -33,6 +33,7 @@ public class Main extends Application {
             controller.showWelcomeMessage(ui); // Show the welcome message in the GUI
             scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/styles.css"))
                     .toExternalForm());
+            stage.setTitle("IntroBlaise");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

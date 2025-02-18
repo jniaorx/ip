@@ -13,7 +13,6 @@
             xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="introblaise.gui.MainWindow"
-            styleClass="background-pane"
             stylesheets="@../css/styles.css">
 
     <children>
@@ -41,7 +40,7 @@
                 <VBox fx:id="dialogContainer"
                       prefHeight="552.0"
                       prefWidth="388.0" >
-                    <Label fx:id="welcomeLabel" text="" />
+                    <Label fx:id="welcomeLabel" text="IntroBlaise"/>
                 </VBox>
             </content>
         </ScrollPane>

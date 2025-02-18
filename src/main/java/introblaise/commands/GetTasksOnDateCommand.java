@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 import introblaise.exceptions.EmptyDateException;
+import introblaise.exceptions.InvalidInputException;
 import introblaise.parsers.UtilParser;
 import introblaise.task.TaskList;
 
@@ -46,7 +47,7 @@ public class GetTasksOnDateCommand implements TaskCommand {
             return getTasksForDate(formattedDate);
         } catch (DateTimeParseException e) {
             return "Invalid date format. Please enter the date in d-MM-yyyy format.";
-        } catch (EmptyDateException e) {
+        } catch (EmptyDateException | InvalidInputException e) {
             return e.getMessage();
         }
     }
@@ -58,15 +59,19 @@ public class GetTasksOnDateCommand implements TaskCommand {
      * @return The date string.
      * @throws EmptyDateException If no date is provided.
      */
-    private String extractStringDate(String userInput) throws EmptyDateException {
-        String date = userInput.substring(9).trim();
-        if (date.isEmpty()) {
-            throw new EmptyDateException("Please enter a date!");
+    private String extractStringDate(String userInput) throws EmptyDateException, InvalidInputException {
+        try {
+            String date = userInput.substring(9).trim();
+            if (date.isEmpty()) {
+                throw new EmptyDateException("Please enter a date! It should be in the format: tasks on [dd-mm-yyyy]");
+            }
+            if (date.contains(" ")) {
+                date = date.split(" ")[0];
+            }
+            return date;
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new InvalidInputException("Please enter a date! It should be in the format: tasks on [dd-mm-yyyy]");
         }
-        if (date.contains(" ")) {
-            date = date.split(" ")[0];
-        }
-        return date;
     }
 
     /**

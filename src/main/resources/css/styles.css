@@ -1,7 +1,6 @@
-/* Make profile pictures round */
- .image-view {
-     -fx-effect: dropshadow(gaussian , rgba(0,0,0,0.3) , 5, 0, 2, 2 );
- }
+.image-view {
+    -fx-effect: dropshadow(gaussian , rgba(0,0,0,0.3) , 5, 0, 2, 2 );
+}
 
 /* Style for the dialog box */
 .dialog-box {
@@ -15,7 +14,7 @@
     -fx-background-color: #81D4FA;
         -fx-background-radius: 15px;
         -fx-padding: 10px;
-        -fx-padding-left: 100px; /* Adjust this value for spacing */
+        -fx-padding-left: 100px;
         -fx-wrap-text: true;
 }
 
@@ -26,6 +25,8 @@
     -fx-padding: 10px;
     -fx-text-fill: white;
     -fx-font-family: "Constantia";
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
 }
 
 /* Style for bot messages */
@@ -34,6 +35,8 @@
     -fx-background-radius: 15px;
     -fx-padding: 10px;
     -fx-font-family: "Consolas";
+    -fx-background-radius: 0 1em 1em 1em;
+    -fx-border-radius: 0 1em 1em 1em;
 }
 
 /* Style for input field */

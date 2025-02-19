@@ -85,6 +85,7 @@ public class Storage {
             }
         } catch (IOException e) {
             System.out.println("Error reading file: " + e.getMessage());
+            handleCorruptedFile();
         }
 
         return tasks;
@@ -102,10 +103,16 @@ public class Storage {
      *         be parsed.
      */
     public List<Task> loadTasksFromFile() {
-        return readFromFile().stream()
-                .map(StorageTaskParser::stringToTask)
-                .filter(Objects::nonNull)
-                .collect(Collectors.toList());
+        try {
+            return readFromFile().stream()
+                    .map(StorageTaskParser::stringToTask)
+                    .filter(Objects::nonNull)
+                    .collect(Collectors.toList());
+        } catch (Exception e) {
+            System.out.println("Error parsing tasks: " + e.getMessage());
+            handleCorruptedFile();
+            return new ArrayList<>();
+        }
     }
 
     /**
@@ -132,5 +139,16 @@ public class Storage {
     public void handleCorruptedFile() {
         System.out.println("Warning: Corrupted file detected. Resetting...");
         saveTasks(new ArrayList<>()); // Reset file with an empty task list
+    }
+
+    /**
+     * Clears the contents of the task file by overwriting it with an empty file.
+     */
+    public void clearFile() {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_PATH, false))) {
+            // Writing nothing clears the file
+        } catch (IOException e) {
+            System.out.println("Error clearing file: " + e.getMessage());
+        }
     }
 }

@@ -207,4 +207,11 @@ public class TaskList {
     public void clearTaskList() {
         tasksList.clear();
     }
+
+    /**
+     * Clears the file from storage to return an empty list.
+     */
+    public void clearFile() {
+        storage.clearFile();
+    }
 }

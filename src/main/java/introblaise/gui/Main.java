@@ -1,5 +1,6 @@
 package introblaise.gui;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -27,7 +28,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-
+            stage.setResizable(true);
             // Get the MainWindow controller
             MainWindow controller = fxmlLoader.getController();
             controller.setIntroBlaise(introBlaise); // Inject the IntroBlaise instance

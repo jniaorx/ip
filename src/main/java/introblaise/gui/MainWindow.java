@@ -6,6 +6,7 @@ import introblaise.ui.IntroBlaise;
 import introblaise.ui.Ui;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -22,11 +23,11 @@ public class MainWindow extends AnchorPane {
     @FXML
     private TextField userInput;
     private IntroBlaise introBlaise;
-    private Ui ui = new Ui();
+    private final Ui ui = new Ui();
 
-    private Image userImage = new Image(Objects.requireNonNull(
+    private final Image userImage = new Image(Objects.requireNonNull(
             this.getClass().getResourceAsStream("/images/UserPfp.png")));
-    private Image introBlaiseImage = new Image(Objects.requireNonNull(
+    private final Image introBlaiseImage = new Image(Objects.requireNonNull(
             this.getClass().getResourceAsStream("/images/IntroBlaisePfp.png")));
 
     /**

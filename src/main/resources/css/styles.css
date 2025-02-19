@@ -21,11 +21,9 @@
 /* Style for user messages. */
 .user-dialog {
     -fx-background-color: #1E3A8A;
-    -fx-background-radius: 15px;
     -fx-padding: 10px;
     -fx-text-fill: white;
     -fx-font-family: "Constantia";
-    -fx-font-size: 13px;
     -fx-background-radius: 1em 1em 0 1em;
     -fx-border-radius: 1em 1em 0 1em;
 }
@@ -33,10 +31,8 @@
 /* Style for bot messages */
 .bot-dialog {
     -fx-background-color: #ADD8E6;
-    -fx-background-radius: 15px;
     -fx-padding: 10px;
     -fx-font-family: "Consolas";
-    -fx-font-size: 13px;
     -fx-background-radius: 0 1em 1em 1em;
     -fx-border-radius: 0 1em 1em 1em;
 }

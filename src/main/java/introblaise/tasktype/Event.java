@@ -3,7 +3,6 @@ package introblaise.tasktype;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import introblaise.exceptions.EmptyDateException;
 import introblaise.parsers.UtilParser;
 import introblaise.task.Task;
 
@@ -53,7 +52,7 @@ public class Event extends Task {
      *
      * @return the {@code LocalDate} representing the date which event starts.
      */
-    public LocalDate getFormattedFromDate() throws EmptyDateException {
+    public LocalDate getFormattedFromDate() {
         String fromDate = extractStringDate(from);
         return UtilParser.convertDateString(fromDate);
     }

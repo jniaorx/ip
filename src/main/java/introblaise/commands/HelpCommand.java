@@ -3,7 +3,6 @@ package introblaise.commands;
 /**
  * The {@code HelpCommand} class provides a list of available commands
  * for the IntroBlaise task management application.
- *
  * This command helps users understand the valid inputs they can use
  * to interact with the application.
  */

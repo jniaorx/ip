@@ -32,7 +32,6 @@ public class DeleteTaskCommand implements TaskCommand {
      *                  where 'x' is the index (starting from 1) of the task to be deleted.
      * @return A string message confirming the task deletion, or an error message
      *         if the input is invalid (e.g., invalid index, empty task list).
-     * @throws DeleteEmptyTaskListException If the task list is empty.
      * @throws IndexOutOfBoundsException    If the provided task index is out of range.
      * @throws NumberFormatException       If the task index cannot be parsed as a number.
      */

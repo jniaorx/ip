@@ -6,8 +6,6 @@ import introblaise.ui.IntroBlaise;
 import introblaise.ui.Ui;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -23,11 +21,6 @@ public class MainWindow extends AnchorPane {
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
-    @FXML
-    private Button sendButton;
-    @FXML
-    private Label welcomeLabel; // Label for welcome message
-
     private IntroBlaise introBlaise;
     private Ui ui = new Ui();
 

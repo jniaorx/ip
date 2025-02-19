@@ -8,13 +8,12 @@
 <?import javafx.scene.layout.VBox?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
-            minHeight="-Infinity" minWidth="-Infinity"
             prefHeight="600.0" prefWidth="400.0"
             xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="introblaise.gui.MainWindow"
-            stylesheets="@../css/styles.css">
-
+            stylesheets="@../css/styles.css"
+            styleClass="background-pane">
     <children>
         <TextField fx:id="userInput"
                    layoutY="558.0"
@@ -32,15 +31,17 @@
                 text="Send" />
         <ScrollPane fx:id="scrollPane"
                     hbarPolicy="NEVER"
-                    hvalue="1.0"
-                    prefHeight="557.0"
-                    prefWidth="400.0"
-                    vvalue="1.0">
+                    vbarPolicy="ALWAYS"
+                    fitToWidth="true"
+                    fitToHeight="true"
+                    AnchorPane.topAnchor="0.0"
+                    AnchorPane.bottomAnchor="41.0"
+                    AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0">
             <content>
                 <VBox fx:id="dialogContainer"
                       prefHeight="552.0"
-                      prefWidth="388.0" >
-                    <Label fx:id="welcomeLabel" text="" styleClass="welcome-label"/>
+                      prefWidth="388.0">
                 </VBox>
             </content>
         </ScrollPane>

@@ -157,10 +157,15 @@ public class TaskList {
      */
     public String printTasksForDate(LocalDate date) throws EmptyDateException {
         StringBuilder result = new StringBuilder();
+        result.append("These are the tasks on ").append(date).append(": ").append("\n");
+        int originalSize = result.length();
         for (Task task : tasksList) {
             if (taskIsScheduledForDate(task, date)) {
                 result.append(task).append("\n");
             }
+        }
+        if (result.length() == originalSize) {
+            return "Yay! There is no task to be done on this date!";
         }
         return result.toString().trim();
     }

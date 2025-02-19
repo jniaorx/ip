@@ -36,7 +36,6 @@ public class GetTasksOnDateCommand implements TaskCommand {
      *         missing date).
      * @throws DateTimeParseException If the date part of the user input cannot be parsed
      *                                  as a date in the "d-MM-yyyy" format.
-     * @throws EmptyDateException     If no date is provided after "tasks on".
      */
     @Override
     public String execute(String userInput) {

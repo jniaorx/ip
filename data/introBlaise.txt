@@ -1,3 +1,4 @@
-T | 0 | laundry | 0 | 
-D | 0 | CS2103T IP | 21-02-2025 2359 | 0 | 
+T | 1 | laundry | 1 | personal
+D | 1 | CS2103T IP | 21-02-2025 2359 | 1 | school
 E | 0 | presentation | 19-02-2024 1200 to 19-02-2024 1300 | 0 | 
+D | 1 | tp | 21-02-2025 2359 | 0 | 

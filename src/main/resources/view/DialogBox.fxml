@@ -12,21 +12,19 @@
          type="javafx.scene.layout.HBox"
          xmlns="http://javafx.com/javafx/17"
          xmlns:fx="http://javafx.com/fxml/1"
-         styleClass ="dialog-box"
+         styleClass="dialog-box"
          spacing="10.0">
-    <children>
-        <Label fx:id="dialog"
-               text="Label"
-               wrapText="true"
-               minHeight="-Infinity"/>
-        <ImageView fx:id="displayPicture"
-                   fitHeight="50.0"
-                   fitWidth="50.0"
-                   pickOnBounds="true"
-                   preserveRatio="true"
-                   styleClass="image-view"/>
-    </children>
     <padding>
-        <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
+        <Insets bottom="15.0" left="5.0" right="5.0" top="15.0"/>
     </padding>
+    <Label fx:id="dialog"
+           text="Label"
+           wrapText="true"
+           minHeight="-Infinity"/>
+    <ImageView fx:id="displayPicture"
+               fitHeight="50.0"
+               fitWidth="50.0"
+               pickOnBounds="true"
+               preserveRatio="true"
+               styleClass="image-view"/>
 </fx:root>

@@ -15,10 +15,7 @@ import introblaise.task.TaskList;
  * for processing user commands and returning appropriate responses.
  */
 public class IntroBlaise {
-    private Storage storage;
-    private TaskList taskList;
-    private CommandParser commandParser;
-    private CommandFactory commandFactory;
+    private final CommandParser commandParser;
 
     /**
      * Initializes the IntroBlaise bot by setting up storage, task management,
@@ -34,10 +31,10 @@ public class IntroBlaise {
      * </p>
      */
     public IntroBlaise() {
-        this.storage = new Storage();
-        this.taskList = new TaskList(storage);
+        Storage storage = new Storage();
+        TaskList taskList = new TaskList(storage);
 
-        this.commandFactory = new CommandFactory(taskList);
+        CommandFactory commandFactory = new CommandFactory(taskList);
         commandFactory.initializeCommandMap();
 
         Map<String, TaskCommand> commandMap = commandFactory.getCommandMap();

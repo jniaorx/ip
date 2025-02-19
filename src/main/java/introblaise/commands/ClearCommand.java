@@ -1,5 +1,6 @@
 package introblaise.commands;
 
+import introblaise.storage.Storage;
 import introblaise.task.TaskList;
 
 /**
@@ -9,7 +10,6 @@ import introblaise.task.TaskList;
  */
 public class ClearCommand implements TaskCommand {
     private final TaskList taskList;
-
     /**
      * Constructs a {@code ClearCommand} object with the specified {@link TaskList}.
      *
@@ -28,6 +28,7 @@ public class ClearCommand implements TaskCommand {
     @Override
     public String execute(String userInput) {
         taskList.clearTaskList();
+        taskList.clearFile();
         return "Yay! Your task list has been cleared!";
     }
 }

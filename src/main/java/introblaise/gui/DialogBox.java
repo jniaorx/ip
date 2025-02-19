@@ -78,7 +78,7 @@ public class DialogBox extends HBox {
         return db;
     }
 
-    public static DialogBox getDukeDialog(String text, Image img) {
+    public static DialogBox getIntroBlaiseDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.setDialogStyle("bot-dialog"); // Apply bot-dialog style
         db.flip();

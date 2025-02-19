@@ -31,7 +31,6 @@ public class Main extends Application {
             // Get the MainWindow controller
             MainWindow controller = fxmlLoader.getController();
             controller.setIntroBlaise(introBlaise); // Inject the IntroBlaise instance
-            controller.showWelcomeMessage(ui); // Show the welcome message in the GUI
             scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/styles.css"))
                     .toExternalForm());
             stage.setTitle("IntroBlaise");

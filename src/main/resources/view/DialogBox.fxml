@@ -12,13 +12,13 @@
          type="javafx.scene.layout.HBox"
          xmlns="http://javafx.com/javafx/17"
          xmlns:fx="http://javafx.com/fxml/1"
-         styleClass ="dialog-box">
+         styleClass ="dialog-box"
+         spacing="10.0">
     <children>
         <Label fx:id="dialog"
                text="Label"
                wrapText="true"
-               minHeight="-Infinity"
-               styleClass="chat-label"/>
+               minHeight="-Infinity"/>
         <ImageView fx:id="displayPicture"
                    fitHeight="50.0"
                    fitWidth="50.0"

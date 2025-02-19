@@ -4,7 +4,7 @@
 
 /* Style for the dialog box */
 .dialog-box {
-    -fx-background-color: #E3F2FD;;
+    -fx-background-color: #E3F2FD;
     -fx-background-radius: 0px;
     -fx-padding: 10px;
 }
@@ -25,6 +25,7 @@
     -fx-padding: 10px;
     -fx-text-fill: white;
     -fx-font-family: "Constantia";
+    -fx-font-size: 13px;
     -fx-background-radius: 1em 1em 0 1em;
     -fx-border-radius: 1em 1em 0 1em;
 }
@@ -35,6 +36,7 @@
     -fx-background-radius: 15px;
     -fx-padding: 10px;
     -fx-font-family: "Consolas";
+    -fx-font-size: 13px;
     -fx-background-radius: 0 1em 1em 1em;
     -fx-border-radius: 0 1em 1em 1em;
 }
@@ -61,18 +63,4 @@
 
 .background-pane {
     -fx-background-color: #4d6b7c;
-}
-
-.welcome-label {
-    -fx-font-family: "Lucida Bright";
-    -fx-font-size: 18px;
-    -fx-font-weight: 600;
-    -fx-text-fill: #1976D2;
-    -fx-background-color: #E3F2FD;
-    -fx-padding: 15px 20px;
-    -fx-border-radius: 8px;
-    -fx-alignment: center;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 6, 0, 3, 3);
-    -fx-max-width: 400px;
-    -fx-wrap-text: true;
 }

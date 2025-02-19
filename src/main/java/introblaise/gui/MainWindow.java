@@ -29,10 +29,11 @@ public class MainWindow extends AnchorPane {
     private Label welcomeLabel; // Label for welcome message
 
     private IntroBlaise introBlaise;
+    private Ui ui = new Ui();
 
     private Image userImage = new Image(Objects.requireNonNull(
             this.getClass().getResourceAsStream("/images/UserPfp.png")));
-    private Image dukeImage = new Image(Objects.requireNonNull(
+    private Image introBlaiseImage = new Image(Objects.requireNonNull(
             this.getClass().getResourceAsStream("/images/IntroBlaisePfp.png")));
 
     /**
@@ -40,6 +41,11 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     public void initialize() {
+        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        String welcomeMessage = ui.showWelcome();
+        DialogBox welcomeDialogBox = DialogBox.getIntroBlaiseDialog(welcomeMessage, introBlaiseImage);
+        dialogContainer.getChildren().add(welcomeDialogBox);
+
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         // Load CSS file
         String cssUrl = Objects.requireNonNull(getClass().getResource("/css/styles.css")).toExternalForm();
@@ -52,18 +58,6 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Displays the welcome message from the Ui object in the welcome label.
-     *
-     * This method calls the {@link Ui#showWelcome()} method to retrieve the welcome message
-     * and then sets it as the text of the welcome label in the GUI.
-     *
-     * @param ui The ui instance that generated the welcome message to be displayed.
-     */
-    public void showWelcomeMessage(Ui ui) {
-        welcomeLabel.setText(ui.showWelcome());
-    }
-
-    /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
@@ -73,7 +67,7 @@ public class MainWindow extends AnchorPane {
         String response = introBlaise.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getIntroBlaiseDialog(response, introBlaiseImage)
         );
         userInput.clear();
 

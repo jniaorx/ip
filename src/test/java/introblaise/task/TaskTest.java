@@ -86,7 +86,7 @@ public class TaskTest {
     }
 
     /**
-     * Tests that marking a tagged task as done correctly updates its string representation.
+     * Tests that calling {@link Task#markAsDone()} marks a tagged task as done correctly updates its string representation.
      */
     @Test
     public void markTaggedTaskAsDone_taskMarkedDoneWithTag() {
@@ -100,7 +100,7 @@ public class TaskTest {
     }
 
     /**
-     * Tests that setting a new tag replaces the old tag.
+     * Tests that calling {@link Task#setTag(String)} replaces the old tag.
      */
     @Test
     public void setNewTag_oldTagReplaced() {
@@ -115,7 +115,8 @@ public class TaskTest {
     }
 
     /**
-     * Tests that removing a tag from a completed task correctly updates its string representation.
+     * Tests that calling {@link Task#deleteTag()} removes a tag from a completed task and correctly update
+     * its string representation.
      */
     @Test
     public void removeTagFromCompletedTask_taskUntagged() {

@@ -2,7 +2,7 @@
 
 ![IntroBlaise Screenshot](Ui.png)
 
-Welcome to **IntroBlaise**, an introverted bot named Blaise! Your friendly task management bot! IntroBlaise helps you organize your tasks efficiently using simple commands.
+Welcome to ✨**IntroBlaise**🌟, an introverted bot named Blaise! Your friendly task management bot! IntroBlaise helps you organize your tasks efficiently using simple commands.
 
 ---
 ## 📌 Features & Commands
@@ -250,7 +250,21 @@ Hi! Here are the valid commands for IntroBlaise:
 10. tag [TASKINDEX] [LABEL]: Add a tag to a task
 11. untag [TASKINDEX]: Remove a tag from a task
 12. clear: Clears the entire task list
-13. help: Show this help message";
+13. help: Show this help message
+14. bye: To exit the app
+```
+
+---
+### 1️⃣4️⃣ Exiting the app `bye`
+Exits and closes the app.
+
+**Format:**
+```
+bye
+```
+**Example:**
+```
+bye
 ```
 
 
@@ -260,3 +274,25 @@ With **IntroBlaise**, managing your tasks is simple and efficient. Use the comma
 
 📌 Happy task managing! 🚀
 
+---
+## 🚀 How to Use IntroBlaise
+Follow these steps to get started with IntroBlaise:
+
+1️⃣ **Download the Application**
+- Go to the **latest release** section.
+- Download the `IntroBlaise.jar` file.
+
+2️⃣ **Set Up Your Folder**
+- Create a **new folder** to store the `.jar` file.
+
+3️⃣ **Run the Application**
+- Open a **terminal** (Command Prompt, Powershell, or Terminal).
+- Navigate to the folder where `IntroBlaise.jar` is located using:
+```
+cd /path/to/folder
+```
+- Start the application by running:
+```
+java -jar IntroBlaise.jar
+```
+✨**You're all set!** IntroBlaise should now be running. Enjoy!😍

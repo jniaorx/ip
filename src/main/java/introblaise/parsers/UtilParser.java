@@ -148,7 +148,7 @@ public class UtilParser {
      * @return The command name (in lowercase and trimmed).
      */
     public static String parseCommand(String userInput) {
-        String[] parts = userInput.split(" ");
+        String[] parts = userInput.trim().split(" ");
         String command = parts[0].toLowerCase().trim();
         return command;
     }

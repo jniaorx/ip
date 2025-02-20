@@ -48,7 +48,7 @@ public class DeadlineTaskParser implements TaskParser {
         try {
             String description = userInput.substring(8, userInput.indexOf("/")).trim();
             assert (!description.isEmpty()) : "The description should not be empty."
-                    + "It should be in the format: deadline [DESCRIPTION]";
+                    + "It should be in the format: deadline [DESCRIPTION] /by [dd-mm-yyyy] [HHmm]";
 
             if (description.isEmpty()) {
                 throw new InvalidInputException("Please enter a description for your deadline task."

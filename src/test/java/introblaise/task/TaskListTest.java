@@ -18,16 +18,14 @@ import introblaise.tasktype.ToDo;
 
 /**
  * Unit tests for the {@link TaskList} class.
- *
  * This class tests the functionality of tasks being added into the task list.
  */
 public class TaskListTest {
     private TaskList taskList;
-    private Storage storage;
 
     @BeforeEach
     public void setUp() {
-        storage = new Storage();
+        Storage storage = new Storage();
         taskList = new TaskList(storage);
         taskList.clearTaskList();
     }
